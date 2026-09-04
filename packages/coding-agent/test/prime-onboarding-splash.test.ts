@@ -4,7 +4,10 @@ import { afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "vite
 import { KeybindingsManager } from "../src/core/keybindings.js";
 import { PrimeOnboardingSplashComponent } from "../src/modes/interactive/components/prime-onboarding-splash.js";
 import { initTheme } from "../src/modes/interactive/theme/theme.js";
-import { PRIME_BUTTERFLY_LOGO } from "../src/themes/prime-logo.js";
+import { ACRYL_GEM_LOGO } from "../src/themes/prime-logo.js";
+
+/** The gem's widest row (index 5) — far more distinctive than a single-char trimmed row. */
+const ACRYL_GEM_LOGO_WIDEST_ROW = ACRYL_GEM_LOGO.split("\n")[5].trim();
 
 describe("PrimeOnboardingSplashComponent", () => {
 	beforeAll(() => {
@@ -29,7 +32,7 @@ describe("PrimeOnboardingSplashComponent", () => {
 		const output = stripAnsi(lines.join("\n"));
 
 		expect(lines).toHaveLength(36);
-		expect(output).toContain("Welcome to PRIME Agent");
+		expect(output).toContain("Welcome to ACRYL-PADSH");
 		expect(output).toContain("Press Enter to login with Prime Intellect");
 		expect(output).toContain("·");
 		expect(output).not.toContain("prime agent");
@@ -59,7 +62,7 @@ describe("PrimeOnboardingSplashComponent", () => {
 		expect(output).not.toContain("→");
 		expect(output).not.toContain("Use a subscription");
 		expect(output).not.toContain("Use an API key");
-		expect(output).toContain(PRIME_BUTTERFLY_LOGO.split("\n")[0].trim());
+		expect(output).toContain(ACRYL_GEM_LOGO_WIDEST_ROW);
 		for (const line of lines) {
 			expect(visibleWidth(line)).toBeLessThanOrEqual(100);
 		}
@@ -129,7 +132,7 @@ describe("PrimeOnboardingSplashComponent", () => {
 
 		expect(renderRequests).toBe(3);
 		expect(secondRender).not.toBe(firstRender);
-		expect(secondRender).toContain("Welcome to PRIME Agent");
+		expect(secondRender).toContain("Welcome to ACRYL-PADSH");
 		expect(secondRender).toContain("Press Enter to login with Prime Intellect");
 	});
 
@@ -140,8 +143,8 @@ describe("PrimeOnboardingSplashComponent", () => {
 			{ getRows: () => 40 },
 		);
 		const rendered = component.render(60).map((line) => stripAnsi(line));
-		const logoLine = rendered.find((line) => line.includes(PRIME_BUTTERFLY_LOGO.split("\n")[0].trim()));
-		const brandLine = rendered.find((line) => line.includes("Welcome to PRIME Agent"));
+		const logoLine = rendered.find((line) => line.includes(ACRYL_GEM_LOGO_WIDEST_ROW));
+		const brandLine = rendered.find((line) => line.includes("Welcome to ACRYL-PADSH"));
 		const hintLine = rendered.find((line) => line.includes("Press Enter to login with Prime Intellect"));
 
 		expect(logoLine?.search(/\S/)).toBeGreaterThan(0);

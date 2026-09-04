@@ -13,7 +13,7 @@ import {
 	visibleWidth,
 } from "@earendil-works/pi-tui";
 import { execFile } from "child_process";
-import { PRIME_BUTTERFLY_LOGO } from "../../../themes/prime-logo.js";
+import { ACRYL_GEM_LOGO } from "../../../themes/prime-logo.js";
 import { copyToClipboard } from "../../../utils/clipboard.js";
 import { theme } from "../theme/theme.js";
 import { formatKeyText, keyHint } from "./keybinding-hints.js";
@@ -21,7 +21,7 @@ import { MenuPanel, MenuSearchInput } from "./menu-panel.js";
 import { shouldTreatAsBack } from "./modal-back.js";
 
 const PRIME_INFERENCE_PROVIDER_ID = "prime-inference";
-const PRIME_LOGO_LINES = PRIME_BUTTERFLY_LOGO.split("\n");
+const PRIME_LOGO_LINES = ACRYL_GEM_LOGO.split("\n");
 const PRIME_LOGO_WIDTH = PRIME_LOGO_LINES.reduce((max, line) => Math.max(max, visibleWidth(line)), 0);
 
 function centeredLine(text: string, width: number): string {

@@ -1,40 +1,28 @@
-<p align="center">
-  <a href="https://primeintellect.ai">
-    <picture>
-      <source media="(prefers-color-scheme: light)" srcset="https://github.com/user-attachments/assets/40c36e38-c5bd-4c5a-9cb3-f7b902cd155d">
-      <source media="(prefers-color-scheme: dark)" srcset="https://github.com/user-attachments/assets/6414bc9b-126b-41ca-9307-9e982430cde8">
-      <img alt="Prime Intellect" src="https://github.com/user-attachments/assets/6414bc9b-126b-41ca-9307-9e982430cde8" width="312" style="max-width: 100%;">
-    </picture>
-  </a>
-</p>
+<h1 align="center">ACRYL-PADSH</h1>
 
 <h3 align="center">
-Prime Agent: A Self-Improving RLM Harness
+Prime Agent &times; Cordis &times; DeepSeek Harness — an architectural proof-of-concept
 </h3>
 
 <p align="center">
-  <a href="packages/coding-agent/docs/index.md">Documentation</a> &bull;
-  <a href="https://github.com/PrimeIntellect-ai/verifiers">Verifiers</a> &bull;
-  <a href="https://github.com/PrimeIntellect-ai/prime-rl">PRIME-RL</a>
+  <a href="docs/ACRYL-PADSH-ROADMAP.md">Roadmap</a> &bull;
+  <a href="docs/ACRYL-PADSH Implementation Specification.md">Implementation Spec</a> &bull;
+  <a href="UPSTREAMS.md">Upstreams</a> &bull;
+  <a href="packages/coding-agent/docs/index.md">Prime Agent Documentation</a>
 </p>
 
-<p align="center">
-  <a href="https://github.com/PrimeIntellect-ai/prime-agent/actions/workflows/ci.yml">
-    <img src="https://github.com/PrimeIntellect-ai/prime-agent/actions/workflows/ci.yml/badge.svg" alt="CI" />
-  </a>
-  <a href="https://github.com/PrimeIntellect-ai/prime-agent/actions/workflows/build-binaries.yml">
-    <img src="https://github.com/PrimeIntellect-ai/prime-agent/actions/workflows/build-binaries.yml/badge.svg" alt="Build Binaries" />
-  </a>
-  <a href="https://arxiv.org/abs/2608.23552">
-    <img src="https://img.shields.io/badge/arXiv-2608.23552-b31b1b.svg" alt="arXiv" />
-  </a>
-</p>
-
-<p align="center">
-  <a href="https://trendshift.io/repositories/104249?utm_source=repository-badge&amp;utm_medium=badge&amp;utm_campaign=badge-repository-104249" target="_blank" rel="noopener noreferrer">
-    <img src="https://trendshift.io/api/badge/repositories/104249" alt="PrimeIntellect-ai%2Fprime-agent | Trendshift" width="250" height="55" />
-  </a>
-</p>
+> [!NOTE]
+> This is an **experimental, disposable fork of
+> [Prime Agent](https://github.com/PrimeIntellect-ai/prime-agent)**, built to
+> prove out combining Prime's long-running RLM execution model with the
+> [Cordis](https://github.com/deepseek-ai/deepseek-harness) composition
+> kernel and DeepSeek Harness's Monotonic Prompt Architecture (MPA). It is a
+> proof-of-concept for [`acryldev/acryl`](https://github.com/acryldev/acryl),
+> not a Prime Agent release. See `docs/ACRYL-PADSH-ROADMAP.md` for direction
+> and milestones, and `UPSTREAMS.md` for exact upstream commits and
+> attribution. Internal source, environment variables, and install scripts
+> still say "Prime Agent" throughout most of this repository — that rename is
+> deliberately deferred; see `specs/000-wayfinding/map.md`.
 
 Prime Agent is an open-source coding and research agent for general and long-running work. It is designed around two core abstractions:
 
@@ -53,20 +41,24 @@ Prime Agent combines a persistent Python control environment with durable harnes
 
 ## Getting Started
 
-Install the latest stable release on macOS or Linux:
+This fork is not published; run it from source (Node.js 22.8.0+):
 
 ```bash
-curl -fsSL https://app.primeintellect.ai/prime-agent/install.sh | sh
+git clone git@github.com:inboxxobni/acryl-padsh.git
+cd acryl-padsh
+npm ci
 ```
 
-The installer downloads a versioned release, verifies its SHA-256 checksum, installs the `prime-agent` command, and can prepare the Python runtime used by the agent.
-
-Start Prime Agent from the repository or directory you want it to work in:
+Start it from the repository or directory you want it to work in — the
+script preserves the caller's working directory, so it can be run against a
+separate test project from anywhere:
 
 ```bash
-cd /path/to/project
-prime-agent
+/path/to/acryl-padsh/prime-agent.sh
 ```
+
+For Prime Agent's own public releases (not this fork), see
+[the upstream install instructions](https://github.com/PrimeIntellect-ai/prime-agent#getting-started).
 
 On first launch, run `/login` to choose a subscription or API-key provider. Prime Agent works in the current directory and can run commands and modify files there. Use a disposable clone, clean worktree, or another checkpoint you can inspect and restore.
 
@@ -115,11 +107,11 @@ Read the [contribution guidelines](CONTRIBUTING.md) for the full process. Report
 
 ## Acknowledgements
 
-Our agent and TUI is built on top of [`pi`](https://github.com/earendil-works/pi). We thank the authors of `pi` for their valuable work.
+This is a fork of [Prime Agent](https://github.com/PrimeIntellect-ai/prime-agent), whose agent and TUI is built on top of [`pi`](https://github.com/earendil-works/pi). It additionally draws its Cordis/Monotonic-Prompt-Architecture direction from [DeepSeek Harness](https://github.com/deepseek-ai/deepseek-harness) and from [`acryldev/acryl`](https://github.com/acryldev/acryl)'s existing Cordis control-plane work. See `UPSTREAMS.md` and `THIRD_PARTY_NOTICES.md` for full attribution.
 
 ## License
 
-Prime Agent is fully open source and released under the [MIT License](LICENSE).
+MIT — see `LICENSE` and `THIRD_PARTY_NOTICES.md`.
 
 ## Citation
 
