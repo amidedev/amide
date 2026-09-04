@@ -277,6 +277,8 @@ function assertSocketLeaseHeld(socketPath: string, lease: DaemonSocketPathLease)
 }
 
 export function defaultDaemonSocketDir(): string {
+	const override = process.env.PRIME_AGENT_DAEMON_SOCKET_DIR;
+	if (override) return override;
 	const suffix = typeof process.getuid === "function" ? String(process.getuid()) : "user";
 	return join(tmpdir(), `prime-agent-${suffix}`);
 }

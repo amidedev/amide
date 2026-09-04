@@ -193,8 +193,8 @@ describe("detectInstallMethod", () => {
 
 		expect(detectInstallMethod()).toBe("homebrew");
 		expect(getSelfUpdateCommand("prime-agent")).toBeUndefined();
-		expect(getSelfUpdateUnavailableInstruction("prime-agent")).toBe("Update with: brew upgrade prime-agent");
-		expect(getUpdateInstruction("prime-agent")).toBe("Update with: brew upgrade prime-agent");
+		expect(getSelfUpdateUnavailableInstruction("prime-agent")).toBe("Update with: brew upgrade acryl-padsh");
+		expect(getUpdateInstruction("prime-agent")).toBe("Update with: brew upgrade acryl-padsh");
 	});
 
 	test("self-updates npm installs from custom prefixes", () => {
@@ -412,7 +412,7 @@ describe("detectInstallMethod", () => {
 
 describe("session paths", () => {
 	test("uses the short app-prefixed session dir env var", () => {
-		expect(ENV_SESSION_DIR).toBe("PRIME_AGENT_SESSION_DIR");
+		expect(ENV_SESSION_DIR).toBe("ACRYL_PADSH_SESSION_DIR");
 	});
 
 	test("uses the session root env var when computing sessions dir", () => {

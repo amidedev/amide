@@ -4,8 +4,8 @@
 	"description": "Coding agent CLI with a persistent Python REPL kernel and session management",
 	"type": "module",
 	"piConfig": {
-		"name": "prime-agent",
-		"configDir": ".prime/agent"
+		"name": "acryl-padsh",
+		"configDir": ".acryl-padsh/agent"
 	},
 	"bin": {
 		"pi": "dist/bundle/cli.js"
