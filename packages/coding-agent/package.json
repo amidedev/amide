@@ -1,5 +1,5 @@
 {
-	"name": "amide",
+	"name": "@webboxescom/amide",
 	"version": "0.9.1",
 	"description": "AMIDE - Adaptive Machine Intelligence Development Engine: a coding agent CLI with a persistent Python REPL kernel and session management",
 	"type": "module",
