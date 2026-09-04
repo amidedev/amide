@@ -18,7 +18,7 @@ import type { OAuthAuthInfo } from "@earendil-works/pi-ai";
 export const PRIME_INFERENCE_PROVIDER_ID = "prime-inference";
 export const PRIME_INFERENCE_PROVIDER_NAME = "Prime Inference";
 export const PRIME_AGENT_TRACES_PROVIDER_ID = "prime-agent-traces";
-export const PRIME_AGENT_TRACES_PROVIDER_NAME = "Prime Agent Traces";
+export const AMIDE_AGENT_TRACES_PROVIDER_NAME = "AMIDE Agent Traces";
 
 const DEFAULT_PRIME_API_BASE_URL = "https://api.primeintellect.ai";
 const DEFAULT_PRIME_FRONTEND_URL = "https://app.primeintellect.ai";

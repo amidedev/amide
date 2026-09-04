@@ -21,7 +21,7 @@ export const BUILT_IN_PROVIDER_DISPLAY_NAMES: Record<string, string> = {
 	"opencode-go": "OpenCode Go",
 	openai: "OpenAI",
 	openrouter: "OpenRouter",
-	"prime-agent-traces": "Prime Agent Traces",
+	"prime-agent-traces": "AMIDE Agent Traces",
 	"prime-inference": "Prime Inference",
 	"vercel-ai-gateway": "Vercel AI Gateway",
 	xai: "xAI",

@@ -134,7 +134,7 @@ import {
 	type TelemetryOnboardingOutcome,
 } from "../../core/telemetry.js";
 import { type TruncationResult, truncateTail } from "../../core/tools/truncate.js";
-import { AMIDE_WORDMARK_LOGO } from "../../themes/prime-logo.js";
+import { AMIDE_WORDMARK_LOGO } from "../../themes/amide-logo.js";
 import { getChangelogPath, parseChangelog } from "../../utils/changelog.js";
 import { copyToClipboard } from "../../utils/clipboard.js";
 import { readClipboardImage } from "../../utils/clipboard-image.js";

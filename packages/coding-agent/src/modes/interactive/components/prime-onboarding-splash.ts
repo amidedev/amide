@@ -1,5 +1,5 @@
 import { type Component, getKeybindings, truncateToWidth, visibleWidth } from "@earendil-works/pi-tui";
-import { AMIDE_WORDMARK_LOGO } from "../../../themes/prime-logo.js";
+import { AMIDE_WORDMARK_LOGO } from "../../../themes/amide-logo.js";
 import { type ThemeColor, theme } from "../theme/theme.js";
 
 interface PrimeOnboardingSplashOptions {

@@ -13,7 +13,7 @@ import {
 	visibleWidth,
 } from "@earendil-works/pi-tui";
 import { execFile } from "child_process";
-import { AMIDE_WORDMARK_LOGO } from "../../../themes/prime-logo.js";
+import { AMIDE_WORDMARK_LOGO } from "../../../themes/amide-logo.js";
 import { copyToClipboard } from "../../../utils/clipboard.js";
 import { theme } from "../theme/theme.js";
 import { formatKeyText, keyHint } from "./keybinding-hints.js";

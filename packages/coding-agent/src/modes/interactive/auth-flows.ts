@@ -4,6 +4,7 @@ import type { OverlayHandle, TUI } from "@earendil-works/pi-tui";
 import { getAuthPath, getDocsPath } from "../../config.js";
 import type { ModelRegistry } from "../../core/model-registry.js";
 import {
+	AMIDE_AGENT_TRACES_PROVIDER_NAME,
 	checkPrimeAgentTracesAccess,
 	checkPrimeInferenceAccess,
 	fetchPrimeTeams,
@@ -11,7 +12,6 @@ import {
 	loginPrimeAgentTraces,
 	loginPrimeInference,
 	PRIME_AGENT_TRACES_PROVIDER_ID,
-	PRIME_AGENT_TRACES_PROVIDER_NAME,
 	PRIME_INFERENCE_PROVIDER_ID,
 	PRIME_INFERENCE_PROVIDER_NAME,
 	type PrimeTeam,
@@ -503,7 +503,7 @@ export class ProviderAuthFlows {
 		closeDialog();
 		return await this.completeProviderAuthentication(
 			PRIME_AGENT_TRACES_PROVIDER_ID,
-			PRIME_AGENT_TRACES_PROVIDER_NAME,
+			AMIDE_AGENT_TRACES_PROVIDER_NAME,
 			"api_key",
 		);
 	}
@@ -630,7 +630,7 @@ export class ProviderAuthFlows {
 			this.host.ui,
 			PRIME_AGENT_TRACES_PROVIDER_ID,
 			(_success, _message) => {},
-			PRIME_AGENT_TRACES_PROVIDER_NAME,
+			AMIDE_AGENT_TRACES_PROVIDER_NAME,
 		);
 
 		const handle = showFullPaneOverlay(this.host.ui, dialog, {
@@ -720,7 +720,7 @@ export class ProviderAuthFlows {
 			closeDialog();
 			const errorMsg = error instanceof Error ? error.message : String(error);
 			if (!dialog.signal.aborted && errorMsg !== "Login cancelled") {
-				this.host.showError(`Failed to login to ${PRIME_AGENT_TRACES_PROVIDER_NAME}: ${errorMsg}`);
+				this.host.showError(`Failed to login to ${AMIDE_AGENT_TRACES_PROVIDER_NAME}: ${errorMsg}`);
 				return { status: "failed" };
 			}
 			return { status: "cancelled" };

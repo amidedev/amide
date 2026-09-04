@@ -1,7 +1,7 @@
 /**
  * Pre-rendered ASCII splash marks.
  *
- * `PRIME_BUTTERFLY_LOGO` is the upstream Prime Agent mark (source:
+ * `AMIDE_LOGO` is the upstream Prime Agent mark (source:
  * assets/brand/prime-butterfly.svg; re-render at any width with
  * `uv run scripts/render-logo.py --width N`), kept for attribution/reference
  * — AMIDE is a fork of Prime Agent, not the same project.
@@ -12,7 +12,7 @@
  */
 
 /** ~10 rows × 32 cols. Upstream Prime Agent mark — half-block butterfly. */
-export const PRIME_BUTTERFLY_LOGO = `                          ▄▄███▀
+export const AMIDE_LOGO = `                          ▄▄███▀
     ▄▄▄▄▄              ▄█████▀
     ██████▄         ▄██████▀
    ▄███▀███▄     ▄███▀▄██▀

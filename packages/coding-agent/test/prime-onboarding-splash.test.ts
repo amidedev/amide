@@ -4,7 +4,7 @@ import { afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "vite
 import { KeybindingsManager } from "../src/core/keybindings.js";
 import { PrimeOnboardingSplashComponent } from "../src/modes/interactive/components/prime-onboarding-splash.js";
 import { initTheme } from "../src/modes/interactive/theme/theme.js";
-import { AMIDE_WORDMARK_LOGO } from "../src/themes/prime-logo.js";
+import { AMIDE_WORDMARK_LOGO } from "../src/themes/amide-logo.js";
 
 /**
  * The logo's letters are drawn with `transparentSpaces: true`, so the gaps

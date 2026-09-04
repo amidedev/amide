@@ -10,7 +10,7 @@ import { afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "vite
 import { KeybindingsManager } from "../src/core/keybindings.js";
 import { LoginDialogComponent } from "../src/modes/interactive/components/login-dialog.js";
 import { initTheme } from "../src/modes/interactive/theme/theme.js";
-import { AMIDE_WORDMARK_LOGO } from "../src/themes/prime-logo.js";
+import { AMIDE_WORDMARK_LOGO } from "../src/themes/amide-logo.js";
 
 /** The gem's widest row (index 5) — far more distinctive than a single-char trimmed row. */
 const AMIDE_WORDMARK_LOGO_WIDEST_ROW = AMIDE_WORDMARK_LOGO.split("\n")[5]?.trim() ?? "";
