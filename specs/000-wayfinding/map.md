@@ -96,9 +96,36 @@ disposable and nothing here is load-bearing for the shipped product.
 - Rewriting `agent-session.ts` directly, or replacing Prime's persistence
   model in one step, before an adapter proves the seam (Implementation Spec
   §3, §38 — constitution Principles IV and VIII).
-- The deep "Prime Agent" → ACRYL internal string/env-var rename (see
-  Decisions so far) — tracked as later, gradual work, not part of any
-  current milestone.
 - Sandboxing and the semantic LSP seam before the basic execution pipeline
   and MPA are stable (Implementation Spec §35, §60, §82 — Milestones 12/14
   come after 3–11).
+
+## 2026-09-04 update: moved to amidedev/amide, full rebrand done
+
+The project moved from the disposable `acryldev/acryl-padsh` PoC repo to
+its permanent home at `amidedev/amide`, under the name AMIDE (Adaptive
+Machine Intelligence Development Engine). Unlike the ACRYL-PADSH pass
+(surface-only, deep rename deliberately deferred — see the now-superseded
+"Decisions so far" entry above), the user explicitly chose a **full**
+rename this time: piConfig, the coding-agent package's own name/bin,
+~50 internal `PRIME_AGENT_*` env vars (excluding `PRIME_AGENT_TRACES_*`,
+a genuine external Prime Intellect product, same as `PRIME_INFERENCE_*`),
+the launcher (`amide.sh`), `install.sh`, hardcoded "Prime Agent" display
+text, the splash wordmark, README/LICENSE, and CI (stripped the
+Prime-specific blocking Linear-ticket PR gate; kept the generic vouch
+trust gate). The vendored Pi upstream libraries (`pi-tui`, `pi-ai`,
+`pi-agent-core`) were deliberately left unrenamed — third-party
+dependency, not AMIDE's own branding.
+
+Remaining known gaps, not blockers:
+- `linear.app/amidedev` → GitHub native integration needs the user's own
+  OAuth click; not scriptable from an agent session.
+- `build-binaries.yml`'s R2/S3 publish steps need real cloud credentials
+  AMIDE doesn't have configured yet — renamed for correctness, not
+  exercised end to end.
+- npm publish (`npm i -g amide`) explicitly deferred until after
+  rebrand + CI/CD are settled, per the user's own stated sequencing.
+- Milestone 1 (Cordis mount) research from the ACRYL-PADSH pass carries
+  forward unchanged — same source files (`daemon-supervisor.ts`,
+  `daemon-mode.ts`), same "read `bootstrap.ts` first" recommendation in
+  `issues/02-mount-cordis-runtime-host.md`.
