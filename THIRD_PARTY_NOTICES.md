@@ -1,8 +1,8 @@
 # Third-Party Notices
 
-ACRYL-PADSH is MIT-licensed and built on other MIT-licensed work. This file
+AMIDE is MIT-licensed and built on other MIT-licensed work. This file
 records the required attribution for that upstream work, per
-`docs/ACRYL-PADSH Implementation Specification.md` §100. See `UPSTREAMS.md`
+`docs/AMIDE Implementation Specification.md` §100. See `UPSTREAMS.md`
 for the exact commits and what has been ported.
 
 ## Prime Agent / Pi

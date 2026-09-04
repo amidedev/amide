@@ -1,4 +1,4 @@
-name: Release Prime Agent
+name: Release AMIDE
 
 on:
   push:
@@ -14,7 +14,7 @@ on:
         type: string
 
 concurrency:
-  group: release-prime-agent
+  group: release-amide
   cancel-in-progress: false
   queue: max
 
@@ -151,25 +151,25 @@ jobs:
       - name: Pack production release
         if: env.PUBLISH_PRODUCTION == 'true'
         env:
-          PRIME_AGENT_DOWNLOAD_BASE_URL: ${{ vars.R2_PUBLIC_BASE_URL }}
+          AMIDE_DOWNLOAD_BASE_URL: ${{ vars.R2_PUBLIC_BASE_URL }}
         run: |
-          test -n "$PRIME_AGENT_DOWNLOAD_BASE_URL"
+          test -n "$AMIDE_DOWNLOAD_BASE_URL"
           npm run release:pack -- \
             --channel stable \
             --version "$PRODUCTION_VERSION" \
-            --base-url "$PRIME_AGENT_DOWNLOAD_BASE_URL" \
+            --base-url "$AMIDE_DOWNLOAD_BASE_URL" \
             --out-dir packages/coding-agent/release/production
 
       - name: Pack beta release
         if: env.PUBLISH_BETA == 'true'
         env:
-          PRIME_AGENT_DOWNLOAD_BASE_URL: ${{ vars.R2_PUBLIC_BASE_URL }}
+          AMIDE_DOWNLOAD_BASE_URL: ${{ vars.R2_PUBLIC_BASE_URL }}
         run: |
-          test -n "$PRIME_AGENT_DOWNLOAD_BASE_URL"
+          test -n "$AMIDE_DOWNLOAD_BASE_URL"
           npm run release:pack -- \
             --channel beta \
             --version "$BETA_VERSION" \
-            --base-url "$PRIME_AGENT_DOWNLOAD_BASE_URL" \
+            --base-url "$AMIDE_DOWNLOAD_BASE_URL" \
             --out-dir packages/coding-agent/release/beta
 
       - name: Smoke test installer with npm 12
@@ -191,27 +191,27 @@ jobs:
           mkdir -p "$SMOKE_ROOT/releases/v$SMOKE_VERSION"
           cp "$SMOKE_OUT/artifacts/"* "$SMOKE_ROOT/releases/v$SMOKE_VERSION/"
           sed \
-            -e "s|__PRIME_AGENT_DOWNLOAD_BASE_URL__|$SMOKE_BASE_URL|g" \
-            -e 's|__PRIME_AGENT_DEFAULT_RELEASE_CHANNEL__|stable|g' \
-            install.sh > /tmp/prime-agent-npm12-install.sh
+            -e "s|__AMIDE_DOWNLOAD_BASE_URL__|$SMOKE_BASE_URL|g" \
+            -e 's|__AMIDE_DEFAULT_RELEASE_CHANNEL__|stable|g' \
+            install.sh > /tmp/amide-npm12-install.sh
 
-          python3 -m http.server 18188 --bind 127.0.0.1 --directory "$SMOKE_ROOT" >/tmp/prime-agent-npm12-http.log 2>&1 &
+          python3 -m http.server 18188 --bind 127.0.0.1 --directory "$SMOKE_ROOT" >/tmp/amide-npm12-http.log 2>&1 &
           server_pid=$!
           trap 'kill "$server_pid" 2>/dev/null || true; rm -rf "$SMOKE_ROOT" "$SMOKE_OUT"' EXIT
 
           curl -fsS --retry 5 --retry-connrefused "$SMOKE_BASE_URL/releases/v$SMOKE_VERSION/SHA256SUMS"
           export NPM_CONFIG_PREFIX="$SMOKE_ROOT/npm-prefix"
           PATH="$NPM_CONFIG_PREFIX/bin:$PATH" \
-            PRIME_AGENT_BOOTSTRAP_KERNEL_ON_INSTALL=0 \
-            PRIME_AGENT_INSTALLER_PLAIN=1 \
-            sh /tmp/prime-agent-npm12-install.sh "$SMOKE_VERSION"
-          test -x "$NPM_CONFIG_PREFIX/bin/prime-agent"
+            AMIDE_BOOTSTRAP_KERNEL_ON_INSTALL=0 \
+            AMIDE_INSTALLER_PLAIN=1 \
+            sh /tmp/amide-npm12-install.sh "$SMOKE_VERSION"
+          test -x "$NPM_CONFIG_PREFIX/bin/amide"
 
       - name: Upload production artifacts
         if: env.PUBLISH_PRODUCTION == 'true'
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
         with:
-          name: prime-agent-production
+          name: amide-production
           path: packages/coding-agent/release/production/artifacts/*
           if-no-files-found: error
 
@@ -219,7 +219,7 @@ jobs:
         if: env.PUBLISH_BETA == 'true'
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
         with:
-          name: prime-agent-beta
+          name: amide-beta
           path: packages/coding-agent/release/beta/artifacts/*
           if-no-files-found: error
 
@@ -251,14 +251,14 @@ jobs:
         if: env.PUBLISH_PRODUCTION == 'true'
         uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8
         with:
-          name: prime-agent-production
+          name: amide-production
           path: release-artifacts/production
 
       - name: Download beta artifacts
         if: env.PUBLISH_BETA == 'true'
         uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8
         with:
-          name: prime-agent-beta
+          name: amide-beta
           path: release-artifacts/beta
 
       - name: Prepare installer
@@ -273,10 +273,10 @@ jobs:
           if (!baseUrl) throw new Error("INSTALL_BASE_URL is required");
           const installer = fs.readFileSync("install.sh", "utf8");
           const renderInstaller = (channel) => installer
-            .replaceAll("__PRIME_AGENT_DOWNLOAD_BASE_URL__", baseUrl)
-            .replaceAll("__PRIME_AGENT_DEFAULT_RELEASE_CHANNEL__", channel);
-          fs.writeFileSync("/tmp/prime-agent-install.sh", renderInstaller("stable"));
-          fs.writeFileSync("/tmp/prime-agent-install-beta.sh", renderInstaller("beta"));
+            .replaceAll("__AMIDE_DOWNLOAD_BASE_URL__", baseUrl)
+            .replaceAll("__AMIDE_DEFAULT_RELEASE_CHANNEL__", channel);
+          fs.writeFileSync("/tmp/amide-install.sh", renderInstaller("stable"));
+          fs.writeFileSync("/tmp/amide-install-beta.sh", renderInstaller("beta"));
           NODE
 
       - name: Extract production release notes
@@ -292,7 +292,7 @@ jobs:
         run: |
           PRODUCTION_DIR=release-artifacts/production
           RELEASE_PREFIX="releases/v${PRODUCTION_VERSION}"
-          TARBALL="$PRODUCTION_DIR/prime-agent-${PRODUCTION_VERSION}.tgz"
+          TARBALL="$PRODUCTION_DIR/amide-${PRODUCTION_VERSION}.tgz"
 
           test -f "$TARBALL"
           test -f "$PRODUCTION_DIR/SHA256SUMS"
@@ -323,12 +323,12 @@ jobs:
             --content-type text/plain \
             --cache-control no-cache
 
-          aws s3 cp /tmp/prime-agent-install.sh "s3://${R2_BUCKET}/install.sh" \
+          aws s3 cp /tmp/amide-install.sh "s3://${R2_BUCKET}/install.sh" \
             --endpoint-url "$R2_ENDPOINT_URL" \
             --content-type text/x-shellscript \
             --cache-control no-cache
 
-          aws s3 cp /tmp/prime-agent-install-beta.sh "s3://${R2_BUCKET}/install-beta.sh" \
+          aws s3 cp /tmp/amide-install-beta.sh "s3://${R2_BUCKET}/install-beta.sh" \
             --endpoint-url "$R2_ENDPOINT_URL" \
             --content-type text/x-shellscript \
             --cache-control no-cache
@@ -360,7 +360,7 @@ jobs:
         run: |
           BETA_DIR=release-artifacts/beta
           RELEASE_PREFIX="releases/v${BETA_VERSION}"
-          TARBALL="$BETA_DIR/prime-agent-${BETA_VERSION}.tgz"
+          TARBALL="$BETA_DIR/amide-${BETA_VERSION}.tgz"
 
           test -f "$TARBALL"
           test -f "$BETA_DIR/SHA256SUMS"
@@ -404,12 +404,12 @@ jobs:
             --content-type text/plain \
             --cache-control no-cache
 
-          aws s3 cp /tmp/prime-agent-install.sh "s3://${R2_BUCKET}/install.sh" \
+          aws s3 cp /tmp/amide-install.sh "s3://${R2_BUCKET}/install.sh" \
             --endpoint-url "$R2_ENDPOINT_URL" \
             --content-type text/x-shellscript \
             --cache-control no-cache
 
-          aws s3 cp /tmp/prime-agent-install-beta.sh "s3://${R2_BUCKET}/install-beta.sh" \
+          aws s3 cp /tmp/amide-install-beta.sh "s3://${R2_BUCKET}/install-beta.sh" \
             --endpoint-url "$R2_ENDPOINT_URL" \
             --content-type text/x-shellscript \
             --cache-control no-cache
