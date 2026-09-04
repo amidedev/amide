@@ -1,8 +1,8 @@
 <p align="center">
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="assets/brand/amide-logo.svg">
-    <source media="(prefers-color-scheme: light)" srcset="assets/brand/amide-logo-black.svg">
-    <img alt="AMIDE" src="assets/brand/amide-logo-black.svg" width="240">
+    <source media="(prefers-color-scheme: dark)" srcset="assets/brand/amide_logo_v4.1_white_transparent_bg.png">
+    <source media="(prefers-color-scheme: light)" srcset="assets/brand/amide_logo_v4.1_black_transparent_bg.png">
+    <img alt="AMIDE" src="assets/brand/amide_logo_v4.1_black_transparent_bg.png" width="240">
   </picture>
 </p>
 
