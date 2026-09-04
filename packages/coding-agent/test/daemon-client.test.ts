@@ -101,7 +101,7 @@ function emitHello(
 		`${JSON.stringify({
 			type: "daemon_hello",
 			socketPath: "/tmp/prime-agent.sock",
-			protocol: { name: "prime-agent.daemon", version },
+			protocol: { name: "amide.daemon", version },
 			schemaRevision,
 			appVersion: "9.9.9",
 			clientId: "client-1",
@@ -187,7 +187,7 @@ describe("DaemonClient", () => {
 		const hello = {
 			type: "daemon_hello",
 			socketPath: "/tmp/prime-agent.sock",
-			protocol: { name: "prime-agent.daemon", version: 1 },
+			protocol: { name: "amide.daemon", version: 1 },
 			appVersion: "9.9.9",
 			clientId: "client-1",
 			serverCapabilities: [],
@@ -374,7 +374,7 @@ describe("DaemonClient", () => {
 		expect(envelope).toMatchObject({
 			type: "command",
 			clientId: expect.any(String),
-			protocol: { name: "prime-agent.daemon", version: DAEMON_PROTOCOL_VERSION },
+			protocol: { name: "amide.daemon", version: DAEMON_PROTOCOL_VERSION },
 			command: { type: "attach", activeSessionId: "active-1" },
 		});
 		expect(envelope.command).not.toHaveProperty("daemonSessionId");
@@ -793,7 +793,7 @@ describe("DaemonClient", () => {
 			`${JSON.stringify({
 				type: "daemon_hello",
 				socketPath: "/tmp/prime-agent.sock",
-				protocol: { name: "prime-agent.daemon", version: DAEMON_PROTOCOL_VERSION },
+				protocol: { name: "amide.daemon", version: DAEMON_PROTOCOL_VERSION },
 				clientId: "server-client-2",
 				serverCapabilities: ["session_input_admission"],
 			})}\n`,
@@ -912,7 +912,7 @@ describe("DaemonClient", () => {
 			`${JSON.stringify({
 				type: "daemon_hello",
 				socketPath: "/tmp/prime-agent.sock",
-				protocol: { name: "prime-agent.daemon", version: DAEMON_PROTOCOL_VERSION },
+				protocol: { name: "amide.daemon", version: DAEMON_PROTOCOL_VERSION },
 				clientId: "server-client-2",
 				serverCapabilities: [],
 			})}\n`,

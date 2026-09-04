@@ -650,7 +650,7 @@ export function idleEvictionSweepIntervalMs(idleEvictionMinutes: IdleEvictionMin
 function workerSocketPath(supervisorSocketPath: string, workerId: string): string {
 	const key = descriptorKey(supervisorSocketPath);
 	if (process.platform === "win32") {
-		return `\\\\.\\pipe\\prime-agent-worker-${key}-${workerId.slice(0, 12)}`;
+		return `\\\\.\\pipe\\amide-worker-${key}-${workerId.slice(0, 12)}`;
 	}
 	return join(defaultDaemonSocketDir(), `worker-${key}-${workerId.slice(0, 12)}.sock`);
 }

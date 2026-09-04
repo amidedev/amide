@@ -412,7 +412,7 @@ export class TelemetryClient implements TelemetrySink {
 				method: "POST",
 				headers: {
 					"content-type": "application/json",
-					"user-agent": `prime-agent/${VERSION}`,
+					"user-agent": `amide/${VERSION}`,
 				},
 				body: JSON.stringify(batch),
 				signal: AbortSignal.timeout(this.requestTimeoutMs),

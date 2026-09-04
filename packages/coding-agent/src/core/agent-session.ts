@@ -9560,7 +9560,7 @@ export class AgentSession {
 	}
 
 	private _createEphemeralRlmSessionDir(): string {
-		this._rlmSessionDir = mkdtempSync(join(tmpdir(), "prime-agent-rlm-"));
+		this._rlmSessionDir = mkdtempSync(join(tmpdir(), "amide-rlm-"));
 		return this._rlmSessionDir;
 	}
 

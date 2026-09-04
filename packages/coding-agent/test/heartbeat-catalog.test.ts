@@ -6,7 +6,7 @@ function hello(): DaemonHello {
 	return {
 		type: "daemon_hello",
 		socketPath: "/tmp/daemon.sock",
-		protocol: { name: "prime-agent.daemon", version: 4 },
+		protocol: { name: "amide.daemon", version: 4 },
 		schemaId: "test",
 		appVersion: "test",
 		runtime: { buildId: "test", executablePath: "node" },

@@ -204,15 +204,15 @@ function rejectRemovedCommand(args: string[]): PublicCommandResult {
 	const [command, subcommand] = args;
 	let replacement: string | undefined;
 	if (command === "daemon") {
-		replacement = 'Run "prime-agent help" to see the agent commands.';
+		replacement = 'Run "amide help" to see the agent commands.';
 	} else if (command === "app" && subcommand === "update") {
-		replacement = 'Use "prime-agent update".';
+		replacement = 'Use "amide update".';
 	} else if (command === "install") {
-		replacement = 'Use "prime-agent package install".';
+		replacement = 'Use "amide package install".';
 	} else if (command === "remove" || command === "uninstall") {
-		replacement = 'Use "prime-agent package remove".';
+		replacement = 'Use "amide package remove".';
 	} else if (command === "manage") {
-		replacement = 'Use "prime-agent agents".';
+		replacement = 'Use "amide agents".';
 	}
 	return fail(`Unknown command: ${args.slice(0, 2).join(" ")}`, replacement);
 }
@@ -298,15 +298,13 @@ async function runPackage(args: string[]): Promise<PublicCommandResult> {
 		if (
 			rest.some((arg) => arg === "--self" || arg === "--extensions" || arg === "--extension" || arg === "--force")
 		) {
-			return fail(
-				'Package updates accept only an optional source. Use "prime-agent update --force" to update AMIDE.',
-			);
+			return fail('Package updates accept only an optional source. Use "amide update --force" to update AMIDE.');
 		}
 		if (rest.length > 1) {
 			return fail(`Usage: ${APP_NAME} package update [source]`);
 		}
 		if (rest[0] && isSelfUpdateSource(rest[0])) {
-			return fail('Use "prime-agent update" to update AMIDE.');
+			return fail('Use "amide update" to update AMIDE.');
 		}
 		await handlePackageCommand(["update", ...(rest.length === 0 ? ["--extensions"] : rest)]);
 		return HANDLED;

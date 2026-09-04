@@ -199,7 +199,7 @@ export function isClientOwnedDaemonSession(appMode: AppMode, noSession?: boolean
 	return appMode !== "acp" || noSession === true;
 }
 
-// `prime-agent agents` opens the agents view directly.
+// `amide agents` opens the agents view directly.
 export function parseAgentsViewCommand(args: string[]): { explicitAgentsView: boolean; args: string[] } {
 	if (args[0] === "agents") {
 		return { explicitAgentsView: true, args: args.slice(1) };
@@ -367,7 +367,7 @@ const STARTUP_SESSION_LOSS_COPY: DaemonSessionLossCopy = {
 	unlistableDetail:
 		"A background service from a different AMIDE version is running and its sessions could not be listed. Stopping it may terminate active sessions.",
 	question: "Stop it and continue?",
-	nonTtyHint: 'Run "prime-agent shutdown" to stop it, then retry.',
+	nonTtyHint: 'Run "amide shutdown" to stop it, then retry.',
 };
 
 // The promise to keep after awaiting readiness. Wrapped in an object so it
@@ -389,7 +389,7 @@ async function takeOverStaleDaemonOrExit(socketPath: string): Promise<DaemonRead
 	}
 	if (!(await shutdownDaemonAndWait(socketPath))) {
 		console.error(
-			chalk.red(`Could not stop the background service on ${socketPath}. Run "prime-agent shutdown" and retry.`),
+			chalk.red(`Could not stop the background service on ${socketPath}. Run "amide shutdown" and retry.`),
 		);
 		process.exit(1);
 	}

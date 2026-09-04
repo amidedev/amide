@@ -52,7 +52,7 @@ import type { SessionSummary } from "./daemon-session-list.js";
  * without leaking transport details back into InteractiveMode.
  */
 
-export const DAEMON_PROTOCOL_NAME = "prime-agent.daemon";
+export const DAEMON_PROTOCOL_NAME = "amide.daemon";
 export const DAEMON_PROTOCOL_VERSION = 7;
 export const DAEMON_COMMAND_ENVELOPE_MIN_PROTOCOL_VERSION = 7;
 // Revision 9 publishes persisted RLM spawn depth on passive session rows.

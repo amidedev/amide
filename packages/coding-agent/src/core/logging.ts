@@ -12,7 +12,7 @@ export function setLogContext(fields: Record<string, unknown>): void {
 
 /**
  * Route all structured logging (coding-agent and pi-ai) to the shared JSONL
- * log at ~/.prime/agent/logs/agent.jsonl. One master file, filterable by the
+ * log at ~/.amide/agent/logs/agent.jsonl. One master file, filterable by the
  * pid/context fields; writes are best-effort and size-bounded.
  */
 export function installFileLogSink(fields?: Record<string, unknown>): void {

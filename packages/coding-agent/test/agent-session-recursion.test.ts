@@ -4262,7 +4262,7 @@ describe("AgentSession RLM session dir", () => {
 		const root = createSession(SessionManager.inMemory(tempDir));
 		const inspectable = root as unknown as InspectableRlmDirSession;
 
-		const before = readdirSync(tmpdir()).filter((name) => name.startsWith("prime-agent-rlm-"));
+		const before = readdirSync(tmpdir()).filter((name) => name.startsWith("amide-rlm-"));
 
 		expect(inspectable._ensureRlmSessionDir()).toBeUndefined();
 		const env = inspectable._rlmKernelEnv();
@@ -4271,7 +4271,7 @@ describe("AgentSession RLM session dir", () => {
 		expect(env.RLM_GLOBAL_HARNESS_STATE_DIR).toBeDefined();
 		expect(env).toMatchObject({ RLM_DEPTH: "0" });
 
-		const after = readdirSync(tmpdir()).filter((name) => name.startsWith("prime-agent-rlm-"));
+		const after = readdirSync(tmpdir()).filter((name) => name.startsWith("amide-rlm-"));
 		expect(after).toEqual(before);
 	});
 

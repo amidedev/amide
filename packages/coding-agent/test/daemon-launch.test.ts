@@ -53,7 +53,7 @@ async function startFakeDaemon(options: FakeDaemonOptions = {}): Promise<FakeDae
 			send(socket, {
 				type: "daemon_hello",
 				socketPath,
-				protocol: { name: "prime-agent.daemon", version: options.protocolVersion ?? DAEMON_PROTOCOL_VERSION },
+				protocol: { name: "amide.daemon", version: options.protocolVersion ?? DAEMON_PROTOCOL_VERSION },
 				appVersion: options.appVersion,
 				schemaId:
 					currentConnectionIndex === 0 && options.firstSchemaId
@@ -132,7 +132,7 @@ const server = createServer((socket) => {
 	send(socket, {
 		type: "daemon_hello",
 		socketPath,
-		protocol: { name: "prime-agent.daemon", version: ${DAEMON_PROTOCOL_VERSION} },
+		protocol: { name: "amide.daemon", version: ${DAEMON_PROTOCOL_VERSION} },
 		schemaId: ${JSON.stringify(DAEMON_SCHEMA_ID)},
 	});
 	let buffer = "";
@@ -449,7 +449,7 @@ describe("ensureInteractiveDaemonRunning", () => {
 			send(socket, {
 				type: "daemon_hello",
 				socketPath,
-				protocol: { name: "prime-agent.daemon", version: DAEMON_PROTOCOL_VERSION },
+				protocol: { name: "amide.daemon", version: DAEMON_PROTOCOL_VERSION },
 				appVersion: VERSION,
 				schemaId: DAEMON_SCHEMA_ID,
 				clientId: "fake-client",

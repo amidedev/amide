@@ -41,7 +41,7 @@ except Exception as _prime_agent_rlm_error:
         def _raise_missing(self):
             raise RuntimeError(
                 "prime-agent-runtime is not installed in this kernel. "
-                "Remove ~/.prime/agent/kernel-venv so prime-agent can rebuild it, or set "
+                "Remove ~/.amide/agent/kernel-venv so amide can rebuild it, or set "
                 "AMIDE_KERNEL_PYTHON to a kernel environment with prime-agent-runtime installed. "
                 f"Import error: {_AMIDE_RLM_IMPORT_ERROR}"
             )

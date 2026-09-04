@@ -244,7 +244,7 @@ function createStreamingEvent(text: string, delta: string, sequence: number): ob
 		},
 		meta: {
 			id: `${activeSessionId}:${sequence}`,
-			protocol: { name: "prime-agent.daemon", version: 1 },
+			protocol: { name: "amide.daemon", version: 1 },
 			activeSessionId,
 			sequence,
 			emittedAt: "2026-01-01T00:00:00.000Z",
@@ -312,7 +312,7 @@ function createAttachResponseForMessages(
 		command: "attach",
 		success: true,
 		data: {
-			protocol: { name: "prime-agent.daemon", version: 1 },
+			protocol: { name: "amide.daemon", version: 1 },
 			activeSessionId,
 			snapshot: {
 				activeSessionId,
@@ -433,7 +433,7 @@ async function runFanoutV2(clientCount: number): Promise<BenchmarkResult> {
 				},
 				meta: {
 					id: `active-benchmark:${sequence}`,
-					protocol: { name: "prime-agent.daemon", version: 2 },
+					protocol: { name: "amide.daemon", version: 2 },
 					activeSessionId: "active-benchmark",
 					sequence,
 					cursor: { generation: "benchmark-generation", sequence },
