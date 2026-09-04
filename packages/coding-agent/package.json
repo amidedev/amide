@@ -1,14 +1,14 @@
 {
-	"name": "@earendil-works/pi-coding-agent",
+	"name": "amide",
 	"version": "0.9.1",
-	"description": "Coding agent CLI with a persistent Python REPL kernel and session management",
+	"description": "AMIDE - Adaptive Machine Intelligence Development Engine: a coding agent CLI with a persistent Python REPL kernel and session management",
 	"type": "module",
 	"piConfig": {
-		"name": "acryl-padsh",
-		"configDir": ".acryl-padsh/agent"
+		"name": "amide",
+		"configDir": ".amide/agent"
 	},
 	"bin": {
-		"pi": "dist/bundle/cli.js"
+		"amide": "dist/bundle/cli.js"
 	},
 	"main": "./dist/index.js",
 	"types": "./dist/index.d.ts",

@@ -17,15 +17,15 @@ import { fileURLToPath } from "node:url";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const defaultOutputDir = join(root, "packages", "coding-agent", "release");
-const defaultBaseUrl = process.env.PRIME_AGENT_DOWNLOAD_BASE_URL;
-const publicPackageName = process.env.PRIME_AGENT_PACKAGE_NAME || "prime-agent";
-const publicCommandName = process.env.PRIME_AGENT_CMD || "prime-agent";
+const defaultBaseUrl = process.env.AMIDE_DOWNLOAD_BASE_URL;
+const publicPackageName = process.env.AMIDE_PACKAGE_NAME || "amide";
+const publicCommandName = process.env.AMIDE_CMD || "amide";
 const releaseChannels = new Set(["stable", "beta"]);
 
 const releasePackages = [
-	{ packageDir: "ai", publicName: undefined, artifactName: "prime-agent-ai" },
-	{ packageDir: "tui", publicName: undefined, artifactName: "prime-agent-tui" },
-	{ packageDir: "agent", publicName: undefined, artifactName: "prime-agent-core" },
+	{ packageDir: "ai", publicName: undefined, artifactName: "amide-ai" },
+	{ packageDir: "tui", publicName: undefined, artifactName: "amide-tui" },
+	{ packageDir: "agent", publicName: undefined, artifactName: "amide-core" },
 	{ packageDir: "coding-agent", publicName: publicPackageName, artifactName: publicPackageName },
 ];
 
@@ -81,7 +81,7 @@ function parseArgs(args) {
 	}
 
 	if (!parsed.baseUrl) {
-		throw new Error("--base-url or PRIME_AGENT_DOWNLOAD_BASE_URL is required");
+		throw new Error("--base-url or AMIDE_DOWNLOAD_BASE_URL is required");
 	}
 
 	parsed.baseUrl = parsed.baseUrl.replace(/\/+$/, "");
@@ -89,14 +89,14 @@ function parseArgs(args) {
 }
 
 function printHelp() {
-	console.log(`Usage: node scripts/pack-prime-agent-release.mjs --base-url url [--channel stable|beta] [--version x.y.z] [--out-dir path]
+	console.log(`Usage: node scripts/pack-amide-release.mjs --base-url url [--channel stable|beta] [--version x.y.z] [--out-dir path]
 
 Creates private npm tarballs for R2 distribution:
 
-  <out-dir>/artifacts/prime-agent-<version>.tgz
-  <out-dir>/artifacts/prime-agent-ai-<version>.tgz
-  <out-dir>/artifacts/prime-agent-core-<version>.tgz
-  <out-dir>/artifacts/prime-agent-tui-<version>.tgz
+  <out-dir>/artifacts/amide-<version>.tgz
+  <out-dir>/artifacts/amide-ai-<version>.tgz
+  <out-dir>/artifacts/amide-core-<version>.tgz
+  <out-dir>/artifacts/amide-tui-<version>.tgz
   <out-dir>/artifacts/SHA256SUMS
   <out-dir>/artifacts/<channel>
   <out-dir>/artifacts/latest.json (stable) or beta.json (beta)
@@ -241,7 +241,7 @@ function main() {
 		]),
 	);
 	const cliPackage = sourcePackages.get("coding-agent");
-	const releaseVersion = args.version || normalizeVersion(process.env.PRIME_AGENT_VERSION || cliPackage.version);
+	const releaseVersion = args.version || normalizeVersion(process.env.AMIDE_VERSION || cliPackage.version);
 
 	for (const releasePackage of releasePackages) {
 		requireBuiltPackage(releasePackage.packageDir);

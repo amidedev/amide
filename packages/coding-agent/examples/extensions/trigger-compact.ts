@@ -1,4 +1,4 @@
-import type { ExtensionAPI, ExtensionContext } from "@earendil-works/pi-coding-agent";
+import type { ExtensionAPI, ExtensionContext } from "amide";
 
 const COMPACT_THRESHOLD_TOKENS = 100_000;
 

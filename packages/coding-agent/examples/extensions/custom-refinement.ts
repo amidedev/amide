@@ -15,7 +15,7 @@
  */
 
 import { complete } from "@earendil-works/pi-ai";
-import type { ExtensionAPI, RefinementProposal } from "@earendil-works/pi-coding-agent";
+import type { ExtensionAPI, RefinementProposal } from "amide";
 
 export default function (pi: ExtensionAPI) {
 	pi.on("session_before_refine", async (event, ctx) => {
