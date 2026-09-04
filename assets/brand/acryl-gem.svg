@@ -1,6 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
-  <!-- ACRYL splash mark: a simple gem/diamond. Source for the ASCII
-       rendering in packages/coding-agent/src/themes/prime-logo.ts
-       (ACRYL_GEM_LOGO). -->
-  <polygon points="50,5 90,50 50,95 10,50" fill="#4B6AFB"/>
-</svg>

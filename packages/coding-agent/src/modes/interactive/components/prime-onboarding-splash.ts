@@ -1,5 +1,5 @@
 import { type Component, getKeybindings, truncateToWidth, visibleWidth } from "@earendil-works/pi-tui";
-import { ACRYL_GEM_LOGO } from "../../../themes/prime-logo.js";
+import { ACRYL_WORDMARK_LOGO } from "../../../themes/prime-logo.js";
 import { type ThemeColor, theme } from "../theme/theme.js";
 
 interface PrimeOnboardingSplashOptions {
@@ -9,7 +9,7 @@ interface PrimeOnboardingSplashOptions {
 	continueActionLabel?: string;
 }
 
-const LOGO_LINES = ACRYL_GEM_LOGO.split("\n");
+const LOGO_LINES = ACRYL_WORDMARK_LOGO.split("\n");
 const LOGO_WIDTH = LOGO_LINES.reduce((max, line) => Math.max(max, visibleWidth(line)), 0);
 const ANIMATION_INTERVAL_MS = 120;
 const LAB_FIELD_HEIGHT = 14;

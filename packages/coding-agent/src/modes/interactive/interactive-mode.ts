@@ -134,7 +134,7 @@ import {
 	type TelemetryOnboardingOutcome,
 } from "../../core/telemetry.js";
 import { type TruncationResult, truncateTail } from "../../core/tools/truncate.js";
-import { ACRYL_GEM_LOGO } from "../../themes/prime-logo.js";
+import { ACRYL_WORDMARK_LOGO } from "../../themes/prime-logo.js";
 import { getChangelogPath, parseChangelog } from "../../utils/changelog.js";
 import { copyToClipboard } from "../../utils/clipboard.js";
 import { readClipboardImage } from "../../utils/clipboard-image.js";
@@ -457,7 +457,7 @@ export class BrandSplashHeader implements Component {
 		private readonly verboseInstructions?: string,
 		private readonly options: BrandSplashHeaderOptions = {},
 	) {
-		this.logoRaw = (options.logo ?? ACRYL_GEM_LOGO).split("\n");
+		this.logoRaw = (options.logo ?? ACRYL_WORDMARK_LOGO).split("\n");
 		this.logoCanvasWidth = this.logoRaw.reduce((max, line) => Math.max(max, visibleWidth(line)), 0);
 	}
 

@@ -10,10 +10,10 @@ import { afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "vite
 import { KeybindingsManager } from "../src/core/keybindings.js";
 import { LoginDialogComponent } from "../src/modes/interactive/components/login-dialog.js";
 import { initTheme } from "../src/modes/interactive/theme/theme.js";
-import { ACRYL_GEM_LOGO } from "../src/themes/prime-logo.js";
+import { ACRYL_WORDMARK_LOGO } from "../src/themes/prime-logo.js";
 
 /** The gem's widest row (index 5) — far more distinctive than a single-char trimmed row. */
-const ACRYL_GEM_LOGO_WIDEST_ROW = ACRYL_GEM_LOGO.split("\n")[5]?.trim() ?? "";
+const ACRYL_WORDMARK_LOGO_WIDEST_ROW = ACRYL_WORDMARK_LOGO.split("\n")[5]?.trim() ?? "";
 
 const mocks = vi.hoisted(() => ({
 	copyToClipboard: vi.fn(),
@@ -149,7 +149,7 @@ describe("LoginDialogComponent", () => {
 		const output = stripAnsi(dialog.render(88).join("\n"));
 
 		expect(output).toContain("Login to Prime Inference");
-		expect(output).toContain(ACRYL_GEM_LOGO_WIDEST_ROW);
+		expect(output).toContain(ACRYL_WORDMARK_LOGO_WIDEST_ROW);
 		expect(output).toContain("Verification code");
 		expect(output).toContain("abc-123");
 		expect(output).not.toContain("click to open");
