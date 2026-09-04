@@ -256,7 +256,9 @@ export class ReplKernelManager {
 			env: {
 				...process.env,
 				...this.options.env,
-				AMIDE_KERNEL_OWNER_PID: String(process.pid),
+				// prime-agent-runtime (vendored kernel-side Python package) reads
+				// this exact name; it is not renamed as part of AMIDE's own identity.
+				PRIME_AGENT_KERNEL_OWNER_PID: String(process.pid),
 			},
 			stdio: ["pipe", "pipe", "pipe"],
 		});

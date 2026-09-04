@@ -56,7 +56,7 @@ describe("buildUpdateRelaunchArgs", () => {
 
 describe("tryExecUpdateRelaunch", () => {
 	it("replaces the current process while preserving argv zero and the environment", () => {
-		const environment = { AMIDE_CODING_AGENT_DIR: "/tmp/agent", OMITTED: undefined };
+		const environment = { PRIME_AGENT_CODING_AGENT_DIR: "/tmp/agent", OMITTED: undefined };
 		const chdir = vi.fn();
 		const execve = vi.fn(() => undefined as never);
 
@@ -78,7 +78,7 @@ describe("tryExecUpdateRelaunch", () => {
 		expect(execve).toHaveBeenCalledWith(
 			"/usr/bin/node",
 			["/usr/bin/node", "--trace-warnings", "/opt/prime-agent/cli.js", "--resume", "session"],
-			{ AMIDE_CODING_AGENT_DIR: "/tmp/agent" },
+			{ PRIME_AGENT_CODING_AGENT_DIR: "/tmp/agent" },
 		);
 
 		// A thrown execve restores the previous cwd before the fallback runs.

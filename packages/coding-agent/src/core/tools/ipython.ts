@@ -464,8 +464,12 @@ export class IpythonKernelProvisioner {
 				// bash() reads these to pick its shell and command prefix.
 				env: {
 					...this.options?.env,
-					...(shellPath ? { AMIDE_BASH_SHELL: shellPath } : {}),
-					...(commandPrefix ? { AMIDE_BASH_COMMAND_PREFIX: commandPrefix } : {}),
+					// prime-agent-runtime (the vendored kernel-side Python package under
+					// prime-agent-runtime/) reads these two exact names — it is not
+					// renamed as part of AMIDE's own identity, so these must match its
+					// contract, not AMIDE's env var prefix.
+					...(shellPath ? { PRIME_AGENT_BASH_SHELL: shellPath } : {}),
+					...(commandPrefix ? { PRIME_AGENT_BASH_COMMAND_PREFIX: commandPrefix } : {}),
 				},
 				sessionId: this.options?.sessionId,
 				hostHandlers: this.options?.hostHandlers,

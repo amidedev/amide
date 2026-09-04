@@ -3,7 +3,9 @@ import { closeSync, fsyncSync, openSync, readFileSync, rmSync, writeSync } from 
 import { win32 } from "node:path";
 import { getProcessStartId } from "./session-lease.js";
 
-export const ORPHAN_PROCESS_JOURNAL_ENV = "AMIDE_INTERNAL_ORPHAN_PROCESS_JOURNAL";
+// prime-agent-runtime (vendored kernel-side Python package) reads this exact
+// name; it is not renamed as part of AMIDE's own identity.
+export const ORPHAN_PROCESS_JOURNAL_ENV = "PRIME_AGENT_INTERNAL_ORPHAN_PROCESS_JOURNAL";
 
 interface OrphanProcessRecord {
 	version: 1;

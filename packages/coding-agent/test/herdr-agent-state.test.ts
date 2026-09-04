@@ -108,7 +108,7 @@ describe("herdrAgentStateExtension", () => {
 		"HERDR_PANE_ID",
 		"HERDR_PI_IDLE_DEBOUNCE_MS",
 		"HERDR_PI_RETRY_GRACE_MS",
-		"AMIDE_CODING_AGENT_DIR",
+		"PRIME_AGENT_CODING_AGENT_DIR",
 	];
 
 	for (const key of envKeys) {
@@ -230,7 +230,7 @@ describe("herdrAgentStateExtension", () => {
 		process.env.HERDR_SOCKET_PATH = socketPath;
 		process.env.HERDR_PANE_ID = "w1:p1";
 		process.env.HERDR_PI_IDLE_DEBOUNCE_MS = "10";
-		process.env.AMIDE_CODING_AGENT_DIR = tempDir;
+		process.env.PRIME_AGENT_CODING_AGENT_DIR = tempDir;
 
 		const { pi, handlers } = createMockPi();
 		herdrAgentStateExtension(pi);
@@ -472,7 +472,7 @@ describe("herdrAgentStateExtension", () => {
 		process.env.HERDR_ENV = "1";
 		process.env.HERDR_SOCKET_PATH = socketPath;
 		process.env.HERDR_PANE_ID = "w1:p1";
-		process.env.AMIDE_CODING_AGENT_DIR = tempDir;
+		process.env.PRIME_AGENT_CODING_AGENT_DIR = tempDir;
 
 		const ctx = { sessionManager: { getSessionFile: () => undefined, getSessionId: () => "s" } };
 

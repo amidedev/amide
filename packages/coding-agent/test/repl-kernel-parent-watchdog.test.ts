@@ -53,7 +53,7 @@ describe("repl kernel parent watchdog", () => {
 		}
 	});
 
-	it("spawn sets AMIDE_KERNEL_OWNER_PID and journals the kernel pid", async () => {
+	it("spawn sets PRIME_AGENT_KERNEL_OWNER_PID and journals the kernel pid", async () => {
 		const envDump = join(tempDir, "kernel-env");
 		const python = writeFakePython(["#!/bin/sh", `env > "${envDump}"`, "exit 42", ""]);
 		const journalPath = join(tempDir, "orphans.jsonl");
@@ -68,7 +68,7 @@ describe("repl kernel parent watchdog", () => {
 			await manager.shutdown({ snapshot: true, drainHostRequests: true });
 		}
 
-		expect(readFileSync(envDump, "utf8")).toMatch(new RegExp(`^AMIDE_KERNEL_OWNER_PID=${process.pid}$`, "m"));
+		expect(readFileSync(envDump, "utf8")).toMatch(new RegExp(`^PRIME_AGENT_KERNEL_OWNER_PID=${process.pid}$`, "m"));
 
 		// Self-exited child: the kill signals nothing, so the record must stay active.
 		await vi.waitFor(() => {
@@ -299,7 +299,7 @@ describeIf("repl runtime outlives-owner watchdog (real runtime)", { tags: ["kern
 			`const { spawn } = require("node:child_process");`,
 			`const { writeFileSync } = require("node:fs");`,
 			`const k = spawn(${JSON.stringify(replPython)}, ["-m", "rlm.repl"], {`,
-			`  env: { ...process.env, AMIDE_KERNEL_OWNER_PID: String(process.pid) },`,
+			`  env: { ...process.env, PRIME_AGENT_KERNEL_OWNER_PID: String(process.pid) },`,
 			`  stdio: ["pipe", "ignore", "ignore"],`,
 			`});`,
 			`writeFileSync(${JSON.stringify(pidFile)}, String(k.pid));`,
@@ -359,7 +359,7 @@ describeIf("repl runtime outlives-owner watchdog (real runtime)", { tags: ["kern
 			`const { spawn } = require("node:child_process");`,
 			`const { writeFileSync } = require("node:fs");`,
 			`const k = spawn(${JSON.stringify(replPython)}, ["-m", "rlm.repl"], {`,
-			`  env: { ...process.env, AMIDE_KERNEL_OWNER_PID: String(process.pid) },`,
+			`  env: { ...process.env, PRIME_AGENT_KERNEL_OWNER_PID: String(process.pid) },`,
 			`  stdio: ["pipe", "ignore", "ignore"],`,
 			`});`,
 			`writeFileSync(${JSON.stringify(pidFile)}, String(k.pid));`,

@@ -9500,7 +9500,9 @@ export class AgentSession {
 
 	private _addWebsearchKeyEnv(env: Record<string, string>): void {
 		if (this._agentDir) {
-			env.AMIDE_CODING_AGENT_DIR = this._agentDir;
+			// prime-agent-runtime (vendored kernel-side Python package) reads this
+			// exact name; it is not renamed as part of AMIDE's own identity.
+			env.PRIME_AGENT_CODING_AGENT_DIR = this._agentDir;
 		}
 
 		if (process.env[SERPER_ENV_VAR]?.trim()) {

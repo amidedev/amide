@@ -409,7 +409,7 @@ describe("ACP mode preserves prime-agent features", () => {
 
 	it("surfaces a real /refine outcome to the ACP client", async () => {
 		// Global refinement writes under the agent dir. Use the real env var name
-		// (derived from package piConfig, so AMIDE_CODING_AGENT_DIR) rather
+		// (derived from package piConfig, so PRIME_AGENT_CODING_AGENT_DIR) rather
 		// than a hardcoded guess, and set it before the session exists: this test
 		// must never touch the developer's real harness state.
 		const previousAgentDir = process.env[ENV_AGENT_DIR];
