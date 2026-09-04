@@ -11,7 +11,7 @@
   RLM-native terminal coding and research harness.
 </p>
 
-AMIDE is a fork of [Prime Agent](https://github.com/PrimeIntellect-ai/prime-agent), whose agent and TUI is built on top of [`pi`](https://github.com/earendil-works/pi) (originally [pi-mono](https://github.com/badlogic/pi-mono) by Mario Zechner). This workspace retains the inherited `@earendil-works/pi-*` source package identifiers and the `pi` package manifest key for internal compatibility with that lineage - the distributed command and package are `amide`. See [UPSTREAMS.md](https://github.com/amidedev/amide/blob/main/UPSTREAMS.md) for exact commits and full attribution.
+AMIDE runs on a persistent iPython/RLM session, composed through a Cordis Metaframework runtime, and disciplined by a Monotonic Prompt Architecture that keeps token spend flat and prompt-cache hit rate high as sessions grow. One agent, one tool (`ipython`), a Python REPL the model uses to read files, run commands, edit code, and inspect data - self-extensible via TypeScript extensions, on-demand skills, and MCP integrations. See [Upstream](#upstream) for provenance.
 
 ## Table of Contents
 

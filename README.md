@@ -19,18 +19,16 @@ Adaptive Machine Intelligence Development Engine
   <a href="packages/coding-agent/docs/index.md">CLI Documentation</a>
 </p>
 
-AMIDE combines three proven lineages instead of inventing a fourth from
-scratch: [Pi](https://github.com/earendil-works/pi)'s self-extensibility (live
-TypeScript extensions, `/reload`, no rebuild required),
-[Prime Agent](https://github.com/PrimeIntellect-ai/prime-agent)'s execution
-model (daemon-backed resident workers, a persistent Python/RLM kernel,
-recursive subagents, goals, schedules, autonomous mode that survive terminal
-detach), and [Cordis](https://github.com/deepseek-ai/deepseek-harness)'s
-composition layer with DeepSeek Harness's Monotonic Prompt Architecture
-(MPA) — the discipline that keeps every request to a model append-only
-within a cache epoch, so long sessions stay prefix-cache-efficient instead
-of degrading into token bloat as they grow. Token efficiency is a stated
-differentiator here, not a side effect.
+AMIDE runs on a persistent iPython/RLM session — self-extensible via live
+TypeScript extensions (`/reload`, no rebuild required), daemon-backed
+resident workers, recursive subagents, goals, schedules, and autonomous mode
+that survive terminal detach — composed through a Cordis Metaframework
+runtime and disciplined by a Monotonic Prompt Architecture (MPA): every
+request to a model stays append-only within a cache epoch, so long sessions
+keep a high prompt-cache hit rate and token spend that stays roughly flat
+instead of climbing as they grow. Token efficiency is a stated
+differentiator here, not a side effect. See
+[Acknowledgements](#acknowledgements) below for what this is built on.
 
 **Forward direction:** AMIDE is intended to become multi-surface — one
 central agent that extends itself with new capabilities and can drive

@@ -1,8 +1,8 @@
-"""Prime Agent RLM heartbeat skill: internal recurring session checks.
+"""AMIDE RLM heartbeat skill: internal recurring session checks.
 
 All heartbeat state lives in the TypeScript host; these functions are thin
 typed wrappers over the generic host bridge (`rlm.host_request`). They only
-work inside the Prime Agent Python kernel.
+work inside the AMIDE Python kernel.
 """
 
 from __future__ import annotations

@@ -18,7 +18,7 @@ def _env_int(name: str, default: int) -> int:
 
 
 def _agent_dir() -> Path:
-    """Resolve the Prime Agent config dir the same way the runtime does."""
+    """Resolve the AMIDE config dir the same way the runtime does."""
     raw = (
         os.environ.get("PRIME_AGENT_CODING_AGENT_DIR")
         or os.environ.get("PI_CODING_AGENT_DIR")
@@ -151,7 +151,7 @@ async def run(
             "Web search is not set up yet: no Serper API key is configured.\n"
             "Tell the user how to enable it:\n"
             "  1. Get a free API key at https://serper.dev (sign up, copy the key).\n"
-            "  2. In Prime Agent, run /login, switch to MCP Connections, choose \"Serper (web search)\", and paste the key.\n"
+            "  2. In AMIDE, run /login, switch to MCP Connections, choose \"Serper (web search)\", and paste the key.\n"
             "Do not ask the user to set environment variables. Once the key is saved, web search works automatically."
         )
 
