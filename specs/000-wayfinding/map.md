@@ -63,6 +63,12 @@ disposable and nothing here is load-bearing for the shipped product.
 
 ## Not yet specified
 
+- The exact upstream commit `7b72016` ("init acryl-padsh") was imported
+  from. Verified `7b72016` is close to, but not identical to, upstream tag
+  `v0.9.1` (real diffs in `agent-session.ts`, `event-log.ts`,
+  `semantic-edges.ts`, and others) — see `UPSTREAMS.md`. Not bisected to an
+  exact commit; low priority unless a future port needs to diff against a
+  precise upstream point.
 - Exact `AcrylRuntimeHost` mount point inside Prime's resident-worker startup
   path (Implementation Spec §7) — needs a source-level read of
   `packages/coding-agent/src/core/kernel/bootstrap.ts` and the daemon

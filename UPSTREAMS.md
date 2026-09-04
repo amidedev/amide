@@ -10,8 +10,22 @@ commit of each was used, and what has been ported or changed locally, per
   `earendil-works/pi` as the `@earendil-works/pi-*` workspace packages —
   `packages/{tui,agent,ai}` — see `docs/ACRYL-PADSH Implementation Specification.md`
   §15 for why these stay untouched).
-- This fork's base commit: `7eda78d` ("Initial commit").
-- This fork's own bootstrap commit: `7b72016` ("init acryl-padsh").
+- `git remote add upstream https://github.com/PrimeIntellect-ai/prime-agent.git`
+  is configured in this checkout.
+- **Verified, not assumed** (`git diff --stat`, 2026-09-04): `7eda78d`
+  ("Initial commit") is an empty 3-file placeholder (`.gitignore`, `LICENSE`,
+  `README.md`) — not real Prime Agent content, despite being this repo's
+  first commit. The actual import landed in `7b72016` ("init acryl-padsh",
+  1239 files). Its `package.json` version (`0.9.1`) matches upstream tag
+  `v0.9.1` (`81ae3cb34d27d38ee37f9e205a1e73694993b344`), but the two are
+  **not identical** — `git diff --stat 7b72016 v0.9.1` shows real behavioral
+  differences in core files (e.g. `packages/coding-agent/src/core/agent-session.ts`,
+  `event-log.ts` removed, `semantic-edges.ts` removed, `agents-view-state.ts`),
+  not just cosmetic ones. `7b72016` looks like an import from a pre-`v0.9.1`
+  snapshot with the version field bumped, or from a differently-configured
+  branch — **not yet bisected to an exact upstream commit**. Do not treat
+  `v0.9.1` as this fork's precise base until that's resolved; treat `7b72016`
+  itself as the authoritative base for now.
 - License: MIT.
 
 ## DeepSeek Harness / Cordis (architectural reference)
