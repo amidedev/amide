@@ -47,6 +47,9 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Build workspace (tui -> ai -> agent -> coding-agent)
+        run: npm run build
+
       - name: Verify tag matches package version
         working-directory: packages/coding-agent
         env:
