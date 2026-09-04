@@ -1,5 +1,5 @@
 import { type Component, getKeybindings, truncateToWidth, visibleWidth } from "@earendil-works/pi-tui";
-import { ACRYL_WORDMARK_LOGO } from "../../../themes/prime-logo.js";
+import { AMIDE_WORDMARK_LOGO } from "../../../themes/prime-logo.js";
 import { type ThemeColor, theme } from "../theme/theme.js";
 
 interface PrimeOnboardingSplashOptions {
@@ -9,7 +9,7 @@ interface PrimeOnboardingSplashOptions {
 	continueActionLabel?: string;
 }
 
-const LOGO_LINES = ACRYL_WORDMARK_LOGO.split("\n");
+const LOGO_LINES = AMIDE_WORDMARK_LOGO.split("\n");
 const LOGO_WIDTH = LOGO_LINES.reduce((max, line) => Math.max(max, visibleWidth(line)), 0);
 const ANIMATION_INTERVAL_MS = 120;
 const LAB_FIELD_HEIGHT = 14;
@@ -126,8 +126,7 @@ export class PrimeOnboardingSplashComponent implements Component {
 	private formatBrandLine(): PanelTextLine {
 		return [
 			{ text: "Welcome to ", tone: "text" },
-			{ text: "ACRYL", tone: "text", bold: true },
-			{ text: "-PADSH", tone: "text", italic: true },
+			{ text: "AMIDE", tone: "text", bold: true },
 		];
 	}
 

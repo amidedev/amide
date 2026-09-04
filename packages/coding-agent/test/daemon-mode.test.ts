@@ -2081,7 +2081,7 @@ describe("daemon mode helpers", () => {
 			).sendRemoteAgentSessionMessage.bind(daemon);
 
 			await expect(sendRemoteAgentSessionMessage(makeState("source"), "remote", "continue")).rejects.toThrow(
-				"Connection to the Prime Agent daemon closed",
+				"Connection to the AMIDE daemon closed",
 			);
 			expect(requestCount).toBe(1);
 		} finally {

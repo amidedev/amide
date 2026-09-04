@@ -61,7 +61,7 @@ describe("issue #702 codex model discovery client version", () => {
 		const discoveryUrl = requestedUrls.find((url) => url.includes("/codex/models"));
 		expect(discoveryUrl).toBeDefined();
 		const clientVersion = new URL(discoveryUrl ?? "").searchParams.get("client_version");
-		// Prime Agent's own version is 0.x well below this floor, so this assertion fails on the
+		// AMIDE's own version is 0.x well below this floor, so this assertion fails on the
 		// unfixed source. Comparing against VERSION directly would pass today and break silently
 		// once the lockstep package version reaches the pinned constant.
 		expect(clientVersion).toMatch(/^\d+\.\d+\.\d+$/);

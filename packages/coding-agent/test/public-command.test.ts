@@ -143,7 +143,7 @@ describe("public command routing", () => {
 		]);
 	});
 
-	it("separates Prime Agent updates from package updates", async () => {
+	it("separates AMIDE updates from package updates", async () => {
 		await handlePublicCommand(["update", "--force"]);
 		await handlePublicCommand(["package", "update"]);
 		await handlePublicCommand(["package", "update", "npm:@example/tools"]);

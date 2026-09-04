@@ -673,7 +673,7 @@ describe("AuthStorage", () => {
 			expect(authStorage.getProviderHeaders("prime-inference")).toBeUndefined();
 		});
 
-		test("setPrimeInferenceApiKey removes legacy Prime Agent credential after Prime CLI save", () => {
+		test("setPrimeInferenceApiKey removes legacy AMIDE credential after Prime CLI save", () => {
 			const primeConfigPath = join(tempDir, "prime-config.json");
 			writeAuthJson({
 				"prime-inference": {

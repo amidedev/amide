@@ -197,7 +197,7 @@ describe("Prime Inference auth", () => {
 		expect(fetchMock).toHaveBeenCalledOnce();
 	});
 
-	it("checks Prime Agent trace access with Prime whoami permissions", async () => {
+	it("checks AMIDE trace access with Prime whoami permissions", async () => {
 		const fetchMock = vi.fn(async (input: string | URL | Request, init?: RequestInit): Promise<Response> => {
 			expect(getUrl(input)).toBe("https://prime-api.example/api/v1/user/whoami");
 			expect(init?.method).toBe("GET");
@@ -365,7 +365,7 @@ describe("Prime Inference auth", () => {
 		expect(progress.join("\n")).toContain("Existing Prime CLI key cannot access Prime Inference");
 	});
 
-	it("requests agent trace scope during Prime Agent trace browser login", async () => {
+	it("requests agent trace scope during AMIDE trace browser login", async () => {
 		process.env.PRIME_AGENT_TRACES_BASE_URL = "https://prime-api.example/api/v1";
 		writeFileSync(
 			configPath,

@@ -706,7 +706,7 @@ export async function loginPrimeAgentTraces(
 			return { apiKey: config.apiKey, source: "prime-cli" };
 		}
 		callbacks.onProgress?.(
-			`Existing Prime CLI key cannot upload Prime Agent traces (${formatAccessFailure(access)}). Starting browser login...`,
+			`Existing Prime CLI key cannot upload AMIDE traces (${formatAccessFailure(access)}). Starting browser login...`,
 		);
 	} else {
 		callbacks.onProgress?.("No Prime CLI API key found. Starting browser login...");
@@ -721,14 +721,14 @@ export async function loginPrimeAgentTraces(
 		"agent_traces",
 	);
 	throwIfCancelled(callbacks.signal);
-	callbacks.onProgress?.("Checking Prime Agent trace access...");
+	callbacks.onProgress?.("Checking AMIDE trace access...");
 	const access = await checkPrimeAgentTracesAccess(apiKey, traceConfig.baseUrl, {
 		fetchFn,
 		requestTimeoutMs,
 		signal: callbacks.signal,
 	});
 	if (!access.ok) {
-		throw new Error(`Prime API key does not have Prime Agent trace access (${formatAccessFailure(access)})`);
+		throw new Error(`Prime API key does not have AMIDE trace access (${formatAccessFailure(access)})`);
 	}
 
 	throwIfCancelled(callbacks.signal);

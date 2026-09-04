@@ -4,7 +4,7 @@ import { afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "vite
 import { KeybindingsManager } from "../src/core/keybindings.js";
 import { PrimeOnboardingSplashComponent } from "../src/modes/interactive/components/prime-onboarding-splash.js";
 import { initTheme } from "../src/modes/interactive/theme/theme.js";
-import { ACRYL_WORDMARK_LOGO } from "../src/themes/prime-logo.js";
+import { AMIDE_WORDMARK_LOGO } from "../src/themes/prime-logo.js";
 
 /**
  * The logo's letters are drawn with `transparentSpaces: true`, so the gaps
@@ -12,7 +12,7 @@ import { ACRYL_WORDMARK_LOGO } from "../src/themes/prime-logo.js";
  * literal spaces — only a contiguous run of block characters is guaranteed
  * to appear as an exact substring of the rendered, ANSI-stripped output.
  */
-const ACRYL_WORDMARK_LOGO_LONGEST_RUN = (ACRYL_WORDMARK_LOGO.match(/█+/g) ?? []).reduce((a, b) =>
+const AMIDE_WORDMARK_LOGO_LONGEST_RUN = (AMIDE_WORDMARK_LOGO.match(/█+/g) ?? []).reduce((a, b) =>
 	b.length > a.length ? b : a,
 );
 
@@ -39,7 +39,7 @@ describe("PrimeOnboardingSplashComponent", () => {
 		const output = stripAnsi(lines.join("\n"));
 
 		expect(lines).toHaveLength(36);
-		expect(output).toContain("Welcome to ACRYL-PADSH");
+		expect(output).toContain("Welcome to AMIDE");
 		expect(output).toContain("Press Enter to login with Prime Intellect");
 		expect(output).toContain("·");
 		expect(output).not.toContain("prime agent");
@@ -69,7 +69,7 @@ describe("PrimeOnboardingSplashComponent", () => {
 		expect(output).not.toContain("→");
 		expect(output).not.toContain("Use a subscription");
 		expect(output).not.toContain("Use an API key");
-		expect(output).toContain(ACRYL_WORDMARK_LOGO_LONGEST_RUN);
+		expect(output).toContain(AMIDE_WORDMARK_LOGO_LONGEST_RUN);
 		for (const line of lines) {
 			expect(visibleWidth(line)).toBeLessThanOrEqual(100);
 		}
@@ -139,7 +139,7 @@ describe("PrimeOnboardingSplashComponent", () => {
 
 		expect(renderRequests).toBe(3);
 		expect(secondRender).not.toBe(firstRender);
-		expect(secondRender).toContain("Welcome to ACRYL-PADSH");
+		expect(secondRender).toContain("Welcome to AMIDE");
 		expect(secondRender).toContain("Press Enter to login with Prime Intellect");
 	});
 
@@ -150,8 +150,8 @@ describe("PrimeOnboardingSplashComponent", () => {
 			{ getRows: () => 40 },
 		);
 		const rendered = component.render(60).map((line) => stripAnsi(line));
-		const logoLine = rendered.find((line) => line.includes(ACRYL_WORDMARK_LOGO_LONGEST_RUN));
-		const brandLine = rendered.find((line) => line.includes("Welcome to ACRYL-PADSH"));
+		const logoLine = rendered.find((line) => line.includes(AMIDE_WORDMARK_LOGO_LONGEST_RUN));
+		const brandLine = rendered.find((line) => line.includes("Welcome to AMIDE"));
 		const hintLine = rendered.find((line) => line.includes("Press Enter to login with Prime Intellect"));
 
 		expect(logoLine?.search(/\S/)).toBeGreaterThan(0);

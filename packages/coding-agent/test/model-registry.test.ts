@@ -151,7 +151,7 @@ describe("ModelRegistry", () => {
 			}
 		});
 
-		test("prime inference requests include selected Prime Agent team header", async () => {
+		test("prime inference requests include selected AMIDE team header", async () => {
 			const primeAuthStorage = AuthStorage.inMemory({
 				"prime-inference": {
 					type: "api_key",

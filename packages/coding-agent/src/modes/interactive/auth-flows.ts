@@ -701,7 +701,7 @@ export class ProviderAuthFlows {
 
 			if (result.source === "manual") {
 				browserAbort.abort();
-				dialog.showProgress("Checking Prime Agent trace access...");
+				dialog.showProgress("Checking AMIDE trace access...");
 				const access = await checkPrimeAgentTracesAccess(result.apiKey, resolvePrimeAgentTracesBaseUrl(), {
 					signal: dialog.signal,
 				});
@@ -711,7 +711,7 @@ export class ProviderAuthFlows {
 				}
 				if (!access.ok) {
 					const status = access.status === undefined ? "" : `HTTP ${access.status}: `;
-					throw new Error(`Prime API key does not have Prime Agent trace access (${status}${access.message})`);
+					throw new Error(`Prime API key does not have AMIDE trace access (${status}${access.message})`);
 				}
 			}
 

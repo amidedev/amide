@@ -256,7 +256,7 @@ function repeatedText(length: number, seed: string): string {
 	return seed.repeat(Math.ceil(length / seed.length)).slice(0, length);
 }
 
-const streamCorpus = repeatedText(STREAM_CHARS, "Prime Agent daemon multi-client streaming benchmark. ");
+const streamCorpus = repeatedText(STREAM_CHARS, "AMIDE daemon multi-client streaming benchmark. ");
 const attachMessages = Array.from({ length: ATTACH_HISTORY_MESSAGES }, (_, index) => {
 	const text = repeatedText(ATTACH_MESSAGE_CHARS, `history-message-${index} `);
 	return index % 2 === 0
@@ -619,7 +619,7 @@ function printResults(
 	results: BenchmarkResult[],
 	details = `stream=${STREAM_CHARS} chars/${STREAM_CHUNK_CHARS}-char chunks; attach=${ATTACH_HISTORY_MESSAGES} messages x ${ATTACH_MESSAGE_CHARS} chars`,
 ): void {
-	console.log("Prime Agent daemon multi-client benchmark");
+	console.log("AMIDE daemon multi-client benchmark");
 	console.log(details);
 	console.table(
 		results.map((result) => ({
@@ -641,7 +641,7 @@ function printResults(
 }
 
 function printSessionLoad(sessionFile: string, result: SessionLoadResult): void {
-	console.log("Prime Agent real-session benchmark");
+	console.log("AMIDE real-session benchmark");
 	console.log(`fixture: ${basename(sessionFile)} (${(result.fileBytes / MEBIBYTE).toFixed(2)} MiB)`);
 	console.table([
 		{

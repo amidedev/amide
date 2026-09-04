@@ -1223,7 +1223,7 @@ describe("InteractiveMode MCP command", () => {
 		await handleMcpCommand.call(fakeThis, "add remote --url https://example.test/mcp --oauth");
 
 		expect(normalizeRenderedOutput(fakeThis.chatContainer)).toContain(
-			"Restart Prime Agent, then run /mcp login remote to connect.",
+			"Restart AMIDE, then run /mcp login remote to connect.",
 		);
 	});
 

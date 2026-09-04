@@ -171,6 +171,6 @@ describe("tools manager", () => {
 		expect(linux).toContain("sudo dnf install ripgrep");
 		expect(windows).toContain("winget install BurntSushi.ripgrep.MSVC");
 		expect(termux).toContain("pkg install ripgrep");
-		expect(mac).toContain("Prime Agent and subagents remain available");
+		expect(mac).toContain("AMIDE and subagents remain available");
 	});
 });
