@@ -9,6 +9,6 @@ if (!existsSync(script)) {
 
 const result = spawnSync(process.execPath, [script], { stdio: "inherit" });
 if (result.error) {
-	console.error(`prime-agent: postinstall setup skipped: ${result.error.message}`);
+	console.error(`amide: postinstall setup skipped: ${result.error.message}`);
 }
 process.exit(0);
