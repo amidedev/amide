@@ -247,7 +247,7 @@ export function collectDaemonClientEnv(source: NodeJS.ProcessEnv = process.env):
 export function collectDaemonLaunchEnv(source: NodeJS.ProcessEnv = process.env): Record<string, string> {
 	const env: Record<string, string> = {};
 	for (const [key, value] of Object.entries(source)) {
-		if (value !== undefined && !key.startsWith("PRIME_AGENT_INTERNAL_")) {
+		if (value !== undefined && !key.startsWith("AMIDE_INTERNAL_")) {
 			env[key] = value;
 		}
 	}

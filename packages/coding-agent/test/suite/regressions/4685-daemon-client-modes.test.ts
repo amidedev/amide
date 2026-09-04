@@ -74,12 +74,12 @@ async function runCli(
 			TSX_TSCONFIG_PATH: repoTsconfigPath,
 			[ENV_AGENT_DIR]: options.agentDir,
 			PI_SKIP_VERSION_CHECK: "1",
-			PRIME_AGENT_INTERNAL_LEGACY_OWNED_WORKER_FRONTEND: "0",
-			PRIME_AGENT_INTERNAL_DAEMON_WORKER: undefined,
-			PRIME_AGENT_INTERNAL_DAEMON_WORKER_TOKEN: undefined,
-			PRIME_AGENT_INTERNAL_DAEMON_WORKER_ACTIVE_SESSION_ID: undefined,
-			PRIME_AGENT_INTERNAL_DAEMON_SUPERVISOR_SOCKET: undefined,
-			PRIME_AGENT_INTERNAL_DAEMON_WORKER_RECOVERY_JOURNAL: undefined,
+			AMIDE_INTERNAL_LEGACY_OWNED_WORKER_FRONTEND: "0",
+			AMIDE_INTERNAL_DAEMON_WORKER: undefined,
+			AMIDE_INTERNAL_DAEMON_WORKER_TOKEN: undefined,
+			AMIDE_INTERNAL_DAEMON_WORKER_ACTIVE_SESSION_ID: undefined,
+			AMIDE_INTERNAL_DAEMON_SUPERVISOR_SOCKET: undefined,
+			AMIDE_INTERNAL_DAEMON_WORKER_RECOVERY_JOURNAL: undefined,
 			RLM_DEPTH: undefined,
 			RLM_MAX_DEPTH: undefined,
 			...options.environment,
@@ -301,7 +301,7 @@ describe("ENG-4685 daemon-backed client modes", () => {
 			],
 			{
 				agentDir,
-				environment: { PRIME_AGENT_INTERNAL_LEGACY_OWNED_WORKER_FRONTEND: "1" },
+				environment: { AMIDE_INTERNAL_LEGACY_OWNED_WORKER_FRONTEND: "1" },
 			},
 		);
 
@@ -319,7 +319,7 @@ describe("ENG-4685 daemon-backed client modes", () => {
 		daemonSockets.add(socketPath);
 		writeFileSync(
 			extensionPath,
-			'import { appendFileSync } from "node:fs";\nexport default function() { appendFileSync(process.env.PRIME_AGENT_TEST_EXTENSION_LOAD_MARKER, "loaded\\n"); }\n',
+			'import { appendFileSync } from "node:fs";\nexport default function() { appendFileSync(process.env.AMIDE_TEST_EXTENSION_LOAD_MARKER, "loaded\\n"); }\n',
 		);
 
 		const result = await runCli(
@@ -341,7 +341,7 @@ describe("ENG-4685 daemon-backed client modes", () => {
 			],
 			{
 				agentDir,
-				environment: { PRIME_AGENT_TEST_EXTENSION_LOAD_MARKER: markerPath },
+				environment: { AMIDE_TEST_EXTENSION_LOAD_MARKER: markerPath },
 			},
 		);
 

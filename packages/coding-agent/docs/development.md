@@ -15,7 +15,7 @@ npm ci
 Run from source:
 
 ```bash
-/path/to/prime-agent/prime-agent.sh
+/path/to/prime-agent/amide.sh
 ```
 
 The script can be called from any directory and preserves the caller's working directory. Use that behavior to run a source checkout against a separate test project.
@@ -33,7 +33,7 @@ User configuration lives under `~/.prime/agent/`. Project-local settings, prompt
 Use an isolated config directory when manually exercising daemon behavior so development sessions do not collide with normal sessions:
 
 ```bash
-PRIME_AGENT_CODING_AGENT_DIR=/tmp/prime-agent-dev /path/to/prime-agent/prime-agent.sh
+PRIME_AGENT_CODING_AGENT_DIR=/tmp/prime-agent-dev /path/to/prime-agent/amide.sh
 ```
 
 ## Daemon Protocol Changes

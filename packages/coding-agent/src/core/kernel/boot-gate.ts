@@ -7,7 +7,7 @@ const DEFAULT_KERNEL_BOOT_CONCURRENCY = Math.min(16, Math.max(4, (cpus().length 
 const MAX_KERNEL_BOOT_CONCURRENCY = 64;
 
 export function resolveKernelBootConcurrency(): number {
-	const raw = process.env.PRIME_AGENT_MAX_CONCURRENT_KERNEL_BOOTS;
+	const raw = process.env.AMIDE_MAX_CONCURRENT_KERNEL_BOOTS;
 	if (raw === undefined || !/^\d+$/.test(raw)) {
 		return DEFAULT_KERNEL_BOOT_CONCURRENCY;
 	}

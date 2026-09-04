@@ -14,7 +14,7 @@ export default function registerSerializedRefineMarker(pi: ExtensionAPI): void {
 	pi.on("agent_start", (_event, ctx) => {
 		if (markerWritten) return;
 		markerWritten = true;
-		const markerPath = process.env.PRIME_AGENT_TEST_SERIALIZED_REFINE_MARKER;
+		const markerPath = process.env.AMIDE_TEST_SERIALIZED_REFINE_MARKER;
 		if (!markerPath) return;
 		writeFileSync(
 			markerPath,
@@ -27,7 +27,7 @@ export default function registerSerializedRefineMarker(pi: ExtensionAPI): void {
 	});
 
 	pi.on("agent_end", () => {
-		const refineMarkerPath = process.env.PRIME_AGENT_TEST_REFINE_COMPLETE_MARKER;
+		const refineMarkerPath = process.env.AMIDE_TEST_REFINE_COMPLETE_MARKER;
 		if (!refineMarkerPath) return;
 		// Write a marker when agent_end fires. If serializedRefine caused
 		// a deadlock, this would never be written.

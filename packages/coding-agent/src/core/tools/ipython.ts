@@ -35,15 +35,15 @@ try:
     bash = _prime_agent_rlm_module.bash
     import rlm.mcp as mcp
 except Exception as _prime_agent_rlm_error:
-    _PRIME_AGENT_RLM_IMPORT_ERROR = str(_prime_agent_rlm_error)
+    _AMIDE_RLM_IMPORT_ERROR = str(_prime_agent_rlm_error)
 
     class _PrimeAgentMissingRlm:
         def _raise_missing(self):
             raise RuntimeError(
                 "prime-agent-runtime is not installed in this kernel. "
                 "Remove ~/.prime/agent/kernel-venv so prime-agent can rebuild it, or set "
-                "PRIME_AGENT_KERNEL_PYTHON to a kernel environment with prime-agent-runtime installed. "
-                f"Import error: {_PRIME_AGENT_RLM_IMPORT_ERROR}"
+                "AMIDE_KERNEL_PYTHON to a kernel environment with prime-agent-runtime installed. "
+                f"Import error: {_AMIDE_RLM_IMPORT_ERROR}"
             )
 
         async def run(self, prompt, **kwargs):
@@ -125,7 +125,7 @@ def _prime_agent_wrap_skill_module(module):
     _prime_agent_sys.modules[module.__name__] = wrapped
     return wrapped
 
-_PRIME_AGENT_SKILL_IMPORT_ERRORS = {}
+_AMIDE_SKILL_IMPORT_ERRORS = {}
 
 for _prime_agent_skill_name in ${JSON.stringify(importNames)}:
     try:
@@ -133,7 +133,7 @@ for _prime_agent_skill_name in ${JSON.stringify(importNames)}:
             _prime_agent_importlib.import_module(_prime_agent_skill_name)
         )
     except Exception as _prime_agent_skill_error:
-        _PRIME_AGENT_SKILL_IMPORT_ERRORS[_prime_agent_skill_name] = str(_prime_agent_skill_error)
+        _AMIDE_SKILL_IMPORT_ERRORS[_prime_agent_skill_name] = str(_prime_agent_skill_error)
         globals()[_prime_agent_skill_name] = _PrimeAgentUnavailableSkill(
             _prime_agent_skill_name,
             str(_prime_agent_skill_error),
@@ -464,8 +464,8 @@ export class IpythonKernelProvisioner {
 				// bash() reads these to pick its shell and command prefix.
 				env: {
 					...this.options?.env,
-					...(shellPath ? { PRIME_AGENT_BASH_SHELL: shellPath } : {}),
-					...(commandPrefix ? { PRIME_AGENT_BASH_COMMAND_PREFIX: commandPrefix } : {}),
+					...(shellPath ? { AMIDE_BASH_SHELL: shellPath } : {}),
+					...(commandPrefix ? { AMIDE_BASH_COMMAND_PREFIX: commandPrefix } : {}),
 				},
 				sessionId: this.options?.sessionId,
 				hostHandlers: this.options?.hostHandlers,

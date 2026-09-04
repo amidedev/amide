@@ -57,7 +57,7 @@ disposable and nothing here is load-bearing for the shipped product.
   `THIRD_PARTY_NOTICES.md`, TUI startup banner) becomes ACRYL-branded
   immediately. The deep internal rename (the ~15+ literal "Prime Agent"
   strings inside `packages/coding-agent/src/**` business logic,
-  `PRIME_AGENT_*` env vars, `prime-agent.sh`, `install.sh`) is explicitly
+  `PRIME_AGENT_*` env vars, `amide.sh`, `install.sh`) is explicitly
   deferred to later, gradual work — it is not part of Milestone 0's "no
   functional changes" acceptance bar and must not be conflated with it.
 

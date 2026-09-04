@@ -31,10 +31,10 @@ To run a source checkout instead, use Node.js 22.8.0 or newer:
 git clone https://github.com/PrimeIntellect-ai/prime-agent
 cd prime-agent
 npm ci
-./prime-agent.sh
+./amide.sh
 ```
 
-The source runner preserves the directory from which it is invoked, so you can also call `/path/to/prime-agent/prime-agent.sh` from another project.
+The source runner preserves the directory from which it is invoked, so you can also call `/path/to/prime-agent/amide.sh` from another project.
 
 ## Authenticate
 

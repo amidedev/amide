@@ -326,8 +326,8 @@ function formatPythonSkillInstallArgs(skill: BootstrapPythonSkill): string[] {
 
 function ensureKernelPythonKey(pythonSkills: readonly BootstrapPythonSkill[]): string {
 	return [
-		process.env.PRIME_AGENT_KERNEL_PYTHON ?? "",
-		process.env.PRIME_AGENT_KERNEL_VENV ?? "",
+		process.env.AMIDE_KERNEL_PYTHON ?? "",
+		process.env.AMIDE_KERNEL_VENV ?? "",
 		process.env.HOME ?? "",
 		process.env.XDG_DATA_HOME ?? "",
 		JSON.stringify(pythonSkills),
@@ -335,7 +335,7 @@ function ensureKernelPythonKey(pythonSkills: readonly BootstrapPythonSkill[]): s
 }
 
 export function getKernelVenvDir(): string {
-	const override = process.env.PRIME_AGENT_KERNEL_VENV;
+	const override = process.env.AMIDE_KERNEL_VENV;
 	if (override) return path.resolve(expandHome(override));
 	return path.join(os.homedir(), ".prime", "agent", "kernel-venv");
 }
@@ -353,7 +353,7 @@ async function resolveWritableKernelVenvDir(): Promise<string> {
 		await mkdir(path.dirname(primary), { recursive: true });
 		return primary;
 	} catch (primaryError) {
-		if (process.env.PRIME_AGENT_KERNEL_VENV) {
+		if (process.env.AMIDE_KERNEL_VENV) {
 			throw new Error(`couldn't create kernel venv parent directory for ${primary}: ${errorMessage(primaryError)}`);
 		}
 
@@ -363,7 +363,7 @@ async function resolveWritableKernelVenvDir(): Promise<string> {
 			return fallback;
 		} catch (fallbackError) {
 			throw new Error(
-				`couldn't create kernel venv directory at ${primary} or ${fallback}; set PRIME_AGENT_KERNEL_PYTHON to a python with a current prime-agent-runtime installed. ${errorMessage(fallbackError)}`,
+				`couldn't create kernel venv directory at ${primary} or ${fallback}; set AMIDE_KERNEL_PYTHON to a python with a current prime-agent-runtime installed. ${errorMessage(fallbackError)}`,
 			);
 		}
 	}
@@ -512,12 +512,11 @@ async function ensureUv(options: EnsureKernelPythonOptions): Promise<string> {
 	const localUv = path.join(os.homedir(), ".local", "bin", process.platform === "win32" ? "uv.exe" : "uv");
 	if (await isExecutable(localUv)) return localUv;
 
-	const shouldInstallUv =
-		process.env.PRIME_AGENT_INSTALL_UV === "1" || (!options.onProgress && (await confirmUvInstall()));
+	const shouldInstallUv = process.env.AMIDE_INSTALL_UV === "1" || (!options.onProgress && (await confirmUvInstall()));
 	if (!shouldInstallUv) {
 		throw new Error(
 			`uv is required to set up the Python kernel. Install uv yourself: ${UV_INSTALL_COMMAND}, ` +
-				"or set PRIME_AGENT_INSTALL_UV=1 to let prime-agent run that installer.",
+				"or set AMIDE_INSTALL_UV=1 to let prime-agent run that installer.",
 		);
 	}
 
@@ -537,7 +536,7 @@ async function ensureUv(options: EnsureKernelPythonOptions): Promise<string> {
 }
 
 async function confirmUvInstall(): Promise<boolean> {
-	if (process.env.PRIME_AGENT_INSTALL_UV === "0") return false;
+	if (process.env.AMIDE_INSTALL_UV === "0") return false;
 	if (!stdin.isTTY || !stderr.isTTY) return false;
 
 	const rl = createInterface({ input: stdin, output: stderr });
@@ -836,7 +835,7 @@ function formatBootstrapFailure(error: unknown): Error {
 	return new Error(
 		`Failed to set up the Python kernel runtime. ${errorMessage(error)}\n` +
 			"First-time setup needs internet to install uv, Python, prime-agent-runtime, and default Python packages; once set up, prime-agent runs offline. " +
-			"Set PRIME_AGENT_KERNEL_PYTHON to a Python with a current prime-agent-runtime and default Python packages installed to skip auto-bootstrap.",
+			"Set AMIDE_KERNEL_PYTHON to a Python with a current prime-agent-runtime and default Python packages installed to skip auto-bootstrap.",
 	);
 }
 
@@ -844,7 +843,7 @@ async function ensureKernelPythonUncached(
 	options: EnsureKernelPythonOptions,
 	pythonSkills: readonly BootstrapPythonSkill[],
 ): Promise<string> {
-	const override = process.env.PRIME_AGENT_KERNEL_PYTHON;
+	const override = process.env.AMIDE_KERNEL_PYTHON;
 	if (override) {
 		const python = path.resolve(expandHome(override));
 		const missing: string[] = [];
@@ -864,12 +863,12 @@ async function ensureKernelPythonUncached(
 			if (missingPythonSkills.length > 0) {
 				reportProgress(
 					options,
-					`Warning: Python skills unavailable in PRIME_AGENT_KERNEL_PYTHON and will be disabled: ${missingPythonSkills.join(", ")}`,
+					`Warning: Python skills unavailable in AMIDE_KERNEL_PYTHON and will be disabled: ${missingPythonSkills.join(", ")}`,
 				);
 			}
 		}
 		if (missing.length === 0) return python;
-		throw new Error(`PRIME_AGENT_KERNEL_PYTHON points to a Python missing ${missing.join(" and ")}: ${python}`);
+		throw new Error(`AMIDE_KERNEL_PYTHON points to a Python missing ${missing.join(" and ")}: ${python}`);
 	}
 
 	const venv = await resolveWritableKernelVenvDir();

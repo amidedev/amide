@@ -19,7 +19,7 @@ import type {
 import { latestAutonomousGateAttempt } from "../headless-completion.js";
 import { type AcpEventMappingState, acpUpdatesForSessionEvent } from "./acp-events.js";
 import { resolveAcpMcpServers } from "./acp-mcp.js";
-import { PRIME_AGENT_META_NAMESPACE, type PrimeAgentAutonomousMeta, primeAgentMeta } from "./acp-meta.js";
+import { AMIDE_META_NAMESPACE, type PrimeAgentAutonomousMeta, primeAgentMeta } from "./acp-meta.js";
 import { type AcpStopReason, acpStopReason } from "./acp-stop-reason.js";
 
 /**
@@ -267,14 +267,14 @@ class AcpUpdateProducer {
 			unknown
 		>;
 		const priorPrimeMeta =
-			priorMeta[PRIME_AGENT_META_NAMESPACE] && typeof priorMeta[PRIME_AGENT_META_NAMESPACE] === "object"
-				? (priorMeta[PRIME_AGENT_META_NAMESPACE] as Record<string, unknown>)
+			priorMeta[AMIDE_META_NAMESPACE] && typeof priorMeta[AMIDE_META_NAMESPACE] === "object"
+				? (priorMeta[AMIDE_META_NAMESPACE] as Record<string, unknown>)
 				: {};
 		const correlatedUpdate = {
 			...update,
 			_meta: {
 				...priorMeta,
-				[PRIME_AGENT_META_NAMESPACE]: {
+				[AMIDE_META_NAMESPACE]: {
 					...priorPrimeMeta,
 					promptTurnId: turnId,
 					eventSequence,

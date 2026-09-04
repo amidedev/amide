@@ -3,7 +3,7 @@ import { closeSync, fsyncSync, openSync, readFileSync, rmSync, writeSync } from 
 import { win32 } from "node:path";
 import { getProcessStartId } from "./session-lease.js";
 
-export const ORPHAN_PROCESS_JOURNAL_ENV = "PRIME_AGENT_INTERNAL_ORPHAN_PROCESS_JOURNAL";
+export const ORPHAN_PROCESS_JOURNAL_ENV = "AMIDE_INTERNAL_ORPHAN_PROCESS_JOURNAL";
 
 interface OrphanProcessRecord {
 	version: 1;

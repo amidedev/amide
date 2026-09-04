@@ -15,7 +15,7 @@ const completionPath = requireEnvironment("ENG_4606_COMPLETION_PATH");
 const pidPath = requireEnvironment("ENG_4606_PID_PATH");
 const socketPath = requireEnvironment("ENG_4606_SOCKET_PATH");
 const tsxPath = requireEnvironment("ENG_4606_TSX_PATH");
-const originActiveSessionId = requireEnvironment("PRIME_AGENT_INTERNAL_DAEMON_WORKER_ACTIVE_SESSION_ID");
+const originActiveSessionId = requireEnvironment("AMIDE_INTERNAL_DAEMON_WORKER_ACTIVE_SESSION_ID");
 
 process.argv[1] = cliPath;
 process.execArgv.splice(0, process.execArgv.length, tsxPath);

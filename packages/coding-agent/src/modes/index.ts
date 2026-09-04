@@ -4,11 +4,11 @@
 
 export {
 	type AcpModeOptions,
+	AMIDE_META_NAMESPACE,
 	acpStopReason,
 	acpToolKind,
 	acpUpdatesForSessionEvent,
 	bashToolCallId,
-	PRIME_AGENT_META_NAMESPACE,
 	primeAgentMeta,
 	runAcpMode,
 	runAcpModeWithConnection,

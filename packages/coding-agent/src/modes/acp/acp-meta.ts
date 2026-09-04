@@ -10,7 +10,7 @@
  */
 
 /** Reverse-domain namespace for every prime-agent `_meta` payload. */
-export const PRIME_AGENT_META_NAMESPACE = "ai.primeintellect.prime-agent";
+export const AMIDE_META_NAMESPACE = "ai.primeintellect.prime-agent";
 
 export interface PrimeAgentSubagentMeta {
 	id: string;
@@ -128,5 +128,5 @@ export interface PrimeAgentSessionMeta {
 
 /** Wrap a prime-agent payload in its reverse-domain `_meta` envelope. */
 export function primeAgentMeta(payload: PrimeAgentSessionMeta): Record<string, unknown> {
-	return { [PRIME_AGENT_META_NAMESPACE]: payload };
+	return { [AMIDE_META_NAMESPACE]: payload };
 }

@@ -9500,7 +9500,7 @@ export class AgentSession {
 
 	private _addWebsearchKeyEnv(env: Record<string, string>): void {
 		if (this._agentDir) {
-			env.PRIME_AGENT_CODING_AGENT_DIR = this._agentDir;
+			env.AMIDE_CODING_AGENT_DIR = this._agentDir;
 		}
 
 		if (process.env[SERPER_ENV_VAR]?.trim()) {

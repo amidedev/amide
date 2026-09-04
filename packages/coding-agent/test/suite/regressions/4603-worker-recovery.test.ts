@@ -95,7 +95,7 @@ const fauxExtensionPath = resolve(__dirname, "../../fixtures/eng-4600-faux-exten
 const cliPath = resolve(__dirname, "../../../src/cli.ts");
 const tsxPath = resolve(__dirname, "../../../../../node_modules/tsx/dist/cli.mjs");
 const tsconfigPath = resolve(__dirname, "../../../../../tsconfig.json");
-const supervisorRegistryDirEnv = "PRIME_AGENT_INTERNAL_DAEMON_SUPERVISOR_REGISTRY_DIR";
+const supervisorRegistryDirEnv = "AMIDE_INTERNAL_DAEMON_SUPERVISOR_REGISTRY_DIR";
 const handles = new Set<ProcessHandle>();
 const harnesses: Harness[] = [];
 const socketTempDirs = new Set<string>();
@@ -808,7 +808,7 @@ describe("ENG-4603 worker recovery convergence", () => {
 					noTools: true,
 					provider: "faux",
 				},
-				launchEnv: { PRIME_AGENT_TEST_FRESH_CONTEXT: "1" },
+				launchEnv: { AMIDE_TEST_FRESH_CONTEXT: "1" },
 			},
 			60_000,
 		);

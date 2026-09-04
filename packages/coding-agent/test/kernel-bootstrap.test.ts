@@ -153,8 +153,8 @@ describe("kernel bootstrap", () => {
 		tempDir = mkdtempSync(join(tmpdir(), "prime-agent-kernel-bootstrap-"));
 		process.env.HOME = tempDir;
 		process.env.PATH = originalEnv.PATH ?? "";
-		delete process.env.PRIME_AGENT_KERNEL_PYTHON;
-		delete process.env.PRIME_AGENT_KERNEL_VENV;
+		delete process.env.AMIDE_KERNEL_PYTHON;
+		delete process.env.AMIDE_KERNEL_VENV;
 		delete process.env.XDG_DATA_HOME;
 	});
 
@@ -168,7 +168,7 @@ describe("kernel bootstrap", () => {
 
 	it("returns the configured kernel venv directory", () => {
 		const venv = join(tempDir, "custom-venv");
-		process.env.PRIME_AGENT_KERNEL_VENV = venv;
+		process.env.AMIDE_KERNEL_VENV = venv;
 
 		expect(getKernelVenvDir()).toBe(venv);
 	});
@@ -176,7 +176,7 @@ describe("kernel bootstrap", () => {
 	it("bootstraps a missing venv with uv, prime-agent-runtime, and default extra packages", async () => {
 		const logPath = installFakeUv();
 		const venv = join(tempDir, "kernel-venv");
-		process.env.PRIME_AGENT_KERNEL_VENV = venv;
+		process.env.AMIDE_KERNEL_VENV = venv;
 
 		await expect(ensureKernelPython()).resolves.toBe(join(venv, "bin", "python"));
 
@@ -205,7 +205,7 @@ describe("kernel bootstrap", () => {
 		installFakeUv();
 		const venv = join(tempDir, "kernel-venv");
 		const progress: string[] = [];
-		process.env.PRIME_AGENT_KERNEL_VENV = venv;
+		process.env.AMIDE_KERNEL_VENV = venv;
 		const stderrWrite = vi.spyOn(process.stderr, "write").mockImplementation(() => true);
 
 		try {
@@ -225,7 +225,7 @@ describe("kernel bootstrap", () => {
 		const logPath = installFakeUv();
 		const venv = join(tempDir, "kernel-venv");
 		const pythonSkill = createPythonSkill();
-		process.env.PRIME_AGENT_KERNEL_VENV = venv;
+		process.env.AMIDE_KERNEL_VENV = venv;
 
 		await expect(ensureKernelPython({ pythonSkills: [pythonSkill] })).resolves.toBe(join(venv, "bin", "python"));
 
@@ -247,7 +247,7 @@ describe("kernel bootstrap", () => {
 		const venv = join(tempDir, "kernel-venv");
 		const dependencySkill = createPythonSkill("agent-observe");
 		const dependentSkill = createPythonSkillWithDependency("orchestration-heartbeat", "agent-observe");
-		process.env.PRIME_AGENT_KERNEL_VENV = venv;
+		process.env.AMIDE_KERNEL_VENV = venv;
 
 		await expect(ensureKernelPython({ pythonSkills: [dependentSkill] })).resolves.toBe(join(venv, "bin", "python"));
 
@@ -286,7 +286,7 @@ version = "0.1.0"
 			"orchestration-heartbeat",
 			"prime-agent-skill-attach-image",
 		);
-		process.env.PRIME_AGENT_KERNEL_VENV = venv;
+		process.env.AMIDE_KERNEL_VENV = venv;
 
 		await expect(ensureKernelPython({ pythonSkills: [dependentSkill] })).resolves.toBe(join(venv, "bin", "python"));
 
@@ -300,7 +300,7 @@ version = "0.1.0"
 		const venv = join(tempDir, "kernel-venv");
 		const dependencySkill = createPythonSkill("gidgethub");
 		const dependentSkill = createPythonSkillWithDependency("orchestration-heartbeat", "gidgethub[httpx]>4.0.0");
-		process.env.PRIME_AGENT_KERNEL_VENV = venv;
+		process.env.AMIDE_KERNEL_VENV = venv;
 
 		await expect(ensureKernelPython({ pythonSkills: [dependentSkill] })).resolves.toBe(join(venv, "bin", "python"));
 
@@ -325,7 +325,7 @@ version = "0.1.0"
 dependencies = ["httpx"]
 `,
 		);
-		process.env.PRIME_AGENT_KERNEL_VENV = venv;
+		process.env.AMIDE_KERNEL_VENV = venv;
 
 		await expect(ensureKernelPython({ pythonSkills: [pythonSkill] })).resolves.toBe(python);
 
@@ -341,7 +341,7 @@ dependencies = ["httpx"]
 		const venv = join(tempDir, "kernel-venv");
 		const goodSkill = createPythonSkill("good-skill");
 		const brokenSkill = createPythonSkill("broken-skill");
-		process.env.PRIME_AGENT_KERNEL_VENV = venv;
+		process.env.AMIDE_KERNEL_VENV = venv;
 		process.env.UV_FAIL_ARG = brokenSkill.packagePath;
 
 		await expect(ensureKernelPython({ pythonSkills: [goodSkill, brokenSkill] })).resolves.toBe(
@@ -394,7 +394,7 @@ dependencies = ["httpx"]
 				],
 			})}\n`,
 		);
-		process.env.PRIME_AGENT_KERNEL_VENV = venv;
+		process.env.AMIDE_KERNEL_VENV = venv;
 
 		await expect(ensureKernelPython()).resolves.toBe(python);
 
@@ -405,7 +405,7 @@ dependencies = ["httpx"]
 		const logPath = installFakeUv();
 		const venv = join(tempDir, "kernel-venv");
 		const python = join(venv, "bin", "python");
-		process.env.PRIME_AGENT_KERNEL_VENV = venv;
+		process.env.AMIDE_KERNEL_VENV = venv;
 
 		await expect(Promise.all([ensureKernelPython(), ensureKernelPython()])).resolves.toEqual([python, python]);
 
@@ -419,7 +419,7 @@ dependencies = ["httpx"]
 		mkdirSync(join(venv, "bin"), { recursive: true });
 		writeFakePython(python, ["rlm", ...DEFAULT_RLM_EXTRA_IMPORT_NAMES]);
 		writeBootstrapVersion(venv);
-		process.env.PRIME_AGENT_KERNEL_VENV = venv;
+		process.env.AMIDE_KERNEL_VENV = venv;
 
 		await expect(ensureKernelPython()).resolves.toBe(python);
 	});
@@ -440,7 +440,7 @@ dependencies = ["httpx"]
 				pythonSkills: [],
 			})}\n`,
 		);
-		process.env.PRIME_AGENT_KERNEL_VENV = venv;
+		process.env.AMIDE_KERNEL_VENV = venv;
 
 		await expect(ensureKernelPython()).resolves.toBe(python);
 
@@ -469,7 +469,7 @@ dependencies = ["httpx"]
 			].join("\n"),
 		);
 		writeBootstrapVersion(venv);
-		process.env.PRIME_AGENT_KERNEL_VENV = venv;
+		process.env.AMIDE_KERNEL_VENV = venv;
 
 		await expect(ensureKernelPython()).resolves.toBe(python);
 
@@ -481,47 +481,47 @@ dependencies = ["httpx"]
 		const venv = join(tempDir, "kernel-venv");
 		mkdirSync(join(venv, "bin"), { recursive: true });
 		writeBootstrapVersion(venv);
-		process.env.PRIME_AGENT_KERNEL_VENV = venv;
+		process.env.AMIDE_KERNEL_VENV = venv;
 
 		await expect(ensureKernelPython()).resolves.toBe(join(venv, "bin", "python"));
 
 		expect(readFileSync(logPath, "utf8")).toContain(`venv ${venv} --python 3.11 --seed`);
 	});
 
-	it("uses PRIME_AGENT_KERNEL_PYTHON as an override contract", async () => {
+	it("uses AMIDE_KERNEL_PYTHON as an override contract", async () => {
 		const overridePython = join(tempDir, "override-python");
 		writeFakePython(overridePython, ["rlm", ...DEFAULT_RLM_EXTRA_IMPORT_NAMES]);
-		process.env.PRIME_AGENT_KERNEL_PYTHON = overridePython;
+		process.env.AMIDE_KERNEL_PYTHON = overridePython;
 
 		await expect(ensureKernelPython()).resolves.toBe(overridePython);
 	});
 
-	it("allows PRIME_AGENT_KERNEL_PYTHON missing Python skill imports", async () => {
+	it("allows AMIDE_KERNEL_PYTHON missing Python skill imports", async () => {
 		const overridePython = join(tempDir, "override-python");
 		const pythonSkill = createPythonSkill();
 		writeFakePython(overridePython, ["rlm", ...DEFAULT_RLM_EXTRA_IMPORT_NAMES]);
-		process.env.PRIME_AGENT_KERNEL_PYTHON = overridePython;
+		process.env.AMIDE_KERNEL_PYTHON = overridePython;
 
 		await expect(ensureKernelPython({ pythonSkills: [pythonSkill] })).resolves.toBe(overridePython);
 	});
 
-	it("rejects PRIME_AGENT_KERNEL_PYTHON missing default extra packages", async () => {
+	it("rejects AMIDE_KERNEL_PYTHON missing default extra packages", async () => {
 		const overridePython = join(tempDir, "override-python");
 		writeFakePython(overridePython, ["rlm", ...DEFAULT_RLM_EXTRA_IMPORT_NAMES.filter((name) => name !== "yaml")]);
-		process.env.PRIME_AGENT_KERNEL_PYTHON = overridePython;
+		process.env.AMIDE_KERNEL_PYTHON = overridePython;
 
 		await expect(ensureKernelPython()).rejects.toThrow(/default Python packages \(yaml \(PyYAML\)\)/);
 	});
 
-	it("rejects PRIME_AGENT_KERNEL_PYTHON with a stale rlm runtime", async () => {
+	it("rejects AMIDE_KERNEL_PYTHON with a stale rlm runtime", async () => {
 		const overridePython = join(tempDir, "override-python");
 		writeFakePython(overridePython, ["dill"]);
-		process.env.PRIME_AGENT_KERNEL_PYTHON = overridePython;
+		process.env.AMIDE_KERNEL_PYTHON = overridePython;
 
 		await expect(ensureKernelPython()).rejects.toThrow(/current prime-agent-runtime with callable rlm\.run/);
 	});
 
-	it("rejects PRIME_AGENT_KERNEL_PYTHON with a legacy harness API", async () => {
+	it("rejects AMIDE_KERNEL_PYTHON with a legacy harness API", async () => {
 		const overridePython = join(tempDir, "override-python");
 		writeExecutable(
 			overridePython,
@@ -539,16 +539,16 @@ dependencies = ["httpx"]
 				"",
 			].join("\n"),
 		);
-		process.env.PRIME_AGENT_KERNEL_PYTHON = overridePython;
+		process.env.AMIDE_KERNEL_PYTHON = overridePython;
 
 		await expect(ensureKernelPython()).rejects.toThrow(/current prime-agent-runtime with callable rlm\.run/);
 	});
 
-	it("fails an invalid PRIME_AGENT_KERNEL_PYTHON without bootstrapping", async () => {
+	it("fails an invalid AMIDE_KERNEL_PYTHON without bootstrapping", async () => {
 		const overridePython = join(tempDir, "override-python");
 		writeFakePython(overridePython, []);
-		process.env.PRIME_AGENT_KERNEL_PYTHON = overridePython;
+		process.env.AMIDE_KERNEL_PYTHON = overridePython;
 
-		await expect(ensureKernelPython()).rejects.toThrow(/PRIME_AGENT_KERNEL_PYTHON points to a Python missing/);
+		await expect(ensureKernelPython()).rejects.toThrow(/AMIDE_KERNEL_PYTHON points to a Python missing/);
 	});
 });

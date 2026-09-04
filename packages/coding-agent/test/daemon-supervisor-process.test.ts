@@ -32,7 +32,7 @@ const children = new Set<ChildProcess>();
 const workerPids = new Set<number>();
 const daemonSockets = new Set<string>();
 const childDiagnostics = new WeakMap<ChildProcess, { stdout: string; stderr: string }>();
-const PROCESS_STRESS_WORKERS = Number.parseInt(process.env.PRIME_AGENT_STRESS_WORKERS ?? "10", 10);
+const PROCESS_STRESS_WORKERS = Number.parseInt(process.env.AMIDE_STRESS_WORKERS ?? "10", 10);
 
 afterEach(async () => {
 	for (const socketPath of daemonSockets) {
@@ -606,7 +606,7 @@ describe("daemon supervisor resident workers", () => {
 			type: "create",
 			sessionPath: sessionFile,
 			lifecycle: "client_owned",
-			launchEnv: { PRIME_AGENT_OWNED_TEST: launchEnvSentinel },
+			launchEnv: { AMIDE_OWNED_TEST: launchEnvSentinel },
 			config: { cwd: projectDir, agentDir, sessionDir, noTools: true, noExtensions: true },
 		});
 		expect(created.success).toBe(true);
@@ -1615,7 +1615,7 @@ describe("daemon supervisor resident workers", () => {
 			sessionPath: sessionFile,
 			continueRecent: false,
 			config: { cwd: projectDir, agentDir, sessionDir, noTools: true, noExtensions: true },
-			launchEnv: { PRIME_AGENT_TEST_FRESH_CONTEXT: "1" },
+			launchEnv: { AMIDE_TEST_FRESH_CONTEXT: "1" },
 		});
 		if (!reopened.success) throw new Error(reopened.error);
 		const recovered = requireSummary(reopened.data);

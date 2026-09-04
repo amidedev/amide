@@ -208,7 +208,7 @@ export function isTelemetryEnabled(settingsManager: SettingsManager): boolean {
 	if (parseBooleanOverride(process.env.DO_NOT_TRACK) === true) {
 		return false;
 	}
-	const override = parseBooleanOverride(process.env.PRIME_AGENT_TELEMETRY);
+	const override = parseBooleanOverride(process.env.AMIDE_TELEMETRY);
 	if (override !== undefined) {
 		return override;
 	}
@@ -321,7 +321,7 @@ export class TelemetryClient implements TelemetrySink {
 	private disabled = false;
 
 	constructor(private readonly options: TelemetryClientOptions) {
-		this.endpoint = options.endpoint ?? process.env.PRIME_AGENT_TELEMETRY_ENDPOINT ?? DEFAULT_TELEMETRY_ENDPOINT;
+		this.endpoint = options.endpoint ?? process.env.AMIDE_TELEMETRY_ENDPOINT ?? DEFAULT_TELEMETRY_ENDPOINT;
 		this.fetchImpl = options.fetch ?? fetch;
 		this.now = options.now ?? Date.now;
 		this.randomId = options.randomId ?? randomUUID;

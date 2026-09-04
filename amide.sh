@@ -2,24 +2,24 @@
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-export PRIME_AGENT_LAUNCHER_PATH="$SCRIPT_DIR/prime-agent.sh"
+export AMIDE_LAUNCHER_PATH="$SCRIPT_DIR/amide.sh"
 # Isolate this fork's Python kernel venv from a real Prime Agent install's
 # ~/.prime/agent/kernel-venv. getKernelVenvDir() in
 # packages/coding-agent/src/core/kernel/bootstrap.ts doesn't derive from
 # piConfig/getAgentDir() (it's a separate, independently hardcoded path), so
 # it needs its own override here rather than a source change to Prime's
 # kernel bootstrap. Respects an explicit user override if already set.
-: "${PRIME_AGENT_KERNEL_VENV:="$HOME/.acryl-padsh/agent/kernel-venv"}"
-export PRIME_AGENT_KERNEL_VENV
+: "${AMIDE_KERNEL_VENV:="$HOME/.amide/agent/kernel-venv"}"
+export AMIDE_KERNEL_VENV
 # Same problem, same fix, for the daemon socket dir: defaultDaemonSocketDir()
 # in packages/coding-agent/src/modes/daemon/daemon-socket.ts hardcodes
 # $TMPDIR/prime-agent-<uid>, shared with a real Prime Agent install's daemon.
 # That's not just a config-file collision, it's the same running daemon
 # process and in-memory session state.
-: "${PRIME_AGENT_DAEMON_SOCKET_DIR:="${TMPDIR:-/tmp}/acryl-padsh-$(id -u 2>/dev/null || echo user)"}"
-export PRIME_AGENT_DAEMON_SOCKET_DIR
+: "${AMIDE_DAEMON_SOCKET_DIR:="${TMPDIR:-/tmp}/amide-$(id -u 2>/dev/null || echo user)"}"
+export AMIDE_DAEMON_SOCKET_DIR
 if BUILD_ID="$(git -C "$SCRIPT_DIR" describe --tags --always --dirty 2>/dev/null)"; then
-  export PRIME_AGENT_BUILD_ID="$BUILD_ID"
+  export AMIDE_BUILD_ID="$BUILD_ID"
 fi
 
 # Check for --no-env / --dist flags

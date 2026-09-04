@@ -54,7 +54,7 @@ script preserves the caller's working directory, so it can be run against a
 separate test project from anywhere:
 
 ```bash
-/path/to/acryl-padsh/prime-agent.sh
+/path/to/acryl-padsh/amide.sh
 ```
 
 For Prime Agent's own public releases (not this fork), see

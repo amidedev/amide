@@ -22,7 +22,7 @@ cd prime-agent
 npm ci
 
 # Run Prime Agent
-./prime-agent.sh
+./amide.sh
 ```
 
 ## Clipboard Support

@@ -94,7 +94,7 @@ describe("public command routing", () => {
 	it("rejects extra attach operands", async () => {
 		await expect(handlePublicCommand(["attach", "worker", "extra"])).resolves.toMatchObject({ handled: true });
 		expect(process.exitCode).toBe(1);
-		expect(console.error).toHaveBeenCalledWith(expect.stringContaining("acryl-padsh attach <agent>"));
+		expect(console.error).toHaveBeenCalledWith(expect.stringContaining("amide attach <agent>"));
 	});
 
 	it("rejects conflicting session selectors when attaching", async () => {
@@ -187,7 +187,7 @@ describe("public command routing", () => {
 		}
 
 		expect(mocks.packageCommands).toEqual([]);
-		expect(console.error).toHaveBeenCalledWith(expect.stringContaining('Use "acryl-padsh update [--force]"'));
+		expect(console.error).toHaveBeenCalledWith(expect.stringContaining('Use "amide update [--force]"'));
 	});
 
 	it("directs legacy package-update forms to the package command", async () => {
@@ -196,7 +196,7 @@ describe("public command routing", () => {
 		await handlePublicCommand(["update", "--extension", "npm:@example/tools"]);
 
 		expect(mocks.packageCommands).toEqual([]);
-		expect(console.error).toHaveBeenCalledWith(expect.stringContaining('Use "acryl-padsh package update [source]"'));
+		expect(console.error).toHaveBeenCalledWith(expect.stringContaining('Use "amide package update [source]"'));
 	});
 
 	it("explains that combined legacy updates are now separate", async () => {
@@ -219,7 +219,7 @@ describe("public command routing", () => {
 		await handlePublicCommand(["package", "uninstall", "npm:@example/tools"]);
 
 		expect(mocks.packageCommands).toEqual([]);
-		expect(console.error).toHaveBeenCalledWith(expect.stringContaining('Use "acryl-padsh package remove"'));
+		expect(console.error).toHaveBeenCalledWith(expect.stringContaining('Use "amide package remove"'));
 		expect(console.error).not.toHaveBeenCalledWith(expect.stringContaining("package install"));
 	});
 
@@ -251,7 +251,7 @@ describe("public command routing", () => {
 		await handlePublicCommand(["package", "list", "ignored-source"]);
 
 		expect(mocks.packageCommands).toEqual([]);
-		expect(console.error).toHaveBeenCalledWith(expect.stringContaining("acryl-padsh package list"));
+		expect(console.error).toHaveBeenCalledWith(expect.stringContaining("amide package list"));
 	});
 
 	it("uses force only when explicitly requested for full shutdown", async () => {
@@ -324,9 +324,9 @@ describe("public command routing", () => {
 		await handlePublicCommand(["doctor", "--fix", "--help"]);
 		await handlePublicCommand(["package", "install", "--local", "--help"]);
 
-		expect(console.log).toHaveBeenNthCalledWith(1, expect.stringContaining("acryl-padsh list [--all] [--json]"));
-		expect(console.log).toHaveBeenNthCalledWith(2, expect.stringContaining("acryl-padsh doctor [--fix] [--json]"));
-		expect(console.log).toHaveBeenNthCalledWith(3, expect.stringContaining("acryl-padsh package install <source>"));
+		expect(console.log).toHaveBeenNthCalledWith(1, expect.stringContaining("amide list [--all] [--json]"));
+		expect(console.log).toHaveBeenNthCalledWith(2, expect.stringContaining("amide doctor [--fix] [--json]"));
+		expect(console.log).toHaveBeenNthCalledWith(3, expect.stringContaining("amide package install <source>"));
 		expect(console.error).not.toHaveBeenCalled();
 	});
 

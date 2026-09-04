@@ -6,7 +6,7 @@ Example extensions for Prime Agent.
 
 ```bash
 # From the repository root, load an extension with --extension
-./prime-agent.sh --extension packages/coding-agent/examples/extensions/permission-gate.ts
+./amide.sh --extension packages/coding-agent/examples/extensions/permission-gate.ts
 
 # Or copy to extensions directory for auto-discovery
 cp permission-gate.ts ~/.prime/agent/extensions/

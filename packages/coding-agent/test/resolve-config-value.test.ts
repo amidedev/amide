@@ -5,7 +5,7 @@ import {
 	resolveConfigValueUncached,
 } from "../src/core/resolve-config-value.js";
 
-const VAR = "PRIME_AGENT_TEST_CREDENTIAL_VAR";
+const VAR = "AMIDE_TEST_CREDENTIAL_VAR";
 
 describe("resolveConfigValue env fallback", () => {
 	beforeEach(() => {

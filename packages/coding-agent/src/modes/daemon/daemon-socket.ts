@@ -277,7 +277,7 @@ function assertSocketLeaseHeld(socketPath: string, lease: DaemonSocketPathLease)
 }
 
 export function defaultDaemonSocketDir(): string {
-	const override = process.env.PRIME_AGENT_DAEMON_SOCKET_DIR;
+	const override = process.env.AMIDE_DAEMON_SOCKET_DIR;
 	// Normalize: ensureDefaultDaemonSocketDir() compares this against
 	// dirname(join(defaultDaemonSocketDir(), "daemon.sock")), which node:path
 	// always normalizes. An unnormalized override (e.g. a double slash from

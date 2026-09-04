@@ -256,7 +256,7 @@ export class ReplKernelManager {
 			env: {
 				...process.env,
 				...this.options.env,
-				PRIME_AGENT_KERNEL_OWNER_PID: String(process.pid),
+				AMIDE_KERNEL_OWNER_PID: String(process.pid),
 			},
 			stdio: ["pipe", "pipe", "pipe"],
 		});
@@ -276,7 +276,7 @@ export class ReplKernelManager {
 			if (protocol !== REPL_PROTOCOL_VERSION) {
 				throw new Error(
 					`Kernel runtime speaks protocol ${protocol}, expected ${REPL_PROTOCOL_VERSION}. ` +
-						"Update prime-agent-runtime in the kernel Python (PRIME_AGENT_KERNEL_PYTHON) to match this prime-agent.",
+						"Update prime-agent-runtime in the kernel Python (AMIDE_KERNEL_PYTHON) to match this prime-agent.",
 				);
 			}
 		} catch (e) {

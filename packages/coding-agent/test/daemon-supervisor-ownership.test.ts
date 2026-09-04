@@ -20,7 +20,7 @@ interface OwnerRecord {
 	[key: string]: unknown;
 }
 
-const registryDirEnv = "PRIME_AGENT_INTERNAL_DAEMON_SUPERVISOR_REGISTRY_DIR";
+const registryDirEnv = "AMIDE_INTERNAL_DAEMON_SUPERVISOR_REGISTRY_DIR";
 const previousRegistryDirEnv = process.env[registryDirEnv];
 const cleanupDirs: string[] = [];
 

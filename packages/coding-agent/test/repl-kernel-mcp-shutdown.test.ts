@@ -9,7 +9,7 @@ const runtimePython = resolve("../../prime-agent-runtime/.venv/bin/python");
 const fallbackPython = join(homedir(), ".prime", "agent", "kernel-venv", "bin", "python");
 
 function resolveKernelPython(): string | null {
-	for (const python of [process.env.PRIME_AGENT_KERNEL_PYTHON, runtimePython, fallbackPython]) {
+	for (const python of [process.env.AMIDE_KERNEL_PYTHON, runtimePython, fallbackPython]) {
 		if (!python || !existsSync(python)) continue;
 		const check = spawnSync(python, ["-c", "import rlm.repl, mcp, rlm"], { encoding: "utf8" });
 		if (check.status === 0) return python;

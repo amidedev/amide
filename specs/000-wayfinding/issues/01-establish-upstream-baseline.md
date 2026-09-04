@@ -73,7 +73,7 @@ All six acceptance items confirmed by the user in a real TTY:
   `RLM: callable (_RLMCallable)`.
 - `rlm()` available (same self-test).
 - `/reload` round-trips without error.
-- Daemon attach works: a second terminal's `./prime-agent.sh agents` (the
+- Daemon attach works: a second terminal's `./amide.sh agents` (the
   session-manager view) correctly showed sessions started from a first
   terminal — running/idle/inactive states, token/cost stats, all accurate
   and shared across terminals against the isolated `~/.amide/agent`
@@ -91,7 +91,7 @@ was previously masked because, before the isolation fix, this fork shared
 a socket with any real Prime Agent daemon already running on the machine,
 so a fresh spawn was never actually exercised. Confirmed as a narrower
 bug, not a blocker: if any daemon already exists (e.g. from a normal
-interactive `./prime-agent.sh` session, which starts one as a side
+interactive `./amide.sh` session, which starts one as a side
 effect), `agents`/`list`/`attach` all work correctly and share state
 across terminals as expected. Worth its own ticket before Milestone 0's
 work is considered fully polished, but does not block Milestone 1.

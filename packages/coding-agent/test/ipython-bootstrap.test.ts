@@ -46,7 +46,7 @@ describe("RLM bootstrap", () => {
 
 		expect(code).toContain("except Exception as _prime_agent_skill_error");
 		expect(code).toContain("_PrimeAgentUnavailableSkill");
-		expect(code).toContain("_PRIME_AGENT_SKILL_IMPORT_ERRORS");
+		expect(code).toContain("_AMIDE_SKILL_IMPORT_ERRORS");
 		expect(code).toContain("globals()[_prime_agent_skill_name] = _PrimeAgentUnavailableSkill");
 	});
 });
@@ -54,7 +54,7 @@ describe("RLM bootstrap", () => {
 /** Find a python with a current rlm runtime, or null to skip. */
 function resolveKernelPython(): string | null {
 	const candidates = [
-		process.env.PRIME_AGENT_KERNEL_PYTHON,
+		process.env.AMIDE_KERNEL_PYTHON,
 		resolve(__dirname, "..", "..", "..", "prime-agent-runtime", ".venv", "bin", "python"),
 		join(homedir(), ".prime", "agent", "kernel-venv", "bin", "python"),
 	].filter((p): p is string => Boolean(p));

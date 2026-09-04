@@ -925,8 +925,8 @@ describe("AgentSession queue characterization", () => {
 		}) => {
 			const harness = await createAutoRefineHarness();
 			harnesses.push(harness);
-			const previousAgentDir = process.env.PRIME_AGENT_CODING_AGENT_DIR;
-			process.env.PRIME_AGENT_CODING_AGENT_DIR = `${harness.tempDir}/agent`;
+			const previousAgentDir = process.env.AMIDE_CODING_AGENT_DIR;
+			process.env.AMIDE_CODING_AGENT_DIR = `${harness.tempDir}/agent`;
 			try {
 				const globalDir = getGlobalHarnessStateDir();
 				const localDir = getLocalHarnessStateDir(harness.sessionManager.getSessionArtifactDir())!;
@@ -971,9 +971,9 @@ describe("AgentSession queue characterization", () => {
 				}
 			} finally {
 				if (previousAgentDir === undefined) {
-					delete process.env.PRIME_AGENT_CODING_AGENT_DIR;
+					delete process.env.AMIDE_CODING_AGENT_DIR;
 				} else {
-					process.env.PRIME_AGENT_CODING_AGENT_DIR = previousAgentDir;
+					process.env.AMIDE_CODING_AGENT_DIR = previousAgentDir;
 				}
 			}
 		},
@@ -983,8 +983,8 @@ describe("AgentSession queue characterization", () => {
 		const original = await createAutoRefineHarness();
 		const branched = await createAutoRefineHarness();
 		harnesses.push(original, branched);
-		const previousAgentDir = process.env.PRIME_AGENT_CODING_AGENT_DIR;
-		process.env.PRIME_AGENT_CODING_AGENT_DIR = `${original.tempDir}/agent`;
+		const previousAgentDir = process.env.AMIDE_CODING_AGENT_DIR;
+		process.env.AMIDE_CODING_AGENT_DIR = `${original.tempDir}/agent`;
 		try {
 			const originalLocalDir = getLocalHarnessStateDir(original.sessionManager.getSessionArtifactDir())!;
 			const branchedLocalDir = getLocalHarnessStateDir(branched.sessionManager.getSessionArtifactDir())!;
@@ -1036,9 +1036,9 @@ describe("AgentSession queue characterization", () => {
 			);
 		} finally {
 			if (previousAgentDir === undefined) {
-				delete process.env.PRIME_AGENT_CODING_AGENT_DIR;
+				delete process.env.AMIDE_CODING_AGENT_DIR;
 			} else {
-				process.env.PRIME_AGENT_CODING_AGENT_DIR = previousAgentDir;
+				process.env.AMIDE_CODING_AGENT_DIR = previousAgentDir;
 			}
 		}
 	});
@@ -1046,8 +1046,8 @@ describe("AgentSession queue characterization", () => {
 	it("records a durable refinement outcome while preserving a concurrent prompt result", async () => {
 		const harness = await createAutoRefineHarness();
 		harnesses.push(harness);
-		const previousAgentDir = process.env.PRIME_AGENT_CODING_AGENT_DIR;
-		process.env.PRIME_AGENT_CODING_AGENT_DIR = `${harness.tempDir}/agent`;
+		const previousAgentDir = process.env.AMIDE_CODING_AGENT_DIR;
+		process.env.AMIDE_CODING_AGENT_DIR = `${harness.tempDir}/agent`;
 		try {
 			const planGate = createDeferred();
 			const planStartedPromise = createDeferred();
@@ -1112,9 +1112,9 @@ describe("AgentSession queue characterization", () => {
 			expect(persistedAssistants).toHaveLength(1);
 		} finally {
 			if (previousAgentDir === undefined) {
-				delete process.env.PRIME_AGENT_CODING_AGENT_DIR;
+				delete process.env.AMIDE_CODING_AGENT_DIR;
 			} else {
-				process.env.PRIME_AGENT_CODING_AGENT_DIR = previousAgentDir;
+				process.env.AMIDE_CODING_AGENT_DIR = previousAgentDir;
 			}
 		}
 	});
@@ -1122,8 +1122,8 @@ describe("AgentSession queue characterization", () => {
 	it("keeps an unpersisted refinement outcome when the refinement audit append fails", async () => {
 		const harness = await createAutoRefineHarness();
 		harnesses.push(harness);
-		const previousAgentDir = process.env.PRIME_AGENT_CODING_AGENT_DIR;
-		process.env.PRIME_AGENT_CODING_AGENT_DIR = `${harness.tempDir}/agent`;
+		const previousAgentDir = process.env.AMIDE_CODING_AGENT_DIR;
+		process.env.AMIDE_CODING_AGENT_DIR = `${harness.tempDir}/agent`;
 		try {
 			harness.setResponses([fauxAssistantMessage(refinePlanJson("no-op"))]);
 			const auditAppendError = new Error("audit write failed");
@@ -1143,9 +1143,9 @@ describe("AgentSession queue characterization", () => {
 			expect(harness.session.buildSessionContext().messages.some(isRefinementOutcomeMessage)).toBe(true);
 		} finally {
 			if (previousAgentDir === undefined) {
-				delete process.env.PRIME_AGENT_CODING_AGENT_DIR;
+				delete process.env.AMIDE_CODING_AGENT_DIR;
 			} else {
-				process.env.PRIME_AGENT_CODING_AGENT_DIR = previousAgentDir;
+				process.env.AMIDE_CODING_AGENT_DIR = previousAgentDir;
 			}
 		}
 	});
@@ -1153,8 +1153,8 @@ describe("AgentSession queue characterization", () => {
 	it("keeps an unpersisted refinement outcome across context rebuilds", async () => {
 		const harness = await createAutoRefineHarness();
 		harnesses.push(harness);
-		const previousAgentDir = process.env.PRIME_AGENT_CODING_AGENT_DIR;
-		process.env.PRIME_AGENT_CODING_AGENT_DIR = `${harness.tempDir}/agent`;
+		const previousAgentDir = process.env.AMIDE_CODING_AGENT_DIR;
+		process.env.AMIDE_CODING_AGENT_DIR = `${harness.tempDir}/agent`;
 		try {
 			harness.setResponses([fauxAssistantMessage(refinePlanJson("no-op"))]);
 			vi.spyOn(harness.sessionManager, "appendCustomMessageEntryWithRollback").mockImplementationOnce(() => {
@@ -1174,9 +1174,9 @@ describe("AgentSession queue characterization", () => {
 			expect(harness.session.buildSessionContext().messages.some(isRefinementOutcomeMessage)).toBe(true);
 		} finally {
 			if (previousAgentDir === undefined) {
-				delete process.env.PRIME_AGENT_CODING_AGENT_DIR;
+				delete process.env.AMIDE_CODING_AGENT_DIR;
 			} else {
-				process.env.PRIME_AGENT_CODING_AGENT_DIR = previousAgentDir;
+				process.env.AMIDE_CODING_AGENT_DIR = previousAgentDir;
 			}
 		}
 	});
@@ -1184,8 +1184,8 @@ describe("AgentSession queue characterization", () => {
 	it("preserves a same-entry harness write made during background planning", async () => {
 		const harness = await createAutoRefineHarness();
 		harnesses.push(harness);
-		const previousAgentDir = process.env.PRIME_AGENT_CODING_AGENT_DIR;
-		process.env.PRIME_AGENT_CODING_AGENT_DIR = `${harness.tempDir}/agent`;
+		const previousAgentDir = process.env.AMIDE_CODING_AGENT_DIR;
+		process.env.AMIDE_CODING_AGENT_DIR = `${harness.tempDir}/agent`;
 		try {
 			const localDir = getLocalHarnessStateDir(harness.sessionManager.getSessionArtifactDir())!;
 			const initialState = loadHarnessState(localDir, "local");
@@ -1255,9 +1255,9 @@ describe("AgentSession queue characterization", () => {
 			expect(loadHarnessState(localDir, "local").entries.memory.shared.content).toBe("concurrent kernel content");
 		} finally {
 			if (previousAgentDir === undefined) {
-				delete process.env.PRIME_AGENT_CODING_AGENT_DIR;
+				delete process.env.AMIDE_CODING_AGENT_DIR;
 			} else {
-				process.env.PRIME_AGENT_CODING_AGENT_DIR = previousAgentDir;
+				process.env.AMIDE_CODING_AGENT_DIR = previousAgentDir;
 			}
 		}
 	});
@@ -1265,8 +1265,8 @@ describe("AgentSession queue characterization", () => {
 	it("rolls back a local refinement in a non-persisted session via the recorded state path", async () => {
 		const harness = await createHarness();
 		harnesses.push(harness);
-		const previousAgentDir = process.env.PRIME_AGENT_CODING_AGENT_DIR;
-		process.env.PRIME_AGENT_CODING_AGENT_DIR = `${harness.tempDir}/agent`;
+		const previousAgentDir = process.env.AMIDE_CODING_AGENT_DIR;
+		process.env.AMIDE_CODING_AGENT_DIR = `${harness.tempDir}/agent`;
 		try {
 			const recordedDir = join(harness.tempDir, "recorded-local", "harness");
 			const recordedState = loadHarnessState(recordedDir, "local");
@@ -1297,9 +1297,9 @@ describe("AgentSession queue characterization", () => {
 			expect(loadHarnessState(recordedDir, "local").entries.memory.remember_me).toBeUndefined();
 		} finally {
 			if (previousAgentDir === undefined) {
-				delete process.env.PRIME_AGENT_CODING_AGENT_DIR;
+				delete process.env.AMIDE_CODING_AGENT_DIR;
 			} else {
-				process.env.PRIME_AGENT_CODING_AGENT_DIR = previousAgentDir;
+				process.env.AMIDE_CODING_AGENT_DIR = previousAgentDir;
 			}
 		}
 	});
@@ -1307,8 +1307,8 @@ describe("AgentSession queue characterization", () => {
 	it("keeps a legacy scope-less rollback in the global store with global scope", async () => {
 		const harness = await createAutoRefineHarness();
 		harnesses.push(harness);
-		const previousAgentDir = process.env.PRIME_AGENT_CODING_AGENT_DIR;
-		process.env.PRIME_AGENT_CODING_AGENT_DIR = `${harness.tempDir}/agent`;
+		const previousAgentDir = process.env.AMIDE_CODING_AGENT_DIR;
+		process.env.AMIDE_CODING_AGENT_DIR = `${harness.tempDir}/agent`;
 		try {
 			const globalDir = getGlobalHarnessStateDir();
 			const timestamp = new Date().toISOString();
@@ -1375,9 +1375,9 @@ describe("AgentSession queue characterization", () => {
 			expect(rollbackRecord?.scope).toBe("global");
 		} finally {
 			if (previousAgentDir === undefined) {
-				delete process.env.PRIME_AGENT_CODING_AGENT_DIR;
+				delete process.env.AMIDE_CODING_AGENT_DIR;
 			} else {
-				process.env.PRIME_AGENT_CODING_AGENT_DIR = previousAgentDir;
+				process.env.AMIDE_CODING_AGENT_DIR = previousAgentDir;
 			}
 		}
 	});
@@ -2697,8 +2697,8 @@ describe("AgentSession queue characterization", () => {
 	it("does not emit refine_failed when only the result-row persist fails after a successful refine", async () => {
 		const harness = await createAutoRefineHarness();
 		harnesses.push(harness);
-		const previousAgentDir = process.env.PRIME_AGENT_CODING_AGENT_DIR;
-		process.env.PRIME_AGENT_CODING_AGENT_DIR = `${harness.tempDir}/agent`;
+		const previousAgentDir = process.env.AMIDE_CODING_AGENT_DIR;
+		process.env.AMIDE_CODING_AGENT_DIR = `${harness.tempDir}/agent`;
 		try {
 			harness.setResponses([fauxAssistantMessage("one"), fauxAssistantMessage(refinePlanJson("no-op"))]);
 			await harness.session.prompt("one");
@@ -2718,9 +2718,9 @@ describe("AgentSession queue characterization", () => {
 			expect(harness.session.messages.find(isRefinementOutcomeMessage)?.details.summary).toBe("no-op");
 		} finally {
 			if (previousAgentDir === undefined) {
-				delete process.env.PRIME_AGENT_CODING_AGENT_DIR;
+				delete process.env.AMIDE_CODING_AGENT_DIR;
 			} else {
-				process.env.PRIME_AGENT_CODING_AGENT_DIR = previousAgentDir;
+				process.env.AMIDE_CODING_AGENT_DIR = previousAgentDir;
 			}
 		}
 	});
@@ -3548,8 +3548,8 @@ describe("AgentSession scheduler scenarios", () => {
 			autoRefineReviewer: reviewer,
 		});
 		harnesses.push(harness);
-		const previousAgentDir = process.env.PRIME_AGENT_CODING_AGENT_DIR;
-		process.env.PRIME_AGENT_CODING_AGENT_DIR = `${harness.tempDir}/agent`;
+		const previousAgentDir = process.env.AMIDE_CODING_AGENT_DIR;
+		process.env.AMIDE_CODING_AGENT_DIR = `${harness.tempDir}/agent`;
 		try {
 			const localDir = getLocalHarnessStateDir(harness.sessionManager.getSessionArtifactDir())!;
 			const memoryIds = () => {
@@ -3616,9 +3616,9 @@ describe("AgentSession scheduler scenarios", () => {
 			expect(harness.getPendingResponseCount()).toBe(0);
 		} finally {
 			if (previousAgentDir === undefined) {
-				delete process.env.PRIME_AGENT_CODING_AGENT_DIR;
+				delete process.env.AMIDE_CODING_AGENT_DIR;
 			} else {
-				process.env.PRIME_AGENT_CODING_AGENT_DIR = previousAgentDir;
+				process.env.AMIDE_CODING_AGENT_DIR = previousAgentDir;
 			}
 		}
 	});

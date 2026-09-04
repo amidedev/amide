@@ -12,7 +12,7 @@ import type { ExtensionAPI } from "../../src/index.js";
  * The test reads the file after the CLI exits and checks the sequence.
  */
 export default function registerEng4685EventOrder(pi: ExtensionAPI): void {
-	const eventLogPath = process.env.PRIME_AGENT_TEST_EVENT_LOG;
+	const eventLogPath = process.env.AMIDE_TEST_EVENT_LOG;
 	if (!eventLogPath) return;
 
 	let seq = 0;

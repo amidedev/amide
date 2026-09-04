@@ -3,7 +3,7 @@ import { type AssistantMessage, fauxAssistantMessage } from "@earendil-works/pi-
 import { describe, expect, it, vi } from "vitest";
 import type { AgentSession } from "../../src/core/agent-session.js";
 import type { AgentSessionRuntime } from "../../src/core/agent-session-runtime.js";
-import { PRIME_AGENT_META_NAMESPACE } from "../../src/modes/acp/acp-meta.js";
+import { AMIDE_META_NAMESPACE } from "../../src/modes/acp/acp-meta.js";
 import { runAcpModeWithConnection } from "../../src/modes/acp/index.js";
 import { InProcessAgentConnection } from "../../src/modes/agent-connection/in-process-agent-connection.js";
 import { createHarness } from "./harness.js";
@@ -151,7 +151,7 @@ function fakeAcpConnection(
 
 function acpUpdatePhase(update: Record<string, unknown>): unknown {
 	const metadata = update._meta as Record<string, unknown> | undefined;
-	const primeMetadata = metadata?.[PRIME_AGENT_META_NAMESPACE] as Record<string, unknown> | undefined;
+	const primeMetadata = metadata?.[AMIDE_META_NAMESPACE] as Record<string, unknown> | undefined;
 	return primeMetadata?.phase;
 }
 
@@ -212,7 +212,7 @@ describe("ACP mode end to end", () => {
 		});
 		expect(init.protocolVersion).toBe(acp.PROTOCOL_VERSION);
 		expect(init.agentInfo?.name).toBe("prime-agent");
-		expect(init._meta).toHaveProperty(PRIME_AGENT_META_NAMESPACE);
+		expect(init._meta).toHaveProperty(AMIDE_META_NAMESPACE);
 
 		const session = await client.request("session/new", { cwd: harness.tempDir, mcpServers: [] });
 		expect(typeof session.sessionId).toBe("string");
@@ -407,13 +407,11 @@ describe("ACP mode end to end", () => {
 		});
 		await vi.waitFor(() =>
 			expect(
-				updates.some(
-					(update) => update.update?._meta?.[PRIME_AGENT_META_NAMESPACE]?.phase === "terminalQuiescence",
-				),
+				updates.some((update) => update.update?._meta?.[AMIDE_META_NAMESPACE]?.phase === "terminalQuiescence"),
 			).toBe(true),
 		);
 		const correlated = updates
-			.map((update) => update.update?._meta?.[PRIME_AGENT_META_NAMESPACE])
+			.map((update) => update.update?._meta?.[AMIDE_META_NAMESPACE])
 			.filter((meta) => meta?.promptTurnId === 1);
 		expect(correlated.map((meta) => meta.eventSequence)).toEqual(
 			[...correlated.map((meta) => meta.eventSequence)].sort((a, b) => a - b),
@@ -449,10 +447,10 @@ describe("ACP mode end to end", () => {
 		});
 		await vi.waitFor(() =>
 			expect(
-				updates.some((item) => item.update?._meta?.[PRIME_AGENT_META_NAMESPACE]?.phase === "terminalQuiescence"),
+				updates.some((item) => item.update?._meta?.[AMIDE_META_NAMESPACE]?.phase === "terminalQuiescence"),
 			).toBe(true),
 		);
-		const meta = updates.map((item) => item.update?._meta?.[PRIME_AGENT_META_NAMESPACE]).filter(Boolean);
+		const meta = updates.map((item) => item.update?._meta?.[AMIDE_META_NAMESPACE]).filter(Boolean);
 		expect(meta.filter((item) => item.phase === "responseBoundary")).toHaveLength(1);
 		expect(meta.filter((item) => item.phase === "terminalQuiescence")).toEqual([
 			expect.objectContaining({
@@ -487,7 +485,7 @@ describe("ACP mode end to end", () => {
 		await vi.waitFor(() =>
 			expect(
 				updates
-					.map((item) => item.update?._meta?.[PRIME_AGENT_META_NAMESPACE])
+					.map((item) => item.update?._meta?.[AMIDE_META_NAMESPACE])
 					.find((meta) => meta?.phase === "terminalQuiescence"),
 			).toMatchObject({ promptTurnId: 1, outcome: "error" }),
 		);
@@ -530,7 +528,7 @@ describe("ACP mode end to end", () => {
 		await new Promise((resolve) => setTimeout(resolve, 20));
 		expect(firstSettled).toBe(false);
 
-		let metadata = updates.map((item) => item.update?._meta?.[PRIME_AGENT_META_NAMESPACE]).filter(Boolean);
+		let metadata = updates.map((item) => item.update?._meta?.[AMIDE_META_NAMESPACE]).filter(Boolean);
 		expect(metadata.filter((item) => item.phase === "terminalQuiescence")).toHaveLength(0);
 		const nextPrompt = client.request("session/prompt", {
 			sessionId: session.sessionId,
@@ -543,7 +541,7 @@ describe("ACP mode end to end", () => {
 		connection.emitChild(roster[0]);
 		releaseBarrier();
 		await vi.waitFor(() => {
-			metadata = updates.map((item) => item.update?._meta?.[PRIME_AGENT_META_NAMESPACE]).filter(Boolean);
+			metadata = updates.map((item) => item.update?._meta?.[AMIDE_META_NAMESPACE]).filter(Boolean);
 			expect(metadata.filter((item) => item.phase === "terminalQuiescence" && item.promptTurnId === 1)).toEqual([
 				expect.objectContaining({
 					promptTurnId: 1,
@@ -639,9 +637,9 @@ describe("ACP mode end to end", () => {
 			prompt: [{ type: "text", text: "cancel twice" }],
 		});
 		await vi.waitFor(() =>
-			expect(
-				updates.some((item) => item.update?._meta?.[PRIME_AGENT_META_NAMESPACE]?.phase === "responseBoundary"),
-			).toBe(true),
+			expect(updates.some((item) => item.update?._meta?.[AMIDE_META_NAMESPACE]?.phase === "responseBoundary")).toBe(
+				true,
+			),
 		);
 		await client.notify("session/cancel", { sessionId: session.sessionId });
 		await abortStarted;
@@ -695,16 +693,16 @@ describe("ACP mode end to end", () => {
 			prompt: [{ type: "text", text: "delegate" }],
 		});
 		await vi.waitFor(() =>
-			expect(
-				updates.some((item) => item.update?._meta?.[PRIME_AGENT_META_NAMESPACE]?.phase === "responseBoundary"),
-			).toBe(true),
+			expect(updates.some((item) => item.update?._meta?.[AMIDE_META_NAMESPACE]?.phase === "responseBoundary")).toBe(
+				true,
+			),
 		);
 		await client.notify("session/cancel", { sessionId: session.sessionId });
 		await aborted;
 		await expect(prompt).resolves.toBeDefined();
 
 		const firstTurnTerminal = updates
-			.map((item) => item.update?._meta?.[PRIME_AGENT_META_NAMESPACE])
+			.map((item) => item.update?._meta?.[AMIDE_META_NAMESPACE])
 			.filter((meta) => meta?.promptTurnId === 1 && meta.phase === "terminalQuiescence");
 		expect(firstTurnTerminal).toHaveLength(0);
 		await vi.waitFor(async () => {
@@ -773,9 +771,9 @@ describe("ACP mode end to end", () => {
 			prompt: [{ type: "text", text: "delegate" }],
 		});
 		await vi.waitFor(() =>
-			expect(
-				updates.some((item) => item.update?._meta?.[PRIME_AGENT_META_NAMESPACE]?.phase === "responseBoundary"),
-			).toBe(true),
+			expect(updates.some((item) => item.update?._meta?.[AMIDE_META_NAMESPACE]?.phase === "responseBoundary")).toBe(
+				true,
+			),
 		);
 		const closing = client.request("session/close", { sessionId: session.sessionId });
 		await expect(prompt).resolves.toBeDefined();
@@ -783,7 +781,7 @@ describe("ACP mode end to end", () => {
 		await Promise.resolve();
 
 		const terminal = updates
-			.map((item) => item.update?._meta?.[PRIME_AGENT_META_NAMESPACE])
+			.map((item) => item.update?._meta?.[AMIDE_META_NAMESPACE])
 			.filter((meta) => meta?.phase === "terminalQuiescence");
 		expect(terminal).toHaveLength(0);
 		close();
@@ -847,7 +845,7 @@ describe("ACP mode end to end", () => {
 			sessionId: session.sessionId,
 			update: {
 				_meta: {
-					[PRIME_AGENT_META_NAMESPACE]: {
+					[AMIDE_META_NAMESPACE]: {
 						eventSequence: 1,
 						promptTurnId: 0,
 						subagents: [expect.objectContaining({ id: "during-snapshot", status: "done" })],
@@ -873,7 +871,7 @@ describe("ACP mode end to end", () => {
 			prompt: [{ type: "text", text: "continue" }],
 		});
 		const childMeta = updates
-			.map((item) => item.update?._meta?.[PRIME_AGENT_META_NAMESPACE])
+			.map((item) => item.update?._meta?.[AMIDE_META_NAMESPACE])
 			.filter((meta) => meta?.subagents);
 		expect(childMeta.map((meta) => meta.promptTurnId)).toEqual([0, 0]);
 		close();
@@ -895,7 +893,7 @@ describe("ACP mode end to end", () => {
 				prompt: [{ type: "text", text: "finish" }],
 			}),
 		).rejects.toThrow();
-		const metadata = updates.map((u) => u.update?._meta?.[PRIME_AGENT_META_NAMESPACE]).filter(Boolean);
+		const metadata = updates.map((u) => u.update?._meta?.[AMIDE_META_NAMESPACE]).filter(Boolean);
 		expect(metadata).toContainEqual(
 			expect.objectContaining({
 				promptTurnId: 1,
@@ -923,10 +921,10 @@ describe("ACP mode end to end", () => {
 		});
 		await vi.waitFor(() =>
 			expect(
-				updates.filter((u) => u.update?._meta?.[PRIME_AGENT_META_NAMESPACE]?.phase === "terminalQuiescence"),
+				updates.filter((u) => u.update?._meta?.[AMIDE_META_NAMESPACE]?.phase === "terminalQuiescence"),
 			).toHaveLength(2),
 		);
-		const metadata = updates.map((u) => u.update?._meta?.[PRIME_AGENT_META_NAMESPACE]).filter(Boolean);
+		const metadata = updates.map((u) => u.update?._meta?.[AMIDE_META_NAMESPACE]).filter(Boolean);
 		const sequences = metadata.map((meta) => meta.eventSequence);
 		expect(sequences).toEqual([...sequences].sort((a, b) => a - b));
 		expect(metadata.filter((meta) => meta.phase === "responseBoundary").map((meta) => meta.promptTurnId)).toEqual([
@@ -961,12 +959,12 @@ describe("ACP mode end to end", () => {
 				updates.some(
 					(u) =>
 						u.update?.sessionUpdate === "session_info_update" &&
-						u.update?._meta?.[PRIME_AGENT_META_NAMESPACE]?.subagents,
+						u.update?._meta?.[AMIDE_META_NAMESPACE]?.subagents,
 				),
 			).toBe(true),
 		);
 		const childUpdates = updates
-			.map((u) => u.update?._meta?.[PRIME_AGENT_META_NAMESPACE])
+			.map((u) => u.update?._meta?.[AMIDE_META_NAMESPACE])
 			.filter((meta) => meta?.subagents);
 		expect(childUpdates.map((meta) => meta.promptTurnId)).toEqual([1, 0]);
 		expect(childUpdates.map((meta) => meta.phase)).toEqual(["event", "event"]);
@@ -1291,7 +1289,7 @@ describe("ACP mode end to end", () => {
 		await client.notify("session/cancel", { sessionId: session.sessionId });
 		release();
 		await expect(pending).resolves.not.toMatchObject({ stopReason: "cancelled" });
-		const meta = updates.map((item) => item.update?._meta?.[PRIME_AGENT_META_NAMESPACE]).filter(Boolean);
+		const meta = updates.map((item) => item.update?._meta?.[AMIDE_META_NAMESPACE]).filter(Boolean);
 		expect(meta).toContainEqual(expect.objectContaining({ phase: "responseBoundary", outcome: "result" }));
 		expect(meta).toContainEqual(
 			expect.objectContaining({ phase: "event", quiescence: expect.objectContaining({ outstandingSubagents: 1 }) }),
@@ -1328,7 +1326,7 @@ describe("ACP mode end to end", () => {
 		release();
 		const result = await pending;
 		expect(result.stopReason).not.toBe("cancelled");
-		const meta = updates.map((u) => u.update?._meta?.[PRIME_AGENT_META_NAMESPACE]).filter(Boolean);
+		const meta = updates.map((u) => u.update?._meta?.[AMIDE_META_NAMESPACE]).filter(Boolean);
 		expect(meta.filter((item) => item.phase === "responseBoundary")).toEqual([
 			expect.objectContaining({ outcome: "result" }),
 		]);

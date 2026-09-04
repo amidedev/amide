@@ -19,7 +19,7 @@ import { convertToLlm } from "../src/core/messages.js";
 import { ModelRegistry } from "../src/core/model-registry.js";
 import { SessionManager } from "../src/core/session-manager.js";
 import { SettingsManager } from "../src/core/settings-manager.js";
-import { PRIME_AGENT_META_NAMESPACE } from "../src/modes/acp/acp-meta.js";
+import { AMIDE_META_NAMESPACE } from "../src/modes/acp/acp-meta.js";
 import { runAcpModeWithConnection } from "../src/modes/acp/index.js";
 import { InProcessAgentConnection } from "../src/modes/agent-connection/in-process-agent-connection.js";
 import { createTestResourceLoader } from "./utilities.js";
@@ -142,7 +142,7 @@ describe("ACP mode surfaces RLM subagents", () => {
 		await new Promise((resolve) => setTimeout(resolve, 50));
 
 		const subagentMeta = updates
-			.map((u) => u.update?._meta?.[PRIME_AGENT_META_NAMESPACE]?.subagents)
+			.map((u) => u.update?._meta?.[AMIDE_META_NAMESPACE]?.subagents)
 			.filter(Boolean)
 			.flat();
 		expect(acpSession.sessionId).toBeTruthy();

@@ -35,7 +35,7 @@ export const isBunBinary =
 /** Detect if Bun is the runtime (compiled binary or bun run) */
 export const isBunRuntime = !!process.versions.bun;
 
-export const SELF_UPDATE_INTERACTIVE_CHILD_ENV = "PRIME_AGENT_INTERACTIVE_SELF_UPDATE";
+export const SELF_UPDATE_INTERACTIVE_CHILD_ENV = "AMIDE_INTERACTIVE_SELF_UPDATE";
 export const SELF_UPDATE_NOT_ATTEMPTED_EXIT_CODE = 75;
 
 // =============================================================================
@@ -498,7 +498,7 @@ export const APP_TITLE: string = piConfigName ? APP_NAME : "π";
 export const CONFIG_DIR_NAME: string = pkg.piConfig?.configDir || ".prime/agent";
 export const VERSION: string = pkg.version || "0.0.0";
 
-// e.g., PI_CODING_AGENT_DIR or PRIME_AGENT_CODING_AGENT_DIR
+// e.g., PI_CODING_AGENT_DIR or AMIDE_CODING_AGENT_DIR
 export const ENV_AGENT_DIR = `${envPrefix}_CODING_AGENT_DIR`;
 export const ENV_SESSION_DIR = `${envPrefix}_SESSION_DIR`;
 export const ENV_LEGACY_SESSION_DIR = `${envPrefix}_CODING_AGENT_SESSION_DIR`;
