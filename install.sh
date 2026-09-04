@@ -604,7 +604,7 @@ amide_style_amide_title() {
 				before=${text%%AMIDE*}
 				rest=${text#*AMIDE}
 				styled="${styled}${amide_bold}${amide_color_primary}${before}"
-				styled="${styled}${amide_bold}${amide_color_primary}PRIME Agent${amide_reset}"
+				styled="${styled}${amide_bold}${amide_color_primary}AMIDE${amide_reset}"
 				text="$rest"
 				;;
 			*)

@@ -103,8 +103,12 @@
 	"license": "MIT",
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/PrimeIntellect-ai/prime-agent.git",
+		"url": "git+https://github.com/amidedev/amide.git",
 		"directory": "packages/coding-agent"
+	},
+	"homepage": "https://amide.dev",
+	"bugs": {
+		"url": "https://github.com/amidedev/amide/issues"
 	},
 	"engines": {
 		"node": ">=22.8.0"

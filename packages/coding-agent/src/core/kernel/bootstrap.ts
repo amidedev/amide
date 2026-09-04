@@ -337,14 +337,14 @@ function ensureKernelPythonKey(pythonSkills: readonly BootstrapPythonSkill[]): s
 export function getKernelVenvDir(): string {
 	const override = process.env.AMIDE_KERNEL_VENV;
 	if (override) return path.resolve(expandHome(override));
-	return path.join(os.homedir(), ".prime", "agent", "kernel-venv");
+	return path.join(os.homedir(), ".amide", "agent", "kernel-venv");
 }
 
 function getXdgKernelVenvDir(): string {
 	const dataHome = process.env.XDG_DATA_HOME
 		? path.resolve(expandHome(process.env.XDG_DATA_HOME))
 		: path.join(os.homedir(), ".local", "share");
-	return path.join(dataHome, "prime", "agent", "kernel-venv");
+	return path.join(dataHome, "amide", "agent", "kernel-venv");
 }
 
 async function resolveWritableKernelVenvDir(): Promise<string> {

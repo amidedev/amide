@@ -15,7 +15,7 @@ function resolveReplPython(): string | null {
 	const candidates = [
 		process.env.AMIDE_KERNEL_PYTHON,
 		resolve(__dirname, "..", "..", "..", "prime-agent-runtime", ".venv", "bin", "python"),
-		join(homedir(), ".prime", "agent", "kernel-venv", "bin", "python"),
+		join(homedir(), ".amide", "agent", "kernel-venv", "bin", "python"),
 	].filter((p): p is string => Boolean(p));
 	for (const python of candidates) {
 		if (!existsSync(python)) continue;

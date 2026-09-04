@@ -317,7 +317,7 @@ class DaemonShutdownAdmission {
  * per-invocation agent dir.
  */
 function defaultDaemonSupervisorRegistryDir(environment: NodeJS.ProcessEnv = process.env): string {
-	return environment[DAEMON_SUPERVISOR_REGISTRY_DIR_ENV] ?? join(homedir(), ".prime", "supervisor-owners");
+	return environment[DAEMON_SUPERVISOR_REGISTRY_DIR_ENV] ?? join(homedir(), ".amide", "supervisor-owners");
 }
 
 /** Read-only legacy registry location, disabled when the registry is overridden. */

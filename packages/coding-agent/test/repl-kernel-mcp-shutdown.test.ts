@@ -6,7 +6,7 @@ import { afterAll, beforeAll, describe, expect, it } from "vitest";
 import { ReplKernelManager } from "../src/core/kernel/index.js";
 
 const runtimePython = resolve("../../prime-agent-runtime/.venv/bin/python");
-const fallbackPython = join(homedir(), ".prime", "agent", "kernel-venv", "bin", "python");
+const fallbackPython = join(homedir(), ".amide", "agent", "kernel-venv", "bin", "python");
 
 function resolveKernelPython(): string | null {
 	for (const python of [process.env.AMIDE_KERNEL_PYTHON, runtimePython, fallbackPython]) {

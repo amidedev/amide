@@ -69,7 +69,7 @@ export interface DaemonSocketIdentity {
 
 export function defaultDaemonSocketPath(): string {
 	if (process.platform === "win32") {
-		return "\\\\.\\pipe\\prime-agent-daemon";
+		return "\\\\.\\pipe\\amide-daemon";
 	}
 	return join(defaultDaemonSocketDir(), "daemon.sock");
 }
@@ -285,7 +285,7 @@ export function defaultDaemonSocketDir(): string {
 	// skip directory creation entirely - not throw, just never mkdir.
 	if (override) return resolve(override);
 	const suffix = typeof process.getuid === "function" ? String(process.getuid()) : "user";
-	return join(tmpdir(), `prime-agent-${suffix}`);
+	return join(tmpdir(), `amide-${suffix}`);
 }
 
 function ensureDefaultDaemonSocketDir(socketPath: string): void {

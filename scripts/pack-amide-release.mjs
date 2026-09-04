@@ -193,7 +193,7 @@ function createReleasePackageJson(sourcePackage, packageName, releaseVersion, in
 		packageJson.piConfig = {
 			...(packageJson.piConfig || {}),
 			name: publicCommandName,
-			configDir: ".prime/agent",
+			configDir: ".amide/agent",
 		};
 	}
 
