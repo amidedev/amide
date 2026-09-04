@@ -1,7 +1,7 @@
 import { chmodSync, existsSync, lstatSync, mkdirSync, unlinkSync } from "node:fs";
 import { createConnection } from "node:net";
 import { tmpdir } from "node:os";
-import { dirname, join } from "node:path";
+import { dirname, join, resolve } from "node:path";
 import lockfile from "proper-lockfile";
 
 export { normalizeSocketPath } from "../../utils/daemon-socket-path.js";
@@ -278,7 +278,12 @@ function assertSocketLeaseHeld(socketPath: string, lease: DaemonSocketPathLease)
 
 export function defaultDaemonSocketDir(): string {
 	const override = process.env.PRIME_AGENT_DAEMON_SOCKET_DIR;
-	if (override) return override;
+	// Normalize: ensureDefaultDaemonSocketDir() compares this against
+	// dirname(join(defaultDaemonSocketDir(), "daemon.sock")), which node:path
+	// always normalizes. An unnormalized override (e.g. a double slash from
+	// $TMPDIR already ending in "/") would silently fail that comparison and
+	// skip directory creation entirely - not throw, just never mkdir.
+	if (override) return resolve(override);
 	const suffix = typeof process.getuid === "function" ? String(process.getuid()) : "user";
 	return join(tmpdir(), `prime-agent-${suffix}`);
 }

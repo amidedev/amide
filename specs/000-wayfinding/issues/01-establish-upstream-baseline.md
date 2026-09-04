@@ -1,7 +1,7 @@
 # Establish the Milestone 0 upstream baseline
 
 Type: task
-Status: in-progress
+Status: done
 
 ## Question
 
@@ -63,14 +63,40 @@ without a real interactive session:
     likely a network-dependent provider test with a long timeout in an
     environment with no configured API keys, but not confirmed.
 
-Not yet verified (needs a real interactive terminal session, which this
-harness doesn't have): Prime TUI actually starts and renders, Python REPL
-works, `rlm()` spawns a working subagent, `/reload` round-trips, daemon
-attach/detach works. These are the acceptance criteria's actual substance
-and this ticket should stay `in-progress`, not closed, until a human (or an
-agent with a real TTY) runs through them manually.
+## Interactive verification (2026-09-04, user)
 
-**Recommendation**: don't block Milestone 1 (Cordis mount) on fully
-resolving the `packages/ai` hang or root-causing the 57 sandboxed failures
-— they're independent of anything Milestone 1 touches. Do resolve the
-interactive-session checklist above before calling Milestone 0 complete.
+All six acceptance items confirmed by the user in a real TTY:
+
+- Prime TUI starts (ACRYL wordmark splash renders correctly).
+- `/login` provider picker works (Anthropic + OpenAI subscriptions tested).
+- Python/iPython available — agent self-test confirmed `ipython ok` and
+  `RLM: callable (_RLMCallable)`.
+- `rlm()` available (same self-test).
+- `/reload` round-trips without error.
+- Daemon attach works: a second terminal's `./prime-agent.sh agents` (the
+  session-manager view) correctly showed sessions started from a first
+  terminal — running/idle/inactive states, token/cost stats, all accurate
+  and shared across terminals against the isolated `~/.acryl-padsh/agent`
+  daemon.
+
+**Milestone 0 acceptance criteria fully met.** Closing this ticket.
+
+## Known follow-up, not a Milestone 0 blocker
+
+While testing daemon isolation, found that `agents`/`list` fail silently
+when they need to spawn a **brand new** daemon from a completely cold
+state (zero existing sessions) — the spawned child process exits before
+writing its own log file, with `stdio: "ignore"` hiding any error. This
+was previously masked because, before the isolation fix, this fork shared
+a socket with any real Prime Agent daemon already running on the machine,
+so a fresh spawn was never actually exercised. Confirmed as a narrower
+bug, not a blocker: if any daemon already exists (e.g. from a normal
+interactive `./prime-agent.sh` session, which starts one as a side
+effect), `agents`/`list`/`attach` all work correctly and share state
+across terminals as expected. Worth its own ticket before Milestone 0's
+work is considered fully polished, but does not block Milestone 1.
+
+**Recommendation**: proceed to Milestone 1 (Cordis mount). Also
+independent of Milestone 1: the `packages/ai` test hang (not resolved,
+inconclusive) and the 57 sandboxed `packages/coding-agent` test failures
+(observed, not root-caused).
