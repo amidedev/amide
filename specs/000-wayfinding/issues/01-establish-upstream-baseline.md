@@ -6,7 +6,7 @@ Status: done
 ## Question
 
 Nothing to decide — this is Milestone 0 from
-`docs/ACRYL-PADSH Implementation Specification.md` §70, and it is the
+`docs/AMIDE Implementation Specification.md` §70, and it is the
 required first slice before any Cordis or MPA work begins.
 
 Do:
@@ -76,7 +76,7 @@ All six acceptance items confirmed by the user in a real TTY:
 - Daemon attach works: a second terminal's `./prime-agent.sh agents` (the
   session-manager view) correctly showed sessions started from a first
   terminal — running/idle/inactive states, token/cost stats, all accurate
-  and shared across terminals against the isolated `~/.acryl-padsh/agent`
+  and shared across terminals against the isolated `~/.amide/agent`
   daemon.
 
 **Milestone 0 acceptance criteria fully met.** Closing this ticket.

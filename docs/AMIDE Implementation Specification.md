@@ -1,9 +1,9 @@
-# ACRYL-PADSH Implementation Specification
+# AMIDE Implementation Specification
 
 ## Prime Agent × Cordis × DeepSeek Harness Architectural PoC
 
-**Project:** `acryl-padsh`  
-**Repository:** `inboxxobni/acryl-padsh`  
+**Project:** `amide`  
+**Repository:** `inboxxobni/amide`  
 **Temporary purpose:** experimental proof-of-concept before successful components are upstreamed/migrated into `acryldev/acryl`.
 
 **Primary upstreams / architectural sources**
@@ -101,7 +101,7 @@ ACRYL
 Build:
 
 ```text
-                         ACRYL-PADSH
+                         AMIDE
                               │
               ┌───────────────┴───────────────┐
               │                               │
@@ -190,7 +190,7 @@ Then gradually invert ownership only after parity is proven.
 
 The coding agent should treat this table as the feature inventory.
 
-| Innovation | Origin | ACRYL-PADSH action |
+| Innovation | Origin | AMIDE action |
 |---|---|---|
 | Persistent RLM Python | Prime | KEEP |
 | Resident daemon workers | Prime | KEEP |
@@ -240,7 +240,7 @@ It is:
 
 DSH expresses sessions, tools, LLM adapters, the agent loop and other capabilities as plugins/services. Extension plugins depend on capability definitions rather than concrete implementations. 
 
-Implement the same property in ACRYL-PADSH.
+Implement the same property in AMIDE.
 
 ---
 
@@ -741,7 +741,7 @@ Stable row IDs allow HMR/recomposition to distinguish updates from remove+add op
 Add:
 
 ```text
-acryl-padsh --dump-config
+amide --dump-config
 ```
 
 It should print the final effective plugin tree.
@@ -2563,7 +2563,7 @@ Create them milestone by milestone.
 Goal:
 
 ```text
-acryl-padsh == working Prime Agent
+amide == working Prime Agent
 ```
 
 Tasks:
@@ -3368,7 +3368,7 @@ DeepSeek Harness is MIT.
 
 The existing ACRYL package is also MIT. 
 
-Therefore ACRYL-PADSH can remain MIT.
+Therefore AMIDE can remain MIT.
 
 When substantial source is copied or adapted, retain required copyright/license notices.
 
@@ -3513,7 +3513,7 @@ successful repeated capability
 promote to persistent TS Cordis plugin
 ```
 
-That combination is the central research/product hypothesis of ACRYL-PADSH.
+That combination is the central research/product hypothesis of AMIDE.
 
 ---
 
@@ -3550,4 +3550,4 @@ and:
 
 > **During a cache epoch, previously emitted model context is immutable. New knowledge is appended, not rewritten.**
 
-If these two rules survive throughout implementation, ACRYL-PADSH gains the most valuable DSH property — extremely high prefix-cache locality — without giving up Prime's RLM, persistent workers, self-improvement or Pi's extensibility.
+If these two rules survive throughout implementation, AMIDE gains the most valuable DSH property — extremely high prefix-cache locality — without giving up Prime's RLM, persistent workers, self-improvement or Pi's extensibility.

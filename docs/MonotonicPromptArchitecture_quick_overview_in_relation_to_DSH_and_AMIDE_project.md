@@ -1,12 +1,12 @@
-# Technical Specification: `acryl-padsh` Architecture & Core Porting Plan
+# Technical Specification: `amide` Architecture & Core Porting Plan
 
-This specification outlines the technical design for merging the **DeepSeek Harness (DSH)** / **Cordis Kernel** architectural innovations from `acryl` (`@acryldev/acryl`) into `acryl-padsh` (a fork of `prime-agent` / `pi`). The core objective is enforcing a **Monotonic Prompt Architecture (MPA)** to guarantee 95–99% provider-side KV/prompt cache hits across long-running autonomous coding sessions.
+This specification outlines the technical design for merging the **DeepSeek Harness (DSH)** / **Cordis Kernel** architectural innovations from `acryl` (`@acryldev/acryl`) into `amide` (a fork of `prime-agent` / `pi`). The core objective is enforcing a **Monotonic Prompt Architecture (MPA)** to guarantee 95–99% provider-side KV/prompt cache hits across long-running autonomous coding sessions.
 
 ---
 
 ## 1. System Overview & Invariant Contracts
 
-`acryl-padsh` combines `prime-agent`'s programmatic IPython REPL runtime with DSH’s strict cache-friendly prompt geometry.
+`amide` combines `prime-agent`'s programmatic IPython REPL runtime with DSH’s strict cache-friendly prompt geometry.
 
 ```
 ┌─────────────────────────────────────────────────────────┐
@@ -99,7 +99,7 @@ export function createLateIngestionMessage(contextPath: string, content: string)
 
 ## 3. Warm-Prefix Compaction Engine
 
-When history reaches maximum token constraints (e.g., 150k tokens), traditional compaction creates a separate summarization request, causing a complete cache miss. `acryl-padsh` implements **Warm-Prefix Compaction**.
+When history reaches maximum token constraints (e.g., 150k tokens), traditional compaction creates a separate summarization request, causing a complete cache miss. `amide` implements **Warm-Prefix Compaction**.
 
 ```typescript
 // src/core/compaction/warm-compactor.ts
@@ -136,9 +136,9 @@ Retain crucial decisions, pending tasks, code modifications, and environment det
 
 ---
 
-## 4. Cordis Kernel Integration in `acryl-padsh`
+## 4. Cordis Kernel Integration in `amide`
 
-`acryl-padsh` integrates DSH's **Cordis plugin kernel** into `prime-agent`'s REPL/daemon architecture.
+`amide` integrates DSH's **Cordis plugin kernel** into `prime-agent`'s REPL/daemon architecture.
 
 ```
   ┌────────────────────────────────────────────────────────┐
@@ -178,7 +178,7 @@ export interface CordisPlugin {
 
 ## 5. EpochHeader & Envelope Tracking
 
-To ensure request parameters do not unintentionally break provider cache keys, `acryl-padsh` logs an `EpochHeader` alongside each request.
+To ensure request parameters do not unintentionally break provider cache keys, `amide` logs an `EpochHeader` alongside each request.
 
 | Key | Description | Cache Sensitivity |
 | --- | --- | --- |
@@ -228,7 +228,7 @@ export class EnvelopeAuditor {
 
 ## 6. Telemetry & Metrics Accounting
 
-`acryl-padsh` explicitly computes and logs KV cache metrics per step to verify MPA efficiency.
+`amide` explicitly computes and logs KV cache metrics per step to verify MPA efficiency.
 
 ```typescript
 // src/telemetry/cache-metrics.ts
@@ -251,7 +251,7 @@ export function calculateHitRatio(read: number, total: number): number {
 ### Telemetry Terminal Output Example
 
 ```text
-[acryl-padsh] Step 42 | Tokens: 168,420 | Cache Read: 165,120 | Cache Write: 3,300 | Hit Ratio: 98.04%
+[amide] Step 42 | Tokens: 168,420 | Cache Read: 165,120 | Cache Write: 3,300 | Hit Ratio: 98.04%
 
 ```
 
@@ -259,7 +259,7 @@ export function calculateHitRatio(read: number, total: number): number {
 
 ## 7. Migration & Porting Roadmap
 
-The porting from `acryl` to `acryl-padsh` is structured into four phased milestones:
+The porting from `acryl` to `amide` is structured into four phased milestones:
 
 | Phase | Milestone | Deliverables |
 | --- | --- | --- |

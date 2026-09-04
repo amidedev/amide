@@ -1,11 +1,11 @@
-# ACRYL-PADSH Constitution
+# AMIDE Constitution
 
 This constitution governs every spec, plan, task, and plugin written in this
 repository. It is the executable policy for Spec Kit, Wayfinder, and Matt
 Pocock SDD here. If a later document conflicts with this file, this file wins
 until it is deliberately amended. It exists alongside, and does not replace,
-the full detail in `docs/ACRYL-PADSH Implementation Specification.md` and
-`docs/MonotonicPromptArchitecture_quick_overview_in_relation_to_DSH_and_ACRYL_project.md`
+the full detail in `docs/AMIDE Implementation Specification.md` and
+`docs/MonotonicPromptArchitecture_quick_overview_in_relation_to_DSH_and_AMIDE_project.md`
 (the "Implementation Spec" and "MPA doc" below) — this file states the rules
 that govern every task; those files state the target architecture in detail.
 
@@ -114,7 +114,7 @@ Both directions of scope creep are explicitly forbidden, not just discouraged:
 ## Licensing and upstream discipline
 
 Prime Agent, Pi, DeepSeek Harness, and `acryldev/acryl` are all MIT.
-ACRYL-PADSH stays MIT. When source is copied or adapted, retain required
+AMIDE stays MIT. When source is copied or adapted, retain required
 upstream copyright/license notices and record the origin in
 `THIRD_PARTY_NOTICES.md`. Every substantial port from `acryldev/acryl` or
 DeepSeek Harness gets an entry in `UPSTREAMS.md`: what was ported, from which

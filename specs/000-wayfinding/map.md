@@ -1,11 +1,11 @@
-# Wayfinder map: ACRYL-PADSH — Prime × Cordis × MPA architectural PoC
+# Wayfinder map: AMIDE — Prime × Cordis × MPA architectural PoC
 
 Labels: `wayfinder:map`
 
 ## Destination
 
-Prove the ACRYL-PADSH success criteria in
-`docs/ACRYL-PADSH Implementation Specification.md` §101: Prime's existing
+Prove the AMIDE success criteria in
+`docs/AMIDE Implementation Specification.md` §101: Prime's existing
 capabilities remain fully intact, Cordis works as the runtime composition
 substrate (services, `inject`, fibers, effects, typed events, waterfalls,
 scope, hot replacement, diagnostics), the Monotonic Prompt Architecture (MPA)
@@ -23,15 +23,15 @@ disposable and nothing here is load-bearing for the shipped product.
   architectural ideas from DeepSeek Harness / Cordis (via `acryldev/acryl`)
   without embedding DSH as a sub-runtime. See constitution Principle I.
 - Always read: `.specify/memory/constitution.md`,
-  `docs/ACRYL-PADSH Implementation Specification.md`,
-  `docs/MonotonicPromptArchitecture_quick_overview_in_relation_to_DSH_and_ACRYL_project.md`,
-  `docs/ACRYL-PADSH-ROADMAP.md`,
+  `docs/AMIDE Implementation Specification.md`,
+  `docs/MonotonicPromptArchitecture_quick_overview_in_relation_to_DSH_and_AMIDE_project.md`,
+  `docs/AMIDE-ROADMAP.md`,
   `docs/workmethodology/acryl-hybrid-engineering-methodology.md`.
 - Skills: `/speckit-constitution`, `/speckit-specify`, `/speckit-plan`,
   `/speckit-tasks`, `/speckit-clarify`, `/speckit-analyze`, `/speckit-implement`,
   `/speckit-converge`.
 - The two docs above are the detailed architectural spec and the tighter MPA
-  technical spec, respectively. `docs/ACRYL-PADSH-ROADMAP.md` is the
+  technical spec, respectively. `docs/AMIDE-ROADMAP.md` is the
   navigator built from both; treat it as the milestone-sequencing source of
   truth and the two spec docs as the reference for implementation detail.
 - This repo's `docs/ACRYL-ROADMAP.md` describes the current, still-active
@@ -41,7 +41,7 @@ disposable and nothing here is load-bearing for the shipped product.
 
 ## Decisions so far
 
-- [Bootstrap this Wayfinder map, constitution, and roadmap](../../docs/ACRYL-PADSH-ROADMAP.md) —
+- [Bootstrap this Wayfinder map, constitution, and roadmap](../../docs/AMIDE-ROADMAP.md) —
   user directive 2026-09-04: initialize the same Spec Kit + Wayfinder +
   Ponytail methodology already used in `acryldev/acryl`, before any
   Milestone-0-and-beyond implementation work starts.
@@ -63,7 +63,7 @@ disposable and nothing here is load-bearing for the shipped product.
 
 ## Not yet specified
 
-- The exact upstream commit `7b72016` ("init acryl-padsh") was imported
+- The exact upstream commit `7b72016` ("init amide") was imported
   from. Verified `7b72016` is close to, but not identical to, upstream tag
   `v0.9.1` (real diffs in `agent-session.ts`, `event-log.ts`,
   `semantic-edges.ts`, and others) — see `UPSTREAMS.md`. Not bisected to an

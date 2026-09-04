@@ -6,7 +6,7 @@ Status: open
 ## Question
 
 Nothing to decide on direction — this is Milestone 1 from
-`docs/ACRYL-PADSH Implementation Specification.md` §71. Blocked on
+`docs/AMIDE Implementation Specification.md` §71. Blocked on
 Milestone 0 (`01-establish-upstream-baseline.md`) landing first, and on
 locating the exact Prime resident-worker startup path this must hook into
 (see "Not yet specified" in `map.md`) before a Spec Kit `plan.md` can name
