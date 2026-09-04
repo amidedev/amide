@@ -23,7 +23,14 @@ export const PRIME_BUTTERFLY_LOGO = `                          ▄▄███�
 ███████▄  ████████▀
 ▀███▀▀    █████▀`;
 
-/** 7 rows × 29 cols. AMIDE's own splash mark — a block-letter wordmark. */
+/**
+ * 7 rows × 29 cols. AMIDE's own splash mark — a block-letter wordmark.
+ * The real brand mark is assets/brand/amide-logo.svg (white) /
+ * amide-logo-black.svg (black), used in README/docs/marketing. The TUI
+ * can only paint terminal character cells, not real vector graphics, so
+ * this is a from-scratch block-letter interpretation for that constraint,
+ * not a direct rendering of the SVG.
+ */
 export const AMIDE_WORDMARK_LOGO = ` ███  █   █ █████ ████  █████
 █   █ ██ ██   █   █   █ █
 █   █ █ █ █   █   █   █ █

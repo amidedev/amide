@@ -1,3 +1,11 @@
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="assets/brand/amide-logo.svg">
+    <source media="(prefers-color-scheme: light)" srcset="assets/brand/amide-logo-black.svg">
+    <img alt="AMIDE" src="assets/brand/amide-logo-black.svg" width="240">
+  </picture>
+</p>
+
 <h1 align="center">AMIDE</h1>
 
 <h3 align="center">
