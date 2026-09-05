@@ -15,16 +15,12 @@ interface OnboardingSplashHandle {
 }
 
 interface InteractiveOnboardingHarness {
-	runOnboardingFlow(showPrimeCliSplash?: boolean): Promise<void>;
+	runOnboardingFlow(): Promise<void>;
 	uiServices: {
 		modelRegistry: ModelRegistry;
 	};
 	getModelCandidates(): Promise<AgentConnectionModel[]>;
 	showOnboardingSplash(continueActionLabel?: string): Promise<OnboardingSplashHandle | undefined>;
-	createAuthFlows(): {
-		runPrimeInferenceLogin(): Promise<AuthenticationResult>;
-	};
-	prepareForModelSelectionAfterLogin(authResult: AuthenticationResult): Promise<boolean>;
 	showConfigurationMenu(tab: "providers" | "models" | "mcp-connections"): Promise<void>;
 }
 
@@ -71,7 +67,7 @@ describe("ENG-4658 onboarding transitions", () => {
 	});
 
 	test("keeps the splash mounted until first-launch model selection closes", async () => {
-		const harness = await createHarness({ provider: "prime-inference", withConfiguredAuth: false });
+		const harness = await createHarness({ withConfiguredAuth: false });
 		harnesses.push(harness);
 		const order: string[] = [];
 		const configuration = deferred<void>();
@@ -83,43 +79,20 @@ describe("ENG-4658 onboarding transitions", () => {
 		fakeThis.uiServices = { modelRegistry: harness.session.modelRegistry };
 		fakeThis.getModelCandidates = vi.fn(async () => []);
 		fakeThis.showOnboardingSplash = vi.fn(async () => splash);
-		fakeThis.createAuthFlows = vi.fn(() => ({
-			runPrimeInferenceLogin: async (): Promise<AuthenticationResult> => {
-				order.push("login");
-				return {
-					status: "success",
-					providerId: "prime-inference",
-					providerName: "Prime Inference",
-					authType: "api_key",
-					kind: "provider",
-				};
-			},
-		}));
-		fakeThis.prepareForModelSelectionAfterLogin = vi.fn(async () => {
-			order.push("prepare");
-			return true;
-		});
 		fakeThis.showConfigurationMenu = vi.fn((tab) => {
 			order.push(`configuration:${tab}`);
 			return configuration.promise;
 		});
 
-		const onboarding = fakeThis.runOnboardingFlow(false);
+		const onboarding = fakeThis.runOnboardingFlow();
+		await vi.waitFor(() => expect(fakeThis.showOnboardingSplash).toHaveBeenCalledWith());
 		await vi.waitFor(() => expect(fakeThis.showConfigurationMenu).toHaveBeenCalledWith("models"));
 
 		expect(order).not.toContain("dismiss");
 		configuration.resolve();
 		await onboarding;
 
-		expect(fakeThis.showOnboardingSplash).toHaveBeenCalledWith();
-		expect(order).toEqual([
-			"progress:Signing in to Prime Intellect...",
-			"login",
-			"progress:Preparing models...",
-			"prepare",
-			"configuration:models",
-			"dismiss",
-		]);
+		expect(order).toEqual(["configuration:models", "dismiss"]);
 	});
 
 	test("keeps the configuration overlay mounted while provider authentication is pending", async () => {

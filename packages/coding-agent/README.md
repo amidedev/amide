@@ -86,7 +86,6 @@ For each built-in provider, AMIDE maintains a list of tool-capable models, updat
 **API keys:**
 - Anthropic
 - OpenAI
-- Prime Inference
 - Azure OpenAI
 - DeepSeek
 - Google Gemini

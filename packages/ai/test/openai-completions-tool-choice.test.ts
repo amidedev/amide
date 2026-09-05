@@ -1105,7 +1105,7 @@ describe("openai-completions tool_choice", () => {
 	});
 
 	it("distinguishes omitted reasoning from explicit off for Prime effort models", async () => {
-		const model = getModel("prime-inference", "moonshotai/kimi-k3")!;
+		const model = getModel("openrouter", "moonshotai/kimi-k3")!;
 		const context = { messages: [{ role: "user" as const, content: "Hi", timestamp: Date.now() }] };
 		let payload: unknown;
 

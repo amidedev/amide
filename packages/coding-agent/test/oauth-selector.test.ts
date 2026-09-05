@@ -3,7 +3,6 @@ import stripAnsi from "strip-ansi";
 import { afterEach, beforeAll, beforeEach, describe, expect, it } from "vitest";
 import { type AuthStatus, AuthStorage } from "../src/core/auth-storage.js";
 import { KeybindingsManager } from "../src/core/keybindings.js";
-import { PRIME_INFERENCE_PROVIDER_ID } from "../src/core/prime-inference-auth.js";
 import { BUILT_IN_PROVIDER_DISPLAY_NAMES } from "../src/core/provider-display-names.js";
 import { isApiKeyLoginProvider } from "../src/modes/interactive/auth-flows.js";
 import {
@@ -55,12 +54,12 @@ describe("OAuthSelectorComponent", () => {
 		expect(providers.map((provider) => `${provider.authType}:${provider.name}`)).toEqual([
 			"oauth:Anthropic",
 			"oauth:GitHub Copilot",
-			"api_key:Anthropic",
 			"api_key:OpenAI",
+			"api_key:Anthropic",
 		]);
 	});
 
-	it("sorts Prime Inference first within every login auth-state group", () => {
+	it("sorts the most popular providers first within every login auth-state group", () => {
 		const cases: Array<{ status: AuthStatus; configuredProviderLeads: boolean }> = [
 			{ status: { configured: true, source: "environment" }, configuredProviderLeads: false },
 			{ status: { configured: false, source: "stale", label: "expired" }, configuredProviderLeads: true },
@@ -72,26 +71,28 @@ describe("OAuthSelectorComponent", () => {
 				"login",
 				AuthStorage.inMemory(),
 				[
-					{ id: "anthropic", name: "Anthropic", authType: "api_key" },
-					{ id: PRIME_INFERENCE_PROVIDER_ID, name: "Prime Inference", authType: "api_key" },
+					{ id: "mistral", name: "Mistral", authType: "api_key" },
+					{ id: "xai", name: "xAI", authType: "api_key" },
 					{ id: "openai", name: "OpenAI", authType: "api_key" },
 				],
 				() => {},
 				() => {},
 				(providerId) =>
-					providerId === "openai" ? { configured: true, source: "environment", label: "OPENAI_API_KEY" } : status,
+					providerId === "mistral"
+						? { configured: true, source: "environment", label: "MISTRAL_API_KEY" }
+						: status,
 			);
 
 			const output = stripAnsi(selector.render(120).join("\n"));
-			const primeIndex = output.indexOf("Prime Inference");
-			const anthropicIndex = output.indexOf("Anthropic");
 			const openAiIndex = output.indexOf("OpenAI");
+			const xaiIndex = output.indexOf("xAI");
+			const mistralIndex = output.indexOf("Mistral");
 
-			expect(primeIndex).toBeLessThan(anthropicIndex);
+			expect(openAiIndex).toBeLessThan(xaiIndex);
 			if (configuredProviderLeads) {
-				expect(openAiIndex).toBeLessThan(primeIndex);
+				expect(mistralIndex).toBeLessThan(openAiIndex);
 			} else {
-				expect(primeIndex).toBeLessThan(openAiIndex);
+				expect(openAiIndex).toBeLessThan(mistralIndex);
 			}
 		}
 	});

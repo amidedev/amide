@@ -90,10 +90,6 @@ function defaultPrimeCliConfigPath(): string {
 	return join(homedir(), ".prime", "config.json");
 }
 
-export function getPrimeCliConfigPath(configPath?: string): string {
-	return configPath ?? defaultPrimeCliConfigPath();
-}
-
 function normalizeBaseUrl(value: string | undefined): string {
 	return (value?.trim() || DEFAULT_PRIME_API_BASE_URL).replace(/\/+$/, "").replace(/\/api\/v1$/, "");
 }

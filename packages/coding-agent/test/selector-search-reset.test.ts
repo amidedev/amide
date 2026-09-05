@@ -4,7 +4,6 @@ import { AuthStorage } from "../src/core/auth-storage.js";
 import { KeybindingsManager } from "../src/core/keybindings.js";
 import { ModelSelectorComponent } from "../src/modes/interactive/components/model-selector.js";
 import { OAuthSelectorComponent } from "../src/modes/interactive/components/oauth-selector.js";
-import { PrimeTeamSelectorComponent } from "../src/modes/interactive/components/prime-team-selector.js";
 import { ScopedModelsSelectorComponent } from "../src/modes/interactive/components/scoped-models-selector.js";
 import { initTheme } from "../src/modes/interactive/theme/theme.js";
 import { createHarness, type Harness } from "./suite/harness.js";
@@ -89,27 +88,6 @@ describe("searchable selector navigation", () => {
 		selector.handleInput("\r");
 
 		expect(selectedProviderId).toBe("provider-1");
-	});
-
-	it("selects the first team after the search query changes", () => {
-		let selectedTeamId: string | undefined;
-		const selector = new PrimeTeamSelectorComponent(
-			Array.from({ length: 12 }, (_, index) => ({
-				teamId: `team-${index + 1}`,
-				name: `Team ${String(index + 1).padStart(2, "0")}`,
-			})),
-			undefined,
-			(team) => {
-				selectedTeamId = team?.teamId;
-			},
-			() => {},
-		);
-
-		moveDown(selector, 8);
-		selector.handleInput("t");
-		selector.handleInput("\r");
-
-		expect(selectedTeamId).toBe("team-1");
 	});
 
 	it("toggles the first scoped model after the search query changes", async () => {

@@ -52,7 +52,7 @@ export function assertNodeVersion(io: NodeVersionGuardIO): boolean {
 	io.log("");
 	io.log(`  1. Install Node ${MIN_NODE_VERSION}+ (e.g. "nvm install 22 && nvm use 22", or from https://nodejs.org)`);
 	io.log("  2. Reinstall amide under that Node so the command resolves to it:");
-	io.log("     npm install -g @webboxescom/amide");
+	io.log("     npm install -g @webboxes/amide");
 	io.exit(1);
 	return false;
 }

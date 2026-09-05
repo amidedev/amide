@@ -9,7 +9,6 @@ import type { AuthStorage } from "./auth-storage.js";
 import {
 	loadPrimeCliConfig,
 	PRIME_AGENT_TRACES_PROVIDER_ID,
-	PRIME_INFERENCE_PROVIDER_ID,
 	resolvePrimeAgentTracesBaseUrl,
 } from "./prime-inference-auth.js";
 import { getSessionArtifactsRoot, type SessionHeader, type SessionManager } from "./session-manager.js";
@@ -32,7 +31,7 @@ const MAX_TIMER_DELAY_MS = 2 ** 31 - 1;
 const TRACE_UPLOAD_ALL_MIN_REQUEST_INTERVAL_MS =
 	Math.ceil(TRACE_UPLOAD_RATE_LIMIT_WINDOW_MS / TRACE_UPLOAD_RATE_LIMIT_REQUESTS) + TRACE_UPLOAD_RATE_LIMIT_SAFETY_MS;
 
-export type AgentTraceCredentialSource = "environment" | "stored" | "prime-inference" | "prime-cli";
+export type AgentTraceCredentialSource = "environment" | "stored" | "prime-cli";
 
 export interface AgentTraceCredential {
 	apiKey: string;
@@ -857,14 +856,6 @@ export async function getPrimeAgentTraceCredential(
 	const primeEnvKey = stringEnv("PRIME_API_KEY");
 	if (primeEnvKey) {
 		return { apiKey: primeEnvKey, source: "environment", label: "PRIME_API_KEY" };
-	}
-
-	const primeCredential = authStorage.get(PRIME_INFERENCE_PROVIDER_ID);
-	if (primeCredential) {
-		const primeKey = await authStorage.getApiKey(PRIME_INFERENCE_PROVIDER_ID, { includeFallback: false });
-		if (primeKey) {
-			return { apiKey: primeKey, source: "prime-inference", label: "Prime Inference credential" };
-		}
 	}
 
 	const primeCliKey = loadPrimeCliConfig(options.configPath).apiKey;

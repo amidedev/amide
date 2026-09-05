@@ -16,7 +16,7 @@ import {
 	uploadAllAgentTraces,
 } from "../src/core/agent-traces.js";
 import { AuthStorage } from "../src/core/auth-storage.js";
-import { PRIME_AGENT_TRACES_PROVIDER_ID, PRIME_INFERENCE_PROVIDER_ID } from "../src/core/prime-inference-auth.js";
+import { PRIME_AGENT_TRACES_PROVIDER_ID } from "../src/core/prime-inference-auth.js";
 import { SessionManager } from "../src/core/session-manager.js";
 import { SettingsManager } from "../src/core/settings-manager.js";
 
@@ -1542,28 +1542,5 @@ describe("agent trace upload", () => {
 		expect(existsSync(join(tempDir, "agent-traces-outbox", "deadbeef.json"))).toBe(false);
 		expect(await uploadAgentTraceFile({ ...options, sessionFile: keptFile })).toEqual({ status: "unchanged" });
 		expect(calls).toHaveLength(0);
-	});
-
-	it("prefers the prime-inference credential over the prime-cli config key", async () => {
-		const session = writeSession(tempDir, join(tempDir, "sessions"), "credential-order-session");
-		const calls: FetchCall[] = [];
-		const configPath = join(tempDir, "prime-config.json");
-		writeFileSync(configPath, JSON.stringify({ api_key: "cli-fallback-key" }));
-
-		const result = await uploadAgentTraceFile({
-			sessionFile: session.getSessionFile(),
-			authStorage: AuthStorage.inMemory({
-				[PRIME_INFERENCE_PROVIDER_ID]: { type: "api_key", key: "inference-key" },
-			}),
-			settingsManager: SettingsManager.inMemory({ agentTraces: { enabled: true } }),
-			baseUrl: "https://api.example.test",
-			configPath,
-			fetchFn: createFetchRecorder(calls),
-			reloadConfig: false,
-		});
-
-		expect(result.status).toBe("uploaded");
-		expect(calls).toHaveLength(1);
-		expect(calls[0]?.init.headers).toMatchObject({ Authorization: "Bearer inference-key" });
 	});
 });

@@ -8,7 +8,6 @@ import {
 	TruncatedText,
 } from "@earendil-works/pi-tui";
 import type { AuthStatus, AuthStorage } from "../../../core/auth-storage.js";
-import { PRIME_INFERENCE_PROVIDER_ID } from "../../../core/prime-inference-auth.js";
 import { theme } from "../theme/theme.js";
 import {
 	getMenuListLayout,
@@ -38,9 +37,34 @@ export interface OAuthSelectorOptions extends MenuViewportProvider {
 	searchPlaceholder?: string;
 }
 
+/**
+ * Most-popular providers surface first (in this order) on a fresh, fully
+ * unconfigured install; everything else falls back to alphabetical order.
+ */
+const PREFERRED_PROVIDER_ORDER: readonly string[] = [
+	"openai-codex",
+	"openai",
+	"anthropic",
+	"xai",
+	"google",
+	"mistral",
+	"deepseek",
+	"zai",
+	"kimi-coding",
+];
+
+function preferredProviderRank(id: string): number {
+	const index = PREFERRED_PROVIDER_ORDER.indexOf(id);
+	return index === -1 ? PREFERRED_PROVIDER_ORDER.length : index;
+}
+
 export function compareAuthSelectorProviders(a: AuthSelectorProvider, b: AuthSelectorProvider): number {
 	if (a.authType !== b.authType) {
 		return a.authType === "oauth" ? -1 : 1;
+	}
+	const preferredDelta = preferredProviderRank(a.id) - preferredProviderRank(b.id);
+	if (preferredDelta !== 0) {
+		return preferredDelta;
 	}
 	return a.name.localeCompare(b.name);
 }
@@ -199,10 +223,6 @@ export class OAuthSelectorComponent extends Container implements Focusable {
 			if (rankDelta !== 0) {
 				return rankDelta;
 			}
-			if (this.mode === "login" && a.id !== b.id) {
-				if (a.id === PRIME_INFERENCE_PROVIDER_ID) return -1;
-				if (b.id === PRIME_INFERENCE_PROVIDER_ID) return 1;
-			}
 			return compareAuthSelectorProviders(a, b);
 		});
 	}
@@ -345,8 +365,6 @@ export class OAuthSelectorComponent extends Container implements Focusable {
 		switch (status.source) {
 			case "environment":
 				return theme.fg("success", `env: ${status.label ?? "API key"}`);
-			case "prime_cli":
-				return theme.fg("success", status.label ?? "Prime CLI");
 			case "runtime":
 				return theme.fg("success", "runtime API key");
 			case "fallback":

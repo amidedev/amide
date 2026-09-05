@@ -34,7 +34,6 @@ export type TelemetryAuthCategory =
 	| "api_key"
 	| "runtime_api_key"
 	| "environment"
-	| "prime_cli"
 	| "models_json"
 	| "fallback"
 	| "stale"
@@ -473,8 +472,6 @@ export function telemetryAuthCategory(
 			return "runtime_api_key";
 		case "environment":
 			return "environment";
-		case "prime_cli":
-			return "prime_cli";
 		case "models_json_key":
 		case "models_json_command":
 			return "models_json";

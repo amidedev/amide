@@ -10,10 +10,6 @@ import { afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "vite
 import { KeybindingsManager } from "../src/core/keybindings.js";
 import { LoginDialogComponent } from "../src/modes/interactive/components/login-dialog.js";
 import { initTheme } from "../src/modes/interactive/theme/theme.js";
-import { AMIDE_WORDMARK_LOGO } from "../src/themes/amide-logo.js";
-
-/** The gem's widest row (index 5) — far more distinctive than a single-char trimmed row. */
-const AMIDE_WORDMARK_LOGO_WIDEST_ROW = AMIDE_WORDMARK_LOGO.split("\n")[5]?.trim() ?? "";
 
 const mocks = vi.hoisted(() => ({
 	copyToClipboard: vi.fn(),
@@ -143,13 +139,12 @@ describe("LoginDialogComponent", () => {
 	});
 
 	it("renders verification codes as a distinct field", () => {
-		const dialog = new LoginDialogComponent(createFakeTui(), "prime-inference", () => {}, "Prime Inference");
+		const dialog = new LoginDialogComponent(createFakeTui(), "anthropic", () => {}, "Anthropic");
 
 		dialog.showAuth("https://example.com/challenge", "Code: abc-123");
 		const output = stripAnsi(dialog.render(88).join("\n"));
 
-		expect(output).toContain("Login to Prime Inference");
-		expect(output).toContain(AMIDE_WORDMARK_LOGO_WIDEST_ROW);
+		expect(output).toContain("Login to Anthropic");
 		expect(output).toContain("Verification code");
 		expect(output).toContain("abc-123");
 		expect(output).not.toContain("click to open");
@@ -167,17 +162,14 @@ describe("LoginDialogComponent", () => {
 		expect(output).not.toContain("Status");
 	});
 
-	it("keeps the Prime Inference brand header centered and within the panel", () => {
-		const dialog = new LoginDialogComponent(createFakeTui(), "prime-inference", () => {}, "Prime Inference");
+	it("keeps the panel title within the panel width", () => {
+		const dialog = new LoginDialogComponent(createFakeTui(), "anthropic", () => {}, "Anthropic");
 
-		dialog.showProgress("Checking existing Prime CLI credentials...");
+		dialog.showProgress("Checking existing credentials...");
 		const lines = dialog.render(88);
 		const output = stripAnsi(lines.join("\n"));
-		const titleLine = output.split("\n").find((line) => line.includes("Login to Prime Inference"));
-		const titleOffset = titleLine?.indexOf("Login to Prime Inference") ?? -1;
 
-		expect(titleOffset).toBeGreaterThan(20);
-		expect(output).toContain("Connect your Prime Intellect account to enable Prime Inference models.");
+		expect(output).toContain("Login to Anthropic");
 		expect(output).toContain("Preparing authentication");
 		for (const line of lines) {
 			expect(visibleWidth(line)).toBe(88);

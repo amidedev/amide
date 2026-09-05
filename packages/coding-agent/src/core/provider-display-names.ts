@@ -22,7 +22,6 @@ export const BUILT_IN_PROVIDER_DISPLAY_NAMES: Record<string, string> = {
 	openai: "OpenAI",
 	openrouter: "OpenRouter",
 	"prime-agent-traces": "AMIDE Agent Traces",
-	"prime-inference": "Prime Inference",
 	"vercel-ai-gateway": "Vercel AI Gateway",
 	xai: "xAI",
 	zai: "ZAI",

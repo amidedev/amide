@@ -151,27 +151,6 @@ describe("ModelRegistry", () => {
 			}
 		});
 
-		test("prime inference requests include selected AMIDE team header", async () => {
-			const primeAuthStorage = AuthStorage.inMemory({
-				"prime-inference": {
-					type: "api_key",
-					key: "agent-key",
-					primeTeam: { teamId: "team-1", name: "Research" },
-				},
-			});
-			const registry = ModelRegistry.create(primeAuthStorage, modelsJsonPath);
-			const model = getModelsForProvider(registry, "prime-inference")[0];
-			expect(model).toBeDefined();
-
-			const auth = await registry.getApiKeyAndHeaders(model!);
-
-			expect(auth).toEqual({
-				ok: true,
-				apiKey: "agent-key",
-				headers: { "X-Prime-Team-ID": "team-1" },
-			});
-		});
-
 		test("baseUrl-only override does not affect other providers", () => {
 			writeRawModelsJson({
 				anthropic: overrideConfig("https://my-proxy.example.com/v1"),

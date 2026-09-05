@@ -790,9 +790,7 @@ async function prepareRuntimeServices(options: {
 }): Promise<PreparedRuntimeServices> {
 	const { config, sessionManager } = options;
 	const effectiveAgentDir = config.agentDir ?? options.agentDir;
-	const authStorage = AuthStorage.create(join(effectiveAgentDir, "auth.json"), {
-		usePrimeCliConfig: effectiveAgentDir === options.agentDir,
-	});
+	const authStorage = AuthStorage.create(join(effectiveAgentDir, "auth.json"));
 	const services = await createAgentSessionServices({
 		cwd: options.cwd,
 		agentDir: effectiveAgentDir,
