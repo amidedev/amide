@@ -452,7 +452,7 @@ See [docs/packages.md](docs/packages.md).
 ### SDK
 
 ```typescript
-import { AuthStorage, createAgentSession, ModelRegistry, SessionManager } from "@webboxescom/amide";
+import { AuthStorage, createAgentSession, ModelRegistry, SessionManager } from "@webboxes/amide";
 
 const authStorage = AuthStorage.create();
 const modelRegistry = ModelRegistry.create(authStorage);
@@ -464,6 +464,8 @@ const { session } = await createAgentSession({
 
 await session.prompt("What files are in the current directory?");
 ```
+
+> **Note:** the CLI binary is fully self-contained and needs nothing beyond this package. Programmatic/SDK usage as shown above additionally needs `@earendil-works/pi-agent-core`, `@earendil-works/pi-ai`, and `@earendil-works/pi-tui` installed alongside it - install them explicitly (`npm i @earendil-works/pi-agent-core @earendil-works/pi-ai @earendil-works/pi-tui`). They aren't declared as regular dependencies of this package because the versions this fork was built against predate what's currently published under those names; SDK users should treat this as unverified against the current upstream releases.
 
 For advanced multi-session runtime replacement, use `createAgentSessionRuntime()` and `AgentSessionRuntime`.
 
